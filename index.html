@@ -3,922 +3,410 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sreesanth — Journal</title>
+<title>Sreesanth · Journal</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&family=JetBrains+Mono:wght@300;400;500&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;1,9..144,300;1,9..144,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 :root {
-  --paper: #f5f0e8;
-  --paper2: #ede8dd;
-  --ink: #1c1a17;
-  --ink2: #3d3a34;
-  --muted: #9a9289;
-  --faint: #cdc8be;
-  --accent: #7c5c3a;
-  --accent-light: #c4956a;
-  --green: #4a6741;
-  --border: rgba(28,26,23,0.12);
-  --serif: 'Lora', serif;
-  --display: 'Fraunces', serif;
-  --mono: 'JetBrains Mono', monospace;
+  --bg:#0d0c0b; --bg2:#131210; --bg3:#1a1815;
+  --surface:#1f1d1a; --surface2:#252320; --surface3:#2c2a26;
+  --border:rgba(255,255,255,0.07); --border2:rgba(255,255,255,0.11);
+  --ink:#f0ece4; --ink2:#c8c2b8; --ink3:#8a8278; --ink4:#5a5650;
+  --gold:#c9a96e; --gold2:#e8c98a; --gold-dim:rgba(201,169,110,0.15); --gold-faint:rgba(201,169,110,0.06);
+  --green:#6ec98f; --nav-h:58px; --r:10px;
+  --serif:'Instrument Serif',Georgia,serif;
+  --sans:'Outfit',system-ui,sans-serif;
 }
-
-html{scroll-behavior:smooth}
-
-body {
-  background: var(--paper);
-  color: var(--ink);
-  font-family: var(--serif);
-  font-size: 15px;
-  line-height: 1.75;
-  min-height: 100vh;
-  position: relative;
-}
-
-/* Paper texture via SVG filter */
-body::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: 0;
-  background-image:
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23n)' opacity='0.045'/%3E%3C/svg%3E");
-  background-repeat: repeat;
-  opacity: 1;
-}
-
-/* Subtle ruled lines like a journal */
-body::after {
-  content: '';
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: 0;
-  background-image: repeating-linear-gradient(
-    to bottom,
-    transparent,
-    transparent 27px,
-    rgba(28,26,23,0.04) 28px
-  );
-}
+html { scroll-behavior: smooth; }
+body { background:var(--bg); color:var(--ink); font-family:var(--sans); font-size:14px; font-weight:400; line-height:1.7; min-height:100vh; -webkit-font-smoothing:antialiased; }
+body::after { content:''; position:fixed; inset:0; pointer-events:none; z-index:9000; background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E"); }
 
 /* NAV */
-nav {
-  position: sticky;
-  top: 0;
-  z-index: 100;
-  background: rgba(245,240,232,0.92);
-  backdrop-filter: blur(8px);
-  border-bottom: 1px solid var(--border);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 2.5rem;
-  height: 56px;
-}
-
-.nav-brand {
-  font-family: var(--display);
-  font-size: 1.1rem;
-  font-weight: 400;
-  font-style: italic;
-  color: var(--accent);
-  text-decoration: none;
-  letter-spacing: 0.01em;
-}
-
-.nav-links {
-  display: flex;
-  gap: 0;
-  list-style: none;
-}
-
-.nav-links a {
-  display: flex;
-  align-items: center;
-  gap: 0.4rem;
-  padding: 0.4rem 1rem;
-  font-family: var(--mono);
-  font-size: 11px;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: var(--muted);
-  text-decoration: none;
-  border-radius: 4px;
-  transition: all 0.15s;
-}
-
-.nav-links a:hover, .nav-links a.active {
-  color: var(--ink);
-  background: var(--paper2);
-}
-
-.nav-links a.active { color: var(--accent); }
-
-.nav-icon { font-size: 13px; }
+.nav { position:sticky; top:0; z-index:500; height:var(--nav-h); display:flex; align-items:center; justify-content:space-between; padding:0 2.5rem; background:rgba(13,12,11,0.88); backdrop-filter:blur(20px); border-bottom:1px solid var(--border); }
+.nav-brand { font-family:var(--serif); font-size:1.25rem; font-style:italic; color:var(--gold); text-decoration:none; }
+.nav-links { display:flex; gap:2px; list-style:none; }
+.nav-links a { display:flex; align-items:center; gap:6px; padding:6px 14px; font-size:11px; font-weight:500; letter-spacing:0.05em; text-transform:uppercase; color:var(--ink3); text-decoration:none; border-radius:6px; transition:all .15s; }
+.nav-links a:hover { color:var(--ink); background:var(--surface); }
+.nav-links a.active { color:var(--gold); background:var(--gold-faint); }
 
 /* LAYOUT */
-.layout {
-  display: grid;
-  grid-template-columns: 260px 1fr;
-  min-height: calc(100vh - 56px);
-  position: relative;
-  z-index: 1;
-}
+.layout { display:grid; grid-template-columns:280px 1fr; min-height:calc(100vh - var(--nav-h)); }
 
 /* SIDEBAR */
-.sidebar {
-  border-right: 1px solid var(--border);
-  padding: 2rem 1.5rem;
-  background: rgba(237,232,221,0.5);
-  position: sticky;
-  top: 56px;
-  height: calc(100vh - 56px);
-  overflow-y: auto;
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
-}
+.sidebar { border-right:1px solid var(--border); background:var(--bg2); position:sticky; top:var(--nav-h); height:calc(100vh - var(--nav-h)); overflow-y:auto; display:flex; flex-direction:column; }
+.sidebar::-webkit-scrollbar { width:4px; }
+.sidebar::-webkit-scrollbar-track { background:transparent; }
+.sidebar::-webkit-scrollbar-thumb { background:var(--surface3); border-radius:2px; }
 
-.sidebar-section-label {
-  font-family: var(--mono);
-  font-size: 9px;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  color: var(--faint);
-  margin-bottom: 0.6rem;
-}
+.sb-section { padding:1.5rem 1.25rem; border-bottom:1px solid var(--border); }
+.sb-label { font-size:9px; font-weight:700; letter-spacing:0.15em; text-transform:uppercase; color:var(--ink4); margin-bottom:1rem; }
 
-.profile-area {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 0.5rem;
-}
+/* Profile */
+.sb-profile { display:flex; align-items:center; gap:12px; }
+.sb-avatar { width:40px; height:40px; border-radius:10px; background:linear-gradient(135deg,var(--gold),#8a6030); display:flex; align-items:center; justify-content:center; font-family:var(--serif); font-size:1.1rem; font-style:italic; color:#0d0c0b; font-weight:700; flex-shrink:0; }
+.sb-name { font-size:14px; font-weight:600; color:var(--ink); line-height:1.2; }
+.sb-role { font-size:11px; color:var(--ink3); margin-top:2px; }
+.sb-status { display:inline-flex; align-items:center; gap:5px; margin-top:6px; font-size:10px; color:var(--green); font-weight:500; }
+.sb-status-dot { width:5px; height:5px; border-radius:50%; background:var(--green); animation:pulse 2.5s infinite; }
+@keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.4;transform:scale(.7)} }
 
-.avatar {
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, var(--accent-light), var(--accent));
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: var(--display);
-  font-size: 1.1rem;
-  font-style: italic;
-  color: white;
-  flex-shrink: 0;
-}
+/* Sidebar nav */
+.sb-nav { display:flex; flex-direction:column; gap:1px; }
+.sb-nav-item { display:flex; align-items:center; gap:10px; padding:8px 10px; border-radius:7px; font-size:13px; font-weight:400; color:var(--ink2); cursor:pointer; transition:all .15s; user-select:none; }
+.sb-nav-item:hover { background:var(--surface); color:var(--ink); }
+.sb-nav-item.active { background:var(--gold-faint); color:var(--gold); }
+.sb-nav-icon { font-size:14px; width:20px; text-align:center; flex-shrink:0; }
+.sb-nav-count { margin-left:auto; font-size:10px; font-weight:600; color:var(--ink4); background:var(--surface); padding:1px 7px; border-radius:20px; }
+.sb-nav-item.active .sb-nav-count { background:var(--gold-dim); color:var(--gold); }
 
-.profile-name {
-  font-family: var(--display);
-  font-size: 1rem;
-  font-weight: 400;
-  color: var(--ink);
-}
+/* Stats */
+.sb-stats { display:grid; grid-template-columns:1fr 1fr; gap:8px; }
+.sb-stat { background:var(--surface); border:1px solid var(--border); border-radius:8px; padding:12px; }
+.sb-stat-num { font-family:var(--serif); font-size:1.6rem; font-style:italic; color:var(--gold); line-height:1; }
+.sb-stat-lbl { font-size:10px; font-weight:500; color:var(--ink4); text-transform:uppercase; letter-spacing:.06em; margin-top:3px; }
 
-.profile-role {
-  font-size: 11px;
-  color: var(--muted);
-  font-family: var(--mono);
-}
+/* Heatmap */
+.heatmap { display:flex; flex-direction:column; gap:3px; }
+.hm-row { display:flex; gap:3px; }
+.hm-cell { width:11px; height:11px; border-radius:2px; background:var(--surface); border:1px solid var(--border); transition:transform .1s; }
+.hm-cell:hover { transform:scale(1.3); }
+.hm-cell.l1 { background:rgba(201,169,110,0.2); }
+.hm-cell.l2 { background:rgba(201,169,110,0.4); }
+.hm-cell.l3 { background:rgba(201,169,110,0.65); }
+.hm-cell.l4 { background:var(--gold); }
 
-.status-pill {
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-  padding: 0.2rem 0.6rem;
-  background: rgba(74,103,65,0.1);
-  border: 1px solid rgba(74,103,65,0.2);
-  border-radius: 20px;
-  font-family: var(--mono);
-  font-size: 10px;
-  color: var(--green);
-  margin-top: 0.25rem;
-}
+/* Connect */
+.sb-connect { display:flex; flex-direction:column; gap:6px; margin-top:auto; }
+.sb-link { display:flex; align-items:center; gap:8px; padding:7px 10px; border-radius:7px; font-size:12px; color:var(--ink3); text-decoration:none; transition:all .15s; border:1px solid transparent; }
+.sb-link:hover { color:var(--ink); background:var(--surface); border-color:var(--border); }
+.sb-link-icon { font-size:13px; }
 
-.dot { width: 5px; height: 5px; border-radius: 50%; background: var(--green); animation: blink 2s infinite; }
-@keyframes blink { 0%,100%{opacity:1} 50%{opacity:.3} }
+/* MAIN */
+.main { padding:2.5rem 3rem; max-width:780px; }
 
-/* SIDEBAR NAV ITEMS */
-.sidebar-nav { display: flex; flex-direction: column; gap: 2px; }
+/* Page header */
+.page-header { margin-bottom:2rem; }
+.page-date { font-size:11px; font-weight:500; letter-spacing:.08em; text-transform:uppercase; color:var(--ink4); margin-bottom:.5rem; }
+.page-title { font-family:var(--serif); font-size:clamp(2rem,4vw,3rem); font-style:italic; font-weight:400; line-height:1.1; color:var(--ink); }
+.page-title span { color:var(--gold); }
+.page-sub { font-size:13px; color:var(--ink3); margin-top:.4rem; }
 
-.snav-item {
-  display: flex;
-  align-items: center;
-  gap: 0.6rem;
-  padding: 0.45rem 0.65rem;
-  border-radius: 5px;
-  font-size: 13px;
-  color: var(--ink2);
-  cursor: pointer;
-  transition: background 0.15s;
-  user-select: none;
-}
+/* COMPOSER */
+.composer { background:var(--surface); border:1px solid var(--border2); border-radius:var(--r); overflow:hidden; margin-bottom:2rem; transition:border-color .2s, box-shadow .2s; }
+.composer:focus-within { border-color:var(--gold-dim); box-shadow:0 0 0 3px var(--gold-faint); }
 
-.snav-item:hover { background: var(--paper2); }
-.snav-item.active { background: rgba(124,92,58,0.1); color: var(--accent); }
-.snav-icon { font-size: 14px; width: 18px; text-align: center; }
-.snav-count { margin-left: auto; font-family: var(--mono); font-size: 10px; color: var(--faint); }
+.composer-head { display:flex; align-items:center; gap:10px; padding:12px 16px; border-bottom:1px solid var(--border); }
+.composer-avatar { width:26px; height:26px; border-radius:6px; background:linear-gradient(135deg,var(--gold),#8a6030); display:flex; align-items:center; justify-content:center; font-family:var(--serif); font-size:.7rem; font-style:italic; color:#0d0c0b; font-weight:700; }
+.composer-who { font-size:12px; font-weight:500; color:var(--ink3); }
+.composer-when { margin-left:auto; font-size:11px; color:var(--ink4); }
 
-/* QUICK STATS */
-.stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.composer-title { width:100%; background:transparent; border:none; outline:none; font-family:var(--serif); font-size:1.35rem; font-style:italic; color:var(--ink); padding:14px 16px 4px; line-height:1.3; }
+.composer-title::placeholder { color:var(--ink4); }
 
-.stat-box {
-  background: var(--paper);
-  border: 1px solid var(--border);
-  border-radius: 6px;
-  padding: 0.65rem 0.75rem;
-}
+.composer-body { width:100%; background:transparent; border:none; outline:none; font-family:var(--sans); font-size:13.5px; color:var(--ink2); padding:4px 16px 16px; min-height:90px; resize:none; line-height:1.8; }
+.composer-body::placeholder { color:var(--ink4); }
 
-.stat-num {
-  font-family: var(--display);
-  font-size: 1.4rem;
-  font-style: italic;
-  color: var(--accent);
-  line-height: 1;
-}
-
-.stat-lbl { font-family: var(--mono); font-size: 9px; color: var(--muted); margin-top: 2px; text-transform: uppercase; letter-spacing: 0.06em; }
-
-/* HEATMAP placeholder */
-.heatmap { display: flex; flex-direction: column; gap: 3px; }
-.heatmap-row { display: flex; gap: 3px; }
-.heatmap-cell {
-  width: 11px; height: 11px; border-radius: 2px;
-  background: var(--paper2);
-  border: 1px solid var(--border);
-}
-.heatmap-cell.lvl1 { background: rgba(124,92,58,0.2); }
-.heatmap-cell.lvl2 { background: rgba(124,92,58,0.45); }
-.heatmap-cell.lvl3 { background: rgba(124,92,58,0.7); }
-.heatmap-cell.lvl4 { background: var(--accent); }
-
-/* MAIN CONTENT */
-.main { padding: 2.5rem 3rem; max-width: 820px; }
-
-/* HERO HEADER */
-.journal-header { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
-
-.journal-date-big {
-  font-family: var(--mono);
-  font-size: 11px;
-  color: var(--muted);
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  margin-bottom: 0.5rem;
-}
-
-.journal-title-big {
-  font-family: var(--display);
-  font-size: clamp(2rem, 4vw, 3rem);
-  font-weight: 300;
-  font-style: italic;
-  color: var(--ink);
-  line-height: 1.15;
-  margin-bottom: 0.5rem;
-}
-
-.journal-subtitle {
-  color: var(--muted);
-  font-size: 13px;
-  font-family: var(--mono);
-}
-
-/* WRITE NEW ENTRY */
-.compose-area {
-  background: white;
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  overflow: hidden;
-  margin-bottom: 2.5rem;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
-  transition: box-shadow 0.2s;
-}
-
-.compose-area:focus-within {
-  box-shadow: 0 2px 12px rgba(124,92,58,0.1);
-  border-color: rgba(124,92,58,0.3);
-}
-
-.compose-top {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  padding: 0.9rem 1.25rem;
-  border-bottom: 1px solid var(--border);
-  background: rgba(245,240,232,0.5);
-}
-
-.compose-avatar {
-  width: 28px; height: 28px; border-radius: 50%;
-  background: linear-gradient(135deg, var(--accent-light), var(--accent));
-  display: flex; align-items: center; justify-content: center;
-  font-family: var(--display); font-size: 0.7rem; font-style: italic; color: white; flex-shrink: 0;
-}
-
-.compose-label { font-family: var(--mono); font-size: 11px; color: var(--muted); }
-.compose-date-label { margin-left: auto; font-family: var(--mono); font-size: 10px; color: var(--faint); }
-
-.compose-title-input {
-  width: 100%;
-  border: none;
-  outline: none;
-  font-family: var(--display);
-  font-size: 1.3rem;
-  font-style: italic;
-  font-weight: 300;
-  color: var(--ink);
-  background: transparent;
-  padding: 1rem 1.25rem 0.25rem;
-  line-height: 1.3;
-}
-
-.compose-title-input::placeholder { color: var(--faint); }
-
-.compose-body-input {
-  width: 100%;
-  border: none;
-  outline: none;
-  font-family: var(--serif);
-  font-size: 14px;
-  color: var(--ink2);
-  background: transparent;
-  padding: 0.5rem 1.25rem 1rem;
-  min-height: 100px;
-  resize: none;
-  line-height: 1.8;
-}
-
-.compose-body-input::placeholder { color: var(--faint); }
-
-.compose-bottom {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0.65rem 1.25rem;
-  border-top: 1px solid var(--border);
-  background: rgba(245,240,232,0.5);
-  flex-wrap: wrap;
-  gap: 0.5rem;
-}
-
-.mood-row { display: flex; gap: 6px; align-items: center; }
-.mood-label { font-family: var(--mono); font-size: 10px; color: var(--muted); margin-right: 4px; }
-
-.mood-btn {
-  background: none; border: 1px solid var(--border);
-  border-radius: 20px; padding: 0.15rem 0.55rem;
-  font-size: 12px; cursor: pointer; transition: all 0.15s; color: var(--muted);
-}
-
-.mood-btn:hover, .mood-btn.selected { background: var(--paper2); border-color: var(--accent-light); }
-
-.tag-input {
-  background: none; border: none; outline: none;
-  font-family: var(--mono); font-size: 11px; color: var(--muted);
-  width: 160px;
-  border: 1px solid var(--border);
-  border-radius: 4px;
-  padding: 0.2rem 0.5rem;
-}
-
-.tag-input::placeholder { color: var(--faint); }
-
-.publish-btn {
-  background: var(--accent);
-  color: white;
-  border: none;
-  padding: 0.45rem 1.2rem;
-  font-family: var(--mono);
-  font-size: 11px;
-  letter-spacing: 0.06em;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background 0.15s;
-}
-
-.publish-btn:hover { background: var(--accent-light); }
+.composer-foot { display:flex; align-items:center; gap:8px; padding:10px 16px; border-top:1px solid var(--border); flex-wrap:wrap; }
+.mood-group { display:flex; align-items:center; gap:4px; }
+.mood-lbl { font-size:10px; font-weight:600; color:var(--ink4); text-transform:uppercase; letter-spacing:.06em; margin-right:4px; }
+.mood-btn { background:none; border:1px solid var(--border2); border-radius:6px; padding:4px 8px; font-size:12px; cursor:pointer; transition:all .15s; }
+.mood-btn:hover, .mood-btn.sel { background:var(--surface3); border-color:var(--gold-dim); }
+.tag-inp { background:var(--bg3); border:1px solid var(--border); border-radius:6px; padding:5px 10px; font-family:var(--sans); font-size:11px; color:var(--ink2); outline:none; width:160px; }
+.tag-inp::placeholder { color:var(--ink4); }
+.tag-inp:focus { border-color:var(--gold-dim); }
+.save-btn { margin-left:auto; background:var(--gold); color:#0d0c0b; border:none; border-radius:7px; padding:7px 18px; font-family:var(--sans); font-size:12px; font-weight:700; letter-spacing:.03em; cursor:pointer; transition:all .15s; }
+.save-btn:hover { background:var(--gold2); transform:translateY(-1px); }
+.save-btn:active { transform:none; }
 
 /* FILTER BAR */
-.filter-bar {
-  display: flex;
-  gap: 0.4rem;
-  margin-bottom: 1.5rem;
-  flex-wrap: wrap;
-  align-items: center;
-}
-
-.filter-label { font-family: var(--mono); font-size: 10px; color: var(--muted); margin-right: 4px; text-transform: uppercase; letter-spacing: 0.08em; }
-
-.filter-btn {
-  background: none;
-  border: 1px solid var(--border);
-  border-radius: 20px;
-  padding: 0.2rem 0.75rem;
-  font-family: var(--mono);
-  font-size: 11px;
-  color: var(--muted);
-  cursor: pointer;
-  transition: all 0.15s;
-}
-
-.filter-btn:hover { border-color: var(--accent-light); color: var(--ink); }
-.filter-btn.active { background: var(--accent); color: white; border-color: var(--accent); }
+.filter-bar { display:flex; align-items:center; gap:6px; margin-bottom:1.5rem; flex-wrap:wrap; }
+.filter-lbl { font-size:10px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--ink4); }
+.fbtn { background:none; border:1px solid var(--border); border-radius:20px; padding:4px 14px; font-family:var(--sans); font-size:11px; font-weight:500; color:var(--ink3); cursor:pointer; transition:all .15s; }
+.fbtn:hover { border-color:var(--border2); color:var(--ink); }
+.fbtn.active { background:var(--gold-faint); border-color:var(--gold-dim); color:var(--gold); }
 
 /* ENTRIES */
-.entries-list { display: flex; flex-direction: column; gap: 1px; }
+.entries { display:flex; flex-direction:column; gap:10px; }
 
-.entry-card {
-  background: white;
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  padding: 1.5rem 1.75rem;
-  margin-bottom: 1rem;
-  cursor: pointer;
-  transition: box-shadow 0.2s, transform 0.15s;
-  position: relative;
-  overflow: hidden;
-}
+.entry { background:var(--surface); border:1px solid var(--border); border-radius:var(--r); padding:1.25rem 1.5rem; cursor:pointer; transition:all .2s; position:relative; overflow:hidden; }
+.entry::before { content:''; position:absolute; left:0; top:0; bottom:0; width:3px; background:var(--border2); transition:background .2s; }
+.entry:hover { border-color:var(--border2); transform:translateY(-1px); box-shadow:0 4px 20px rgba(0,0,0,0.3); }
+.entry:hover::before { background:var(--gold); }
 
-.entry-card::before {
-  content: '';
-  position: absolute;
-  left: 0; top: 0; bottom: 0;
-  width: 3px;
-  background: var(--faint);
-  transition: background 0.2s;
-}
+.entry-meta { display:flex; align-items:center; gap:8px; margin-bottom:6px; flex-wrap:wrap; }
+.entry-date { font-size:11px; font-weight:500; color:var(--ink4); }
+.entry-mood { font-size:13px; }
+.entry-tags { display:flex; gap:4px; margin-left:auto; flex-wrap:wrap; }
+.etag { font-size:9px; font-weight:600; letter-spacing:.06em; text-transform:uppercase; padding:2px 7px; border-radius:4px; border:1px solid var(--border2); color:var(--ink4); }
 
-.entry-card:hover {
-  box-shadow: 0 4px 16px rgba(0,0,0,0.06);
-  transform: translateY(-1px);
-}
+.entry-title { font-family:var(--serif); font-size:1.1rem; font-style:italic; color:var(--ink); margin-bottom:5px; line-height:1.35; }
+.entry-excerpt { font-size:12.5px; color:var(--ink3); line-height:1.75; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; }
 
-.entry-card:hover::before { background: var(--accent-light); }
+.entry-foot { display:flex; align-items:center; justify-content:space-between; margin-top:10px; padding-top:10px; border-top:1px solid var(--border); }
+.entry-read { font-size:10px; font-weight:600; letter-spacing:.06em; text-transform:uppercase; color:var(--gold); }
+.entry-words { font-size:10px; color:var(--ink4); }
 
-.entry-meta {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  margin-bottom: 0.5rem;
-}
-
-.entry-date { font-family: var(--mono); font-size: 11px; color: var(--muted); }
-
-.entry-mood {
-  font-size: 12px;
-  padding: 0.1rem 0.4rem;
-  border-radius: 3px;
-  background: var(--paper2);
-}
-
-.entry-tags-row { display: flex; gap: 5px; margin-left: auto; flex-wrap: wrap; }
-
-.etag {
-  font-family: var(--mono);
-  font-size: 9px;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  padding: 0.15rem 0.5rem;
-  border-radius: 3px;
-  border: 1px solid var(--border);
-  color: var(--muted);
-}
-
-.entry-title {
-  font-family: var(--display);
-  font-size: 1.15rem;
-  font-weight: 300;
-  font-style: italic;
-  color: var(--ink);
-  margin-bottom: 0.4rem;
-  line-height: 1.3;
-}
-
-.entry-excerpt {
-  font-size: 13px;
-  color: var(--muted);
-  line-height: 1.7;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-
-.entry-footer {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-top: 1rem;
-  padding-top: 0.75rem;
-  border-top: 1px solid var(--border);
-}
-
-.read-more { font-family: var(--mono); font-size: 10px; color: var(--accent-light); letter-spacing: 0.06em; text-transform: uppercase; }
-.word-count { font-family: var(--mono); font-size: 10px; color: var(--faint); }
+.empty { text-align:center; padding:4rem 2rem; }
+.empty-icon { font-size:2.5rem; opacity:.3; margin-bottom:12px; }
+.empty-title { font-family:var(--serif); font-size:1.1rem; font-style:italic; color:var(--ink3); }
+.empty-sub { font-size:11px; color:var(--ink4); margin-top:4px; }
 
 /* MODAL */
-.modal-overlay {
-  position: fixed; inset: 0; z-index: 200;
-  background: rgba(28,26,23,0.5);
-  backdrop-filter: blur(4px);
-  display: none;
-  align-items: center;
-  justify-content: center;
-  padding: 2rem;
+.overlay { position:fixed; inset:0; z-index:600; background:rgba(0,0,0,.7); backdrop-filter:blur(8px); display:none; align-items:center; justify-content:center; padding:2rem; }
+.overlay.open { display:flex; }
+.modal { background:var(--bg2); border:1px solid var(--border2); border-radius:14px; width:100%; max-width:660px; max-height:88vh; overflow-y:auto; padding:2.5rem; position:relative; box-shadow:0 24px 80px rgba(0,0,0,.6); }
+.modal::-webkit-scrollbar { width:4px; }
+.modal::-webkit-scrollbar-thumb { background:var(--surface3); border-radius:2px; }
+.modal-close { position:absolute; top:1rem; right:1rem; background:var(--surface); border:1px solid var(--border); border-radius:6px; width:30px; height:30px; display:flex; align-items:center; justify-content:center; cursor:pointer; font-size:12px; color:var(--ink3); transition:all .15s; }
+.modal-close:hover { color:var(--ink); border-color:var(--border2); }
+.modal-meta { font-size:11px; color:var(--ink4); margin-bottom:1rem; display:flex; align-items:center; gap:8px; flex-wrap:wrap; }
+.modal-title { font-family:var(--serif); font-size:1.7rem; font-style:italic; color:var(--ink); margin-bottom:1.5rem; line-height:1.2; }
+.modal-body { font-size:15px; color:var(--ink2); line-height:1.95; white-space:pre-wrap; }
+
+@media(max-width:900px) {
+  .layout { grid-template-columns:1fr; }
+  .sidebar { position:static; height:auto; }
+  .main { padding:1.5rem; }
 }
-
-.modal-overlay.open { display: flex; }
-
-.modal {
-  background: var(--paper);
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  width: 100%;
-  max-width: 680px;
-  max-height: 85vh;
-  overflow-y: auto;
-  padding: 2.5rem;
-  position: relative;
-  box-shadow: 0 20px 60px rgba(0,0,0,0.15);
-}
-
-.modal-close {
-  position: absolute; top: 1rem; right: 1rem;
-  background: none; border: none; cursor: pointer;
-  font-size: 1.2rem; color: var(--muted);
-  width: 28px; height: 28px;
-  display: flex; align-items: center; justify-content: center;
-  border-radius: 4px; transition: background 0.15s;
-}
-
-.modal-close:hover { background: var(--paper2); }
-
-.modal-date { font-family: var(--mono); font-size: 11px; color: var(--muted); margin-bottom: 0.75rem; }
-
-.modal-title {
-  font-family: var(--display);
-  font-size: 1.8rem;
-  font-weight: 300;
-  font-style: italic;
-  color: var(--ink);
-  margin-bottom: 1.25rem;
-  line-height: 1.2;
-}
-
-.modal-body { font-size: 15px; color: var(--ink2); line-height: 1.9; white-space: pre-wrap; }
-
-/* EMPTY STATE */
-.empty-state {
-  text-align: center;
-  padding: 4rem 2rem;
-  color: var(--muted);
-}
-
-.empty-icon { font-size: 2.5rem; margin-bottom: 1rem; opacity: 0.5; }
-.empty-text { font-family: var(--display); font-size: 1.1rem; font-style: italic; }
-.empty-sub { font-family: var(--mono); font-size: 11px; margin-top: 0.5rem; }
-
-/* RESPONSIVE */
-@media(max-width:768px) {
-  .layout { grid-template-columns: 1fr; }
-  .sidebar { position: static; height: auto; border-right: none; border-bottom: 1px solid var(--border); }
-  .main { padding: 1.5rem; }
-  nav { padding: 0 1rem; }
-  .nav-links a span:not(.nav-icon) { display: none; }
+@media(max-width:600px) {
+  .nav { padding:0 1rem; }
+  .nav-links a span:not(.nav-icon) { display:none; }
 }
 </style>
 </head>
 <body>
 
-<!-- NAV -->
-<nav>
+<nav class="nav">
   <a class="nav-brand" href="index.html">Sreesanth.</a>
   <ul class="nav-links">
-    <li><a href="index.html" class="active"><span class="nav-icon">📓</span> <span>Journal</span></a></li>
-    <li><a href="classes.html"><span class="nav-icon">🗓</span> <span>Classes</span></a></li>
-    <li><a href="education.html"><span class="nav-icon">🎓</span> <span>About</span></a></li>
+    <li><a href="index.html" class="active"><span class="nav-icon">📓</span><span>Journal</span></a></li>
+    <li><a href="classes.html"><span class="nav-icon">🗓</span><span>Classes</span></a></li>
+    <li><a href="education.html"><span class="nav-icon">🎓</span><span>About</span></a></li>
   </ul>
 </nav>
 
 <div class="layout">
-
   <!-- SIDEBAR -->
   <aside class="sidebar">
-    <div class="profile-area">
-      <div class="avatar">S</div>
-      <div>
-        <div class="profile-name">Sreesanth</div>
-        <div class="profile-role">B.Tech CSE · VIT-AP · Yr 1</div>
-        <div class="status-pill"><span class="dot"></span>Writing today</div>
-      </div>
-    </div>
-
-    <div>
-      <div class="sidebar-section-label">Navigate</div>
-      <div class="sidebar-nav">
-        <div class="snav-item active" onclick="filterEntries('all')">
-          <span class="snav-icon">🏠</span> All Entries <span class="snav-count" id="count-all">0</span>
-        </div>
-        <div class="snav-item" onclick="filterEntries('learning')">
-          <span class="snav-icon">📚</span> Learning <span class="snav-count" id="count-learning">0</span>
-        </div>
-        <div class="snav-item" onclick="filterEntries('reflection')">
-          <span class="snav-icon">💭</span> Reflection <span class="snav-count" id="count-reflection">0</span>
-        </div>
-        <div class="snav-item" onclick="filterEntries('project')">
-          <span class="snav-icon">⚙️</span> Projects <span class="snav-count" id="count-project">0</span>
-        </div>
-        <div class="snav-item" onclick="filterEntries('college')">
-          <span class="snav-icon">🏫</span> College <span class="snav-count" id="count-college">0</span>
+    <div class="sb-section">
+      <div class="sb-profile">
+        <div class="sb-avatar">S</div>
+        <div>
+          <div class="sb-name">Sreesanth</div>
+          <div class="sb-role">B.Tech CSE · VIT-AP · Yr 1</div>
+          <div class="sb-status"><span class="sb-status-dot"></span>Writing today</div>
         </div>
       </div>
     </div>
 
-    <div>
-      <div class="sidebar-section-label">This Month</div>
-      <div class="stats-grid">
-        <div class="stat-box">
-          <div class="stat-num" id="stat-entries">0</div>
-          <div class="stat-lbl">Entries</div>
-        </div>
-        <div class="stat-box">
-          <div class="stat-num" id="stat-streak">1</div>
-          <div class="stat-lbl">Day Streak</div>
-        </div>
-        <div class="stat-box">
-          <div class="stat-num" id="stat-words">0</div>
-          <div class="stat-lbl">Words</div>
-        </div>
-        <div class="stat-box">
-          <div class="stat-num" id="stat-days">0</div>
-          <div class="stat-lbl">Days Active</div>
-        </div>
+    <div class="sb-section">
+      <div class="sb-label">Navigate</div>
+      <div class="sb-nav">
+        <div class="sb-nav-item active" onclick="applyFilter('all',this)"><span class="sb-nav-icon">🏠</span>All Entries<span class="sb-nav-count" id="cnt-all">0</span></div>
+        <div class="sb-nav-item" onclick="applyFilter('learning',this)"><span class="sb-nav-icon">📚</span>Learning<span class="sb-nav-count" id="cnt-learning">0</span></div>
+        <div class="sb-nav-item" onclick="applyFilter('reflection',this)"><span class="sb-nav-icon">💭</span>Reflection<span class="sb-nav-count" id="cnt-reflection">0</span></div>
+        <div class="sb-nav-item" onclick="applyFilter('project',this)"><span class="sb-nav-icon">⚙️</span>Projects<span class="sb-nav-count" id="cnt-project">0</span></div>
+        <div class="sb-nav-item" onclick="applyFilter('college',this)"><span class="sb-nav-icon">🏫</span>College<span class="sb-nav-count" id="cnt-college">0</span></div>
       </div>
     </div>
 
-    <div>
-      <div class="sidebar-section-label">Activity — Mar 2026</div>
+    <div class="sb-section">
+      <div class="sb-label">Progress</div>
+      <div class="sb-stats">
+        <div class="sb-stat"><div class="sb-stat-num" id="s-total">0</div><div class="sb-stat-lbl">Entries</div></div>
+        <div class="sb-stat"><div class="sb-stat-num" id="s-streak">1</div><div class="sb-stat-lbl">Streak</div></div>
+        <div class="sb-stat"><div class="sb-stat-num" id="s-words">0</div><div class="sb-stat-lbl">Words</div></div>
+        <div class="sb-stat"><div class="sb-stat-num" id="s-days">0</div><div class="sb-stat-lbl">Days</div></div>
+      </div>
+    </div>
+
+    <div class="sb-section">
+      <div class="sb-label">Activity</div>
       <div class="heatmap" id="heatmap"></div>
+    </div>
+
+    <div class="sb-section" style="margin-top:auto; border-top:1px solid var(--border); border-bottom:none;">
+      <div class="sb-label">Connect</div>
+      <div class="sb-connect">
+        <a href="mailto:muddarsusreesanth@gmail.com" class="sb-link"><span class="sb-link-icon">✉</span>muddarsusreesanth@gmail.com</a>
+        <a href="https://www.linkedin.com/in/sreesanth-muddarsu/" target="_blank" class="sb-link"><span class="sb-link-icon">in</span>sreesanth-muddarsu</a>
+      </div>
     </div>
   </aside>
 
   <!-- MAIN -->
   <main class="main">
-    <div class="journal-header">
-      <div class="journal-date-big" id="today-label"></div>
-      <h1 class="journal-title-big">Your Daily Journal</h1>
-      <p class="journal-subtitle">Write something. Anything. Just keep going.</p>
+    <div class="page-header">
+      <div class="page-date" id="today-str"></div>
+      <h1 class="page-title">Daily <span>Journal</span></h1>
+      <p class="page-sub">Document the journey. One entry at a time.</p>
     </div>
 
-    <!-- COMPOSE -->
-    <div class="compose-area" id="compose-area">
-      <div class="compose-top">
-        <div class="compose-avatar">S</div>
-        <span class="compose-label">New entry</span>
-        <span class="compose-date-label" id="compose-date-lbl"></span>
+    <!-- COMPOSER -->
+    <div class="composer">
+      <div class="composer-head">
+        <div class="composer-avatar">S</div>
+        <span class="composer-who">New entry</span>
+        <span class="composer-when" id="compose-when"></span>
       </div>
-      <input class="compose-title-input" id="compose-title" type="text" placeholder="What's on your mind today?" maxlength="120">
-      <textarea class="compose-body-input" id="compose-body" placeholder="Write freely... what did you learn, feel, build, or struggle with today?"></textarea>
-      <div class="compose-bottom">
-        <div class="mood-row">
-          <span class="mood-label">Mood:</span>
-          <button class="mood-btn" onclick="setMood(this,'😊')">😊</button>
-          <button class="mood-btn" onclick="setMood(this,'🔥')">🔥</button>
-          <button class="mood-btn" onclick="setMood(this,'😤')">😤</button>
-          <button class="mood-btn" onclick="setMood(this,'😴')">😴</button>
-          <button class="mood-btn" onclick="setMood(this,'🤔')">🤔</button>
+      <input class="composer-title" id="ctitle" type="text" placeholder="What happened today?" maxlength="120">
+      <textarea class="composer-body" id="cbody" placeholder="Write freely — what did you learn, build, struggle with, or feel today?"></textarea>
+      <div class="composer-foot">
+        <div class="mood-group">
+          <span class="mood-lbl">Mood</span>
+          <button class="mood-btn" onclick="pickMood(this,'😊')">😊</button>
+          <button class="mood-btn" onclick="pickMood(this,'🔥')">🔥</button>
+          <button class="mood-btn" onclick="pickMood(this,'😤')">😤</button>
+          <button class="mood-btn" onclick="pickMood(this,'😴')">😴</button>
+          <button class="mood-btn" onclick="pickMood(this,'🤔')">🤔</button>
         </div>
-        <input class="tag-input" id="tag-input" type="text" placeholder="Tags: learning, project...">
-        <button class="publish-btn" onclick="publishEntry()">Save Entry →</button>
+        <input class="tag-inp" id="ctags" type="text" placeholder="Tags: learning, project…">
+        <button class="save-btn" onclick="saveEntry()">Save Entry →</button>
       </div>
     </div>
 
     <!-- FILTER BAR -->
     <div class="filter-bar">
-      <span class="filter-label">Filter:</span>
-      <button class="filter-btn active" onclick="filterBtnClick(this,'all')">All</button>
-      <button class="filter-btn" onclick="filterBtnClick(this,'learning')">Learning</button>
-      <button class="filter-btn" onclick="filterBtnClick(this,'reflection')">Reflection</button>
-      <button class="filter-btn" onclick="filterBtnClick(this,'project')">Project</button>
-      <button class="filter-btn" onclick="filterBtnClick(this,'college')">College</button>
+      <span class="filter-lbl">Filter</span>
+      <button class="fbtn active" onclick="filterBtn(this,'all')">All</button>
+      <button class="fbtn" onclick="filterBtn(this,'learning')">Learning</button>
+      <button class="fbtn" onclick="filterBtn(this,'reflection')">Reflection</button>
+      <button class="fbtn" onclick="filterBtn(this,'project')">Project</button>
+      <button class="fbtn" onclick="filterBtn(this,'college')">College</button>
     </div>
 
-    <!-- ENTRIES -->
-    <div class="entries-list" id="entries-list"></div>
+    <div class="entries" id="entries"></div>
   </main>
 </div>
 
 <!-- MODAL -->
-<div class="modal-overlay" id="modal" onclick="closeModal(event)">
+<div class="overlay" id="overlay" onclick="maybeClose(event)">
   <div class="modal">
-    <button class="modal-close" onclick="document.getElementById('modal').classList.remove('open')">✕</button>
-    <div class="modal-date" id="modal-date"></div>
-    <div class="modal-title" id="modal-title"></div>
-    <div class="modal-body" id="modal-body"></div>
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <div class="modal-meta" id="mm"></div>
+    <div class="modal-title" id="mt"></div>
+    <div class="modal-body" id="mb"></div>
   </div>
 </div>
 
 <script>
-// ── STATE ──────────────────────────────────────────────────────────
-const STORAGE_KEY = 'sree_journal_v2';
-let entries = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
-let selectedMood = '';
-let currentFilter = 'all';
+const KEY='sree_j_v3';
+let db=JSON.parse(localStorage.getItem(KEY)||'[]');
+let selMood='', curFilter='all';
 
-// Seed entries if empty
-if (entries.length === 0) {
-  entries = [
-    {
-      id: 1, date: '2026-03-22',
-      title: 'Started building my personal website',
-      body: 'Today I decided to stop waiting and just start. Built this portfolio from scratch — it\'s the first real web project I can call my own. Using HTML, CSS, and JavaScript. The journal is the main feature. Writing here every day is the goal.\n\nFeels weird to document life publicly, but I think it\'ll be worth it.',
-      mood: '🔥', tags: ['project', 'web dev'], words: 62
-    },
-    {
-      id: 2, date: '2026-03-15',
-      title: 'What college actually feels like',
-      body: 'First month at VIT-AP. Everyone seems to know exactly what they want to do. I don\'t, and that used to scare me. Now I think that\'s okay — maybe even an advantage. I can go anywhere from here.\n\nStarted learning C properly this week. Not just syntax — understanding pointers, memory, why things actually work.',
-      mood: '🤔', tags: ['college', 'reflection'], words: 68
-    },
-    {
-      id: 3, date: '2026-03-01',
-      title: 'Why I want to build things',
-      body: 'Spent the weekend reading about people who built products used by millions. It\'s not about money or fame — it\'s the idea that something you make can outlive the moment you made it. Someone in another city, using something you built, solving their problem.\n\nThat feeling is worth chasing.',
-      mood: '😊', tags: ['reflection', 'motivation'], words: 58
-    }
+if(!db.length){
+  db=[
+    {id:1,date:'2026-03-22',title:'Started building my personal website',body:'Today I decided to stop waiting and just start. Built this portfolio from scratch — the first real web project I can call mine. HTML, CSS, vanilla JS. No frameworks. The journal is the centrepiece.\n\nPublishing daily feels vulnerable, but I think that\'s the point.',mood:'🔥',tags:['project','web dev'],words:52},
+    {id:2,date:'2026-03-15',title:'What college actually feels like',body:'One month at VIT-AP. Everyone seems certain about their path. I\'m not, and I\'ve stopped pretending that\'s a problem. Uncertainty is the starting line, not a disqualification.\n\nProperly learning Java this week — not just syntax, but how the JVM actually thinks.',mood:'🤔',tags:['college','reflection'],words:60},
+    {id:3,date:'2026-03-01',title:'Why I want to build things on the internet',body:'Read about builders who shipped products used by millions. It\'s not the scale that excites me — it\'s the permanence. Something you make, living in the world, solving a problem you once had.\n\nThat feeling is worth chasing.',mood:'😊',tags:['reflection','motivation'],words:52},
   ];
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(entries));
+  localStorage.setItem(KEY,JSON.stringify(db));
 }
 
-// ── DATE HELPERS ───────────────────────────────────────────────────
-const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-const days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+const MO=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+const WD=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+function fmt(ds){const d=new Date(ds+'T12:00:00');return `${WD[d.getDay()]}, ${d.getDate()} ${MO[d.getMonth()]} ${d.getFullYear()}`;}
+function todayStr(){const d=new Date();return `${d.getFullYear()}-${p(d.getMonth()+1)}-${p(d.getDate())}`;}
+function p(n){return String(n).padStart(2,'0');}
 
-function fmtDate(dateStr) {
-  const d = new Date(dateStr + 'T12:00:00');
-  return `${days[d.getDay()]}, ${d.getDate()} ${months[d.getMonth()]} ${d.getFullYear()}`;
-}
+document.getElementById('today-str').textContent=fmt(todayStr());
+document.getElementById('compose-when').textContent=fmt(todayStr());
 
-function today() {
-  const d = new Date();
-  return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
-}
+function pickMood(btn,m){document.querySelectorAll('.mood-btn').forEach(b=>b.classList.remove('sel'));btn.classList.add('sel');selMood=m;}
 
-// ── INIT ───────────────────────────────────────────────────────────
-document.getElementById('today-label').textContent = fmtDate(today());
-document.getElementById('compose-date-lbl').textContent = fmtDate(today());
-
-// ── MOOD ───────────────────────────────────────────────────────────
-function setMood(btn, mood) {
-  document.querySelectorAll('.mood-btn').forEach(b => b.classList.remove('selected'));
-  btn.classList.add('selected');
-  selectedMood = mood;
-}
-
-// ── PUBLISH ────────────────────────────────────────────────────────
-function publishEntry() {
-  const title = document.getElementById('compose-title').value.trim();
-  const body = document.getElementById('compose-body').value.trim();
-  const tagRaw = document.getElementById('tag-input').value.trim();
-  const tags = tagRaw ? tagRaw.split(',').map(t => t.trim().toLowerCase()).filter(Boolean) : [];
-  const words = body.split(/\s+/).filter(Boolean).length;
-
-  if (!title || !body) { shake(document.getElementById('compose-area')); return; }
-
-  const entry = { id: Date.now(), date: today(), title, body, mood: selectedMood || '📝', tags, words };
-  entries.unshift(entry);
-  save();
-
-  document.getElementById('compose-title').value = '';
-  document.getElementById('compose-body').value = '';
-  document.getElementById('tag-input').value = '';
-  selectedMood = '';
-  document.querySelectorAll('.mood-btn').forEach(b => b.classList.remove('selected'));
-
+function saveEntry(){
+  const t=document.getElementById('ctitle').value.trim();
+  const b=document.getElementById('cbody').value.trim();
+  if(!t||!b){flash();return;}
+  const tags=document.getElementById('ctags').value.split(',').map(s=>s.trim().toLowerCase()).filter(Boolean);
+  const e={id:Date.now(),date:todayStr(),title:t,body:b,mood:selMood||'📝',tags,words:b.split(/\s+/).filter(Boolean).length};
+  db.unshift(e);save();
+  document.getElementById('ctitle').value='';
+  document.getElementById('cbody').value='';
+  document.getElementById('ctags').value='';
+  selMood='';document.querySelectorAll('.mood-btn').forEach(b=>b.classList.remove('sel'));
   renderAll();
 }
 
-function shake(el) {
-  el.style.animation = 'none';
-  el.style.transition = 'border-color 0.2s';
-  el.style.borderColor = 'rgba(200,80,60,0.5)';
-  setTimeout(() => el.style.borderColor = '', 1000);
-}
+function flash(){const c=document.querySelector('.composer');c.style.boxShadow='0 0 0 3px rgba(220,80,60,.3)';setTimeout(()=>c.style.boxShadow='',800);}
 
-// ── FILTER ────────────────────────────────────────────────────────
-function filterEntries(tag) {
-  currentFilter = tag;
-  document.querySelectorAll('.snav-item').forEach(el => el.classList.remove('active'));
-  event.currentTarget.classList.add('active');
-  renderEntries();
+function applyFilter(tag,el){
+  curFilter=tag;
+  document.querySelectorAll('.sb-nav-item').forEach(e=>e.classList.remove('active'));
+  el.classList.add('active');
+  syncFilterBtns();renderEntries();
 }
-
-function filterBtnClick(btn, tag) {
-  currentFilter = tag;
-  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+function filterBtn(btn,tag){
+  curFilter=tag;
+  document.querySelectorAll('.fbtn').forEach(b=>b.classList.remove('active'));
   btn.classList.add('active');
-  renderEntries();
+  syncSideNav();renderEntries();
 }
+function syncFilterBtns(){document.querySelectorAll('.fbtn').forEach(b=>{b.classList.toggle('active',b.textContent.toLowerCase()===curFilter||(curFilter==='all'&&b.textContent==='All'));});}
+function syncSideNav(){document.querySelectorAll('.sb-nav-item').forEach((el,i)=>{const tags=['all','learning','reflection','project','college'];el.classList.toggle('active',tags[i]===curFilter);});}
 
-// ── RENDER ────────────────────────────────────────────────────────
-function renderEntries() {
-  const list = document.getElementById('entries-list');
-  const filtered = currentFilter === 'all'
-    ? entries
-    : entries.filter(e => e.tags && e.tags.includes(currentFilter));
-
-  if (filtered.length === 0) {
-    list.innerHTML = `<div class="empty-state"><div class="empty-icon">📭</div><div class="empty-text">Nothing here yet.</div><div class="empty-sub">Write your first entry above.</div></div>`;
-    return;
-  }
-
-  list.innerHTML = filtered.map(e => `
-    <div class="entry-card" onclick="openModal(${e.id})">
+function renderEntries(){
+  const el=document.getElementById('entries');
+  const list=curFilter==='all'?db:db.filter(e=>e.tags&&e.tags.includes(curFilter));
+  if(!list.length){el.innerHTML=`<div class="empty"><div class="empty-icon">📭</div><div class="empty-title">Nothing here yet</div><div class="empty-sub">Write your first entry above.</div></div>`;return;}
+  el.innerHTML=list.map(e=>`
+    <div class="entry" onclick="openModal(${e.id})">
       <div class="entry-meta">
-        <span class="entry-date">${fmtDate(e.date)}</span>
-        ${e.mood ? `<span class="entry-mood">${e.mood}</span>` : ''}
-        <div class="entry-tags-row">${(e.tags||[]).map(t=>`<span class="etag">${t}</span>`).join('')}</div>
+        <span class="entry-date">${fmt(e.date)}</span>
+        ${e.mood?`<span class="entry-mood">${e.mood}</span>`:''}
+        <div class="entry-tags">${(e.tags||[]).map(t=>`<span class="etag">${t}</span>`).join('')}</div>
       </div>
       <div class="entry-title">${e.title}</div>
       <div class="entry-excerpt">${e.body}</div>
-      <div class="entry-footer">
-        <span class="read-more">Read →</span>
-        <span class="word-count">${e.words||0} words</span>
-      </div>
-    </div>
-  `).join('');
+      <div class="entry-foot"><span class="entry-read">Read entry →</span><span class="entry-words">${e.words||0} words</span></div>
+    </div>`).join('');
 }
 
-function renderStats() {
-  const total = entries.length;
-  const words = entries.reduce((s,e) => s+(e.words||0), 0);
-  const days = new Set(entries.map(e=>e.date)).size;
-
-  document.getElementById('stat-entries').textContent = total;
-  document.getElementById('stat-words').textContent = words > 999 ? (words/1000).toFixed(1)+'k' : words;
-  document.getElementById('stat-days').textContent = days;
-
-  const cats = ['all','learning','reflection','project','college'];
-  document.getElementById('count-all').textContent = entries.length;
-  ['learning','reflection','project','college'].forEach(c => {
-    const el = document.getElementById('count-'+c);
-    if(el) el.textContent = entries.filter(e=>e.tags&&e.tags.includes(c)).length;
+function renderStats(){
+  const w=db.reduce((s,e)=>s+(e.words||0),0);
+  const d=new Set(db.map(e=>e.date)).size;
+  document.getElementById('s-total').textContent=db.length;
+  document.getElementById('s-words').textContent=w>999?(w/1000).toFixed(1)+'k':w;
+  document.getElementById('s-days').textContent=d;
+  document.getElementById('cnt-all').textContent=db.length;
+  ['learning','reflection','project','college'].forEach(c=>{
+    const el=document.getElementById('cnt-'+c);
+    if(el) el.textContent=db.filter(e=>e.tags&&e.tags.includes(c)).length;
   });
 }
 
-function renderHeatmap() {
-  const heatmap = document.getElementById('heatmap');
-  const dayCounts = {};
-  entries.forEach(e => { dayCounts[e.date] = (dayCounts[e.date]||0) + 1; });
-
-  // 5 weeks × 7 days
-  const now = new Date();
-  const start = new Date(now);
-  start.setDate(now.getDate() - 34);
-
-  let html = '';
-  for (let w = 0; w < 5; w++) {
-    html += '<div class="heatmap-row">';
-    for (let d = 0; d < 7; d++) {
-      const dt = new Date(start);
-      dt.setDate(start.getDate() + w*7 + d);
-      const key = `${dt.getFullYear()}-${String(dt.getMonth()+1).padStart(2,'0')}-${String(dt.getDate()).padStart(2,'0')}`;
-      const count = dayCounts[key] || 0;
-      const lvl = count === 0 ? '' : count === 1 ? 'lvl1' : count === 2 ? 'lvl2' : count <= 3 ? 'lvl3' : 'lvl4';
-      html += `<div class="heatmap-cell ${lvl}" title="${key}: ${count} entries"></div>`;
+function renderHeatmap(){
+  const hm=document.getElementById('heatmap');
+  const dc={};db.forEach(e=>{dc[e.date]=(dc[e.date]||0)+1;});
+  const start=new Date();start.setDate(start.getDate()-34);
+  let html='';
+  for(let w=0;w<5;w++){
+    html+='<div class="hm-row">';
+    for(let d=0;d<7;d++){
+      const dt=new Date(start);dt.setDate(start.getDate()+w*7+d);
+      const k=`${dt.getFullYear()}-${p(dt.getMonth()+1)}-${p(dt.getDate())}`;
+      const c=dc[k]||0;
+      const l=c===0?'':c===1?'l1':c===2?'l2':c<=3?'l3':'l4';
+      html+=`<div class="hm-cell ${l}" title="${k}: ${c} entries"></div>`;
     }
-    html += '</div>';
+    html+='</div>';
   }
-  heatmap.innerHTML = html;
+  hm.innerHTML=html;
 }
 
-function renderAll() { renderEntries(); renderStats(); renderHeatmap(); }
-
-// ── MODAL ────────────────────────────────────────────────────────
-function openModal(id) {
-  const entry = entries.find(e => e.id === id);
-  if (!entry) return;
-  document.getElementById('modal-date').textContent = `${fmtDate(entry.date)} · ${entry.mood||''} · ${entry.words||0} words`;
-  document.getElementById('modal-title').textContent = entry.title;
-  document.getElementById('modal-body').textContent = entry.body;
-  document.getElementById('modal').classList.add('open');
+function openModal(id){
+  const e=db.find(e=>e.id===id);if(!e)return;
+  document.getElementById('mm').innerHTML=`<span>${fmt(e.date)}</span>${e.mood?`<span>${e.mood}</span>`:''}<span>${e.words||0} words</span>`;
+  document.getElementById('mt').textContent=e.title;
+  document.getElementById('mb').textContent=e.body;
+  document.getElementById('overlay').classList.add('open');
 }
+function closeModal(){document.getElementById('overlay').classList.remove('open');}
+function maybeClose(e){if(e.target===document.getElementById('overlay'))closeModal();}
 
-function closeModal(e) {
-  if (e.target === document.getElementById('modal')) {
-    document.getElementById('modal').classList.remove('open');
-  }
-}
-
-function save() { localStorage.setItem(STORAGE_KEY, JSON.stringify(entries)); }
-
-// ── RUN ──────────────────────────────────────────────────────────
+function save(){localStorage.setItem(KEY,JSON.stringify(db));}
+function renderAll(){renderEntries();renderStats();renderHeatmap();}
 renderAll();
 </script>
 </body>
