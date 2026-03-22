@@ -5,498 +5,362 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Sreesanth · Classes</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --bg:#0d0c0b;--bg2:#131210;--bg3:#1a1815;
-  --surface:#1f1d1a;--surface2:#252320;--surface3:#2c2a26;
-  --border:rgba(255,255,255,0.07);--border2:rgba(255,255,255,0.11);
-  --ink:#f0ece4;--ink2:#c8c2b8;--ink3:#8a8278;--ink4:#5a5650;
-  --gold:#c9a96e;--gold2:#e8c98a;--gold-dim:rgba(201,169,110,0.15);--gold-faint:rgba(201,169,110,0.06);
-  --green:#6ec98f;--nav-h:58px;--r:10px;
-
-  /* Subject colours */
-  --mat:#c9a96e; --mat-bg:rgba(201,169,110,0.08); --mat-bd:rgba(201,169,110,0.2);
-  --ece:#6eb5c9; --ece-bg:rgba(110,181,201,0.08); --ece-bd:rgba(110,181,201,0.2);
-  --cse:#8fb86e; --cse-bg:rgba(143,184,110,0.08); --cse-bd:rgba(143,184,110,0.2);
-  --chy:#c96e8f; --chy-bg:rgba(201,110,143,0.08); --chy-bd:rgba(201,110,143,0.2);
-  --eng:#a06ec9; --eng-bg:rgba(160,110,201,0.08); --eng-bd:rgba(160,110,201,0.2);
-  --lab:#c97a6e; --lab-bg:rgba(201,122,110,0.08); --lab-bd:rgba(201,122,110,0.2);
-  --tut:#6e8fc9; --tut-bg:rgba(110,143,201,0.08); --tut-bd:rgba(110,143,201,0.2);
-  --free-bg:rgba(255,255,255,0.02);
-
-  --serif:'Instrument Serif',Georgia,serif;
-  --sans:'Outfit',system-ui,sans-serif;
+  --bg:#0c0b09;--bg2:#111009;--sf:#1d1b16;--sf2:#232018;--sf3:#2a271f;
+  --b:rgba(255,255,255,0.06);--b2:rgba(255,255,255,0.10);--b3:rgba(255,255,255,0.15);
+  --t1:#f2ede3;--t2:#c5bfb2;--t3:#857f74;--t4:#504b42;
+  --gold:#c8a86b;--gold2:#e6c88a;--gd:rgba(200,168,107,0.14);--gf:rgba(200,168,107,0.06);
+  --green:#6bc88d;
+  --mat:#c8a86b; --mat-bg:rgba(200,168,107,0.08); --mat-b:rgba(200,168,107,0.18);
+  --ece:#6bb5c8; --ece-bg:rgba(107,181,200,0.08); --ece-b:rgba(107,181,200,0.18);
+  --cse:#8db86b; --cse-bg:rgba(141,184,107,0.08); --cse-b:rgba(141,184,107,0.18);
+  --chy:#c86b8d; --chy-bg:rgba(200,107,141,0.08); --chy-b:rgba(200,107,141,0.18);
+  --eng:#9e6bc8; --eng-bg:rgba(158,107,200,0.08); --eng-b:rgba(158,107,200,0.18);
+  --lab:#c87a6b; --lab-bg:rgba(200,122,107,0.08); --lab-b:rgba(200,122,107,0.18);
+  --display:'Cormorant Garamond',Georgia,serif; --body:'DM Sans',system-ui,sans-serif; --nav-h:56px;
 }
 html{scroll-behavior:smooth}
-body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:14px;font-weight:400;line-height:1.7;min-height:100vh;-webkit-font-smoothing:antialiased;}
-body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9000;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");}
+body{background:var(--bg);color:var(--t1);font-family:var(--body);font-size:14px;line-height:1.7;-webkit-font-smoothing:antialiased;min-height:100vh;}
+body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9998;opacity:.5;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='256' height='256'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='256' height='256' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");}
 
-/* NAV */
-.nav{position:sticky;top:0;z-index:500;height:var(--nav-h);display:flex;align-items:center;justify-content:space-between;padding:0 2.5rem;background:rgba(13,12,11,0.88);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);}
-.nav-brand{font-family:var(--serif);font-size:1.25rem;font-style:italic;color:var(--gold);text-decoration:none;}
+.nav{position:sticky;top:0;z-index:500;height:var(--nav-h);display:flex;align-items:center;justify-content:space-between;padding:0 2.5rem;background:rgba(12,11,9,0.86);backdrop-filter:blur(24px);border-bottom:1px solid var(--b);}
+.nav-brand{font-family:var(--display);font-size:1.3rem;font-style:italic;font-weight:400;color:var(--gold);text-decoration:none;}
 .nav-links{display:flex;gap:2px;list-style:none;}
-.nav-links a{display:flex;align-items:center;gap:6px;padding:6px 14px;font-size:11px;font-weight:500;letter-spacing:.05em;text-transform:uppercase;color:var(--ink3);text-decoration:none;border-radius:6px;transition:all .15s;}
-.nav-links a:hover{color:var(--ink);background:var(--surface);}
-.nav-links a.active{color:var(--gold);background:var(--gold-faint);}
+.nav-links a{display:flex;align-items:center;gap:6px;padding:6px 13px;font-size:11px;font-weight:500;letter-spacing:.05em;text-transform:uppercase;color:var(--t3);text-decoration:none;border-radius:6px;transition:all .15s;}
+.nav-links a:hover{color:var(--t1);background:var(--sf);}
+.nav-links a.active{color:var(--gold);background:var(--gf);}
 
-/* PAGE */
-.page{max-width:1020px;margin:0 auto;padding:2.5rem 2.5rem;}
-.page-eyebrow{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:6px;}
-.page-title{font-family:var(--serif);font-size:clamp(1.8rem,4vw,2.8rem);font-style:italic;font-weight:400;color:var(--ink);line-height:1.1;margin-bottom:4px;}
-.page-sub{font-size:13px;color:var(--ink3);margin-bottom:2.5rem;}
+.page{max-width:980px;margin:0 auto;padding:2.5rem 2.5rem;}
+.eyebrow{font-size:10px;font-weight:600;letter-spacing:.13em;text-transform:uppercase;color:var(--gold);margin-bottom:6px;}
+.page-title{font-family:var(--display);font-size:clamp(1.8rem,4vw,2.8rem);font-style:italic;font-weight:400;color:var(--t1);line-height:1.05;margin-bottom:4px;}
+.page-sub{font-size:13px;color:var(--t3);margin-bottom:2.5rem;}
 
 /* NEXT CLASS */
-.nc-banner{display:flex;align-items:center;gap:16px;background:var(--surface);border:1px solid var(--border2);border-radius:var(--r);padding:1.1rem 1.4rem;margin-bottom:2rem;position:relative;overflow:hidden;}
-.nc-banner::before{content:'';position:absolute;left:0;top:0;bottom:0;width:4px;}
-.nc-banner.is-mat::before{background:var(--mat);}
-.nc-banner.is-ece::before{background:var(--ece);}
-.nc-banner.is-cse::before{background:var(--cse);}
-.nc-banner.is-chy::before{background:var(--chy);}
-.nc-banner.is-eng::before{background:var(--eng);}
-.nc-banner.is-lab::before{background:var(--lab);}
-.nc-banner.is-tut::before{background:var(--tut);}
-.nc-banner.is-free::before{background:var(--ink4);}
-.nc-icon{font-size:1.4rem;flex-shrink:0;}
-.nc-lbl{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink4);margin-bottom:2px;}
-.nc-name{font-family:var(--serif);font-size:1.05rem;font-style:italic;color:var(--ink);}
+.nc{display:flex;align-items:center;gap:16px;background:var(--sf);border:1px solid var(--b2);border-radius:10px;padding:1rem 1.4rem;margin-bottom:2rem;position:relative;overflow:hidden;}
+.nc::before{content:'';position:absolute;left:0;top:0;bottom:0;width:4px;}
+.nc.is-mat::before{background:var(--mat)} .nc.is-ece::before{background:var(--ece)} .nc.is-cse::before{background:var(--cse)} .nc.is-chy::before{background:var(--chy)} .nc.is-eng::before{background:var(--eng)} .nc.is-lab::before{background:var(--lab)} .nc.is-free::before{background:var(--t4)}
+.nc-icon{font-size:1.3rem;flex-shrink:0;}
+.nc-lbl{font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--t4);margin-bottom:2px;}
+.nc-name{font-family:var(--display);font-size:1.05rem;font-style:italic;color:var(--t1);}
 .nc-right{margin-left:auto;text-align:right;font-size:11px;font-weight:500;color:var(--gold);line-height:1.7;}
+
+/* SEM INFO */
+.sem-row{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:8px;margin-bottom:2rem;}
+.sc{background:var(--sf);border:1px solid var(--b);border-radius:8px;padding:12px 14px;}
+.sc-lbl{font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--t4);margin-bottom:4px;}
+.sc-val{font-family:var(--display);font-size:.95rem;font-style:italic;color:var(--t1);}
 
 /* LEGEND */
 .legend{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:2rem;}
-.leg-item{display:flex;align-items:center;gap:6px;padding:5px 10px;background:var(--surface);border:1px solid var(--border);border-radius:20px;font-size:11px;font-weight:500;color:var(--ink2);}
-.leg-dot{width:8px;height:8px;border-radius:2px;flex-shrink:0;}
-
-/* SEM INFO CARDS */
-.sem-row{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:8px;margin-bottom:2rem;}
-.sem-card{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:12px 14px;}
-.sem-card-lbl{font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--ink4);margin-bottom:4px;}
-.sem-card-val{font-family:var(--serif);font-size:1rem;font-style:italic;color:var(--ink);}
+.leg{display:flex;align-items:center;gap:6px;padding:5px 11px;background:var(--sf);border:1px solid var(--b);border-radius:20px;font-size:11px;font-weight:500;color:var(--t2);}
+.leg-d{width:8px;height:8px;border-radius:2px;flex-shrink:0;}
 
 /* DAY TABS */
-.day-tabs{display:flex;gap:6px;margin-bottom:2rem;overflow-x:auto;padding-bottom:4px;}
-.day-tab{flex-shrink:0;display:flex;flex-direction:column;align-items:center;gap:2px;padding:8px 18px;background:var(--surface);border:1px solid var(--border);border-radius:8px;cursor:pointer;transition:all .15s;font-family:var(--sans);}
-.day-tab:hover{border-color:var(--border2);}
-.day-tab.active{background:var(--gold-faint);border-color:var(--gold-dim);}
-.day-tab.is-today:not(.active){border-color:var(--border2);}
-.dt-name{font-size:12px;font-weight:600;color:var(--ink3);letter-spacing:.04em;text-transform:uppercase;}
-.dt-date{font-size:10px;color:var(--ink4);}
-.day-tab.active .dt-name{color:var(--gold);}
-.day-tab.is-today:not(.active) .dt-name{color:var(--ink);}
+.day-tabs{display:flex;gap:6px;margin-bottom:2rem;overflow-x:auto;padding-bottom:2px;}
+.day-tab{flex-shrink:0;display:flex;flex-direction:column;align-items:center;gap:2px;padding:8px 18px;background:var(--sf);border:1px solid var(--b);border-radius:8px;cursor:pointer;transition:all .15s;}
+.day-tab:hover{border-color:var(--b2);}
+.day-tab.active{background:var(--gf);border-color:var(--gd);}
+.day-tab.is-today:not(.active){border-color:var(--b3);}
+.dt-n{font-size:12px;font-weight:600;color:var(--t3);letter-spacing:.04em;text-transform:uppercase;}
+.dt-d{font-size:10px;color:var(--t4);}
+.day-tab.active .dt-n{color:var(--gold);}
+.day-tab.is-today:not(.active) .dt-n{color:var(--t1);}
 
-/* SECTION LABEL */
-.tt-section{display:flex;align-items:center;gap:10px;margin:2rem 0 1rem;}
-.tt-section-text{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--ink4);white-space:nowrap;}
-.tt-section-line{flex:1;height:1px;background:var(--border);}
+/* RULE */
+.rule{display:flex;align-items:center;gap:10px;margin:2rem 0 1rem;}
+.rule-text{font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--t4);white-space:nowrap;}
+.rule-line{flex:1;height:1px;background:var(--b);}
 
-/* TIMETABLE GRID */
-.tt-grid{display:flex;flex-direction:column;gap:6px;}
-
-/* Each row: time column + card */
-.tt-row{display:grid;grid-template-columns:76px 1fr;gap:10px;align-items:stretch;opacity:0;transform:translateY(6px);transition:opacity .35s,transform .35s;}
+/* GRID */
+.tt{display:flex;flex-direction:column;gap:6px;}
+.tt-row{display:grid;grid-template-columns:76px 1fr;gap:10px;align-items:stretch;opacity:0;transform:translateY(5px);transition:opacity .32s,transform .32s;}
 .tt-row.vis{opacity:1;transform:none;}
 
-.tt-time{display:flex;flex-direction:column;align-items:flex-end;justify-content:flex-start;padding:14px 12px 0 0;border-right:1px solid var(--border);flex-shrink:0;}
-.tt-time-start{font-size:12px;font-weight:600;color:var(--ink3);}
-.tt-time-end{font-size:10px;color:var(--ink4);margin-top:2px;}
+.tt-time{display:flex;flex-direction:column;align-items:flex-end;justify-content:flex-start;padding:13px 12px 0 0;border-right:1px solid var(--b);flex-shrink:0;}
+.tt-ts{font-size:12px;font-weight:600;color:var(--t3);}
+.tt-te{font-size:10px;color:var(--t4);margin-top:2px;}
 
-/* SLOT CARD — the main improvement */
-.slot-card{border-radius:9px;padding:14px 16px;border:1px solid;position:relative;overflow:hidden;transition:box-shadow .2s,transform .15s;cursor:default;}
-.slot-card:hover{transform:translateY(-1px);box-shadow:0 6px 24px rgba(0,0,0,.4);}
+/* CARD */
+.card{border-radius:9px;padding:14px 16px;border:1px solid;position:relative;overflow:hidden;transition:box-shadow .2s,transform .15s;}
+.card:hover{transform:translateY(-1px);box-shadow:0 6px 24px rgba(0,0,0,.4);}
+.card-mat{background:var(--mat-bg);border-color:var(--mat-b);}
+.card-ece{background:var(--ece-bg);border-color:var(--ece-b);}
+.card-cse{background:var(--cse-bg);border-color:var(--cse-b);}
+.card-chy{background:var(--chy-bg);border-color:var(--chy-b);}
+.card-eng{background:var(--eng-bg);border-color:var(--eng-b);}
+.card-lab{background:var(--lab-bg);border-color:var(--lab-b);}
+.card-free{background:rgba(255,255,255,.02);border:1px dashed var(--b2);}
 
-/* Colour themes per subject */
-.slot-mat{background:var(--mat-bg);border-color:var(--mat-bd);}
-.slot-ece{background:var(--ece-bg);border-color:var(--ece-bd);}
-.slot-cse{background:var(--cse-bg);border-color:var(--cse-bd);}
-.slot-chy{background:var(--chy-bg);border-color:var(--chy-bd);}
-.slot-eng{background:var(--eng-bg);border-color:var(--eng-bd);}
-.slot-lab{background:var(--lab-bg);border-color:var(--lab-bd);}
-.slot-tut{background:var(--tut-bg);border-color:var(--tut-bd);}
-.slot-free{background:var(--free-bg);border-color:var(--border);border-style:dashed;}
+.card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;border-radius:3px 0 0 3px;}
+.card-mat::before{background:var(--mat)} .card-ece::before{background:var(--ece)} .card-cse::before{background:var(--cse)} .card-chy::before{background:var(--chy)} .card-eng::before{background:var(--eng)} .card-lab::before{background:var(--lab)} .card-free::before{background:var(--t4)}
 
-/* Left accent bar */
-.slot-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;border-radius:3px 0 0 3px;}
-.slot-mat::before{background:var(--mat);}
-.slot-ece::before{background:var(--ece);}
-.slot-cse::before{background:var(--cse);}
-.slot-chy::before{background:var(--chy);}
-.slot-eng::before{background:var(--eng);}
-.slot-lab::before{background:var(--lab);}
-.slot-tut::before{background:var(--tut);}
-.slot-free::before{background:var(--ink4);}
+/* Now badge */
+.now-badge{position:absolute;top:10px;right:12px;display:flex;align-items:center;gap:4px;font-size:9px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--green);}
+.now-dot{width:5px;height:5px;border-radius:50%;background:var(--green);animation:np 1.5s infinite;}
+@keyframes np{0%,100%{opacity:1}50%{opacity:.2}}
 
-/* NOW indicator */
-.slot-now-badge{position:absolute;top:10px;right:12px;display:flex;align-items:center;gap:4px;font-size:9px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--green);}
-.now-dot{width:5px;height:5px;border-radius:50%;background:var(--green);animation:npulse 1.5s infinite;}
-@keyframes npulse{0%,100%{opacity:1}50%{opacity:.3}}
+.card-past{opacity:.4;}
 
-.slot-past{opacity:.45;}
+/* Card internals */
+.card-top{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;margin-bottom:10px;}
+.card-name{font-family:var(--display);font-size:1.05rem;font-style:italic;color:var(--t1);line-height:1.25;}
+.card-name.free-name{font-style:normal;font-size:.82rem;color:var(--t4);font-family:var(--body);}
 
-/* Slot card internals */
-.slot-top{display:flex;align-items:flex-start;gap:10px;margin-bottom:10px;}
-.slot-subject-name{font-family:var(--serif);font-size:1.05rem;font-style:italic;color:var(--ink);line-height:1.25;flex:1;}
-.slot-subject-name.free-name{font-style:normal;font-size:.85rem;color:var(--ink4);font-family:var(--sans);}
+.pill{display:inline-flex;align-items:center;padding:3px 9px;font-size:10px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;border-radius:5px;border:1px solid;white-space:nowrap;}
+.pill-th{color:#6bc8aa;border-color:rgba(107,200,170,.25);background:rgba(107,200,170,.07);}
+.pill-la{color:var(--lab);border-color:var(--lab-b);background:var(--lab-bg);}
 
-/* Info grid — the key addition */
-.slot-info{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:6px;}
-.info-chip{display:flex;flex-direction:column;gap:1px;background:rgba(0,0,0,.2);border-radius:6px;padding:7px 10px;border:1px solid rgba(255,255,255,.04);}
-.info-chip-lbl{font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink4);}
-.info-chip-val{font-size:12px;font-weight:500;color:var(--ink2);}
-.info-chip-val.accent-mat{color:var(--mat);}
-.info-chip-val.accent-ece{color:var(--ece);}
-.info-chip-val.accent-cse{color:var(--cse);}
-.info-chip-val.accent-chy{color:var(--chy);}
-.info-chip-val.accent-eng{color:var(--eng);}
-.info-chip-val.accent-lab{color:var(--lab);}
-.info-chip-val.accent-tut{color:var(--tut);}
+/* Info chips */
+.chips{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:5px;}
+.chip{display:flex;flex-direction:column;gap:1px;background:rgba(0,0,0,.2);border-radius:6px;padding:7px 10px;border:1px solid rgba(255,255,255,.04);}
+.chip-lbl{font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--t4);}
+.chip-val{font-size:12px;font-weight:500;color:var(--t2);}
+.chip-val.a-mat{color:var(--mat)} .chip-val.a-ece{color:var(--ece)} .chip-val.a-cse{color:var(--cse)} .chip-val.a-chy{color:var(--chy)} .chip-val.a-eng{color:var(--eng)} .chip-val.a-lab{color:var(--lab)}
 
-/* Pills */
-.pill{display:inline-flex;align-items:center;gap:3px;padding:3px 8px;font-size:10px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;border-radius:4px;border:1px solid;}
-.pill-th{color:#6ec9a9;border-color:rgba(110,201,169,.25);background:rgba(110,201,169,.07);}
-.pill-la{color:var(--lab);border-color:rgba(201,122,110,.25);background:rgba(201,122,110,.07);}
-.pill-tu{color:var(--tut);border-color:rgba(110,143,201,.25);background:rgba(110,143,201,.07);}
+/* Break */
+.tt-brk{display:grid;grid-template-columns:76px 1fr;gap:10px;margin:.1rem 0;}
+.tt-brk-r{display:flex;align-items:center;gap:10px;}
+.tt-brk-txt{font-size:10px;font-weight:600;color:var(--t4);white-space:nowrap;}
+.tt-brk-line{flex:1;height:1px;background:var(--b);}
 
-/* Break row */
-.tt-break{display:grid;grid-template-columns:76px 1fr;gap:10px;margin:.25rem 0;}
-.tt-break-right{display:flex;align-items:center;gap:10px;padding-left:2px;}
-.tt-break-lbl{font-size:10px;font-weight:600;color:var(--ink4);white-space:nowrap;}
-.tt-break-line{flex:1;height:1px;background:var(--border);}
-
-/* EMPTY */
+/* Empty */
 .empty-day{text-align:center;padding:5rem 2rem;}
-.empty-day-icon{font-size:2.5rem;opacity:.25;margin-bottom:14px;}
-.empty-day-title{font-family:var(--serif);font-size:1.2rem;font-style:italic;color:var(--ink3);}
-.empty-day-sub{font-size:11px;color:var(--ink4);margin-top:6px;}
+.empty-day-icon{font-size:2.5rem;opacity:.2;margin-bottom:14px;}
+.empty-day-title{font-family:var(--display);font-size:1.2rem;font-style:italic;color:var(--t3);}
+.empty-day-sub{font-size:11px;color:var(--t4);margin-top:5px;}
 
-@media(max-width:640px){
-  .page{padding:1.5rem 1rem;}
-  .nav{padding:0 1rem;}
-  .nav-links a span:not(.nav-icon){display:none;}
-  .slot-info{grid-template-columns:1fr 1fr;}
-  .tt-time{min-width:60px;}
-}
+@media(max-width:640px){.page{padding:1.5rem 1rem;}.nav{padding:0 1rem;}.nav-links a span:last-child{display:none;}.chips{grid-template-columns:1fr 1fr;}}
 </style>
 </head>
 <body>
-
 <nav class="nav">
   <a class="nav-brand" href="index.html">Sreesanth.</a>
   <ul class="nav-links">
-    <li><a href="index.html"><span class="nav-icon">📓</span><span>Journal</span></a></li>
-    <li><a href="classes.html" class="active"><span class="nav-icon">🗓</span><span>Classes</span></a></li>
-    <li><a href="education.html"><span class="nav-icon">🎓</span><span>About</span></a></li>
+    <li><a href="index.html"><span>🏠</span><span>Home</span></a></li>
+    <li><a href="journal.html"><span>📓</span><span>Journal</span></a></li>
+    <li><a href="classes.html" class="active"><span>🗓</span><span>Classes</span></a></li>
+    <li><a href="tracker.html"><span>📊</span><span>Tracker</span></a></li>
+    <li><a href="education.html"><span>🎓</span><span>About</span></a></li>
   </ul>
 </nav>
 
 <div class="page">
-  <div class="page-eyebrow">Academic Schedule</div>
+  <div class="eyebrow">Academic Schedule · Sem II · 2025–26</div>
   <h1 class="page-title">My Timetable</h1>
-  <p class="page-sub">B.Tech CSE · VIT-AP University · Semester II · 2025–26 · Reg: 25BCE8603</p>
+  <p class="page-sub">B.Tech CSE · VIT-AP University · Reg: 25BCE8603</p>
 
-  <!-- NEXT CLASS BANNER -->
-  <div class="nc-banner is-free" id="nc-banner">
+  <div class="nc is-free" id="nc">
     <div class="nc-icon">⏰</div>
-    <div>
-      <div class="nc-lbl">Next Class</div>
-      <div class="nc-name" id="nc-name">Loading…</div>
-    </div>
+    <div><div class="nc-lbl">Next Class</div><div class="nc-name" id="nc-name">Loading…</div></div>
     <div class="nc-right" id="nc-right"></div>
   </div>
 
-  <!-- SEM INFO -->
   <div class="sem-row">
-    <div class="sem-card"><div class="sem-card-lbl">University</div><div class="sem-card-val">VIT-AP</div></div>
-    <div class="sem-card"><div class="sem-card-lbl">Branch</div><div class="sem-card-val">CSE</div></div>
-    <div class="sem-card"><div class="sem-card-lbl">Year / Sem</div><div class="sem-card-val">I / II</div></div>
-    <div class="sem-card"><div class="sem-card-lbl">Subjects</div><div class="sem-card-val">5 Courses</div></div>
-    <div class="sem-card"><div class="sem-card-lbl">Session</div><div class="sem-card-val">2025 – 26</div></div>
+    <div class="sc"><div class="sc-lbl">University</div><div class="sc-val">VIT-AP</div></div>
+    <div class="sc"><div class="sc-lbl">Branch</div><div class="sc-val">CSE</div></div>
+    <div class="sc"><div class="sc-lbl">Year / Sem</div><div class="sc-val">I / II</div></div>
+    <div class="sc"><div class="sc-lbl">Subjects</div><div class="sc-val">5 Courses</div></div>
+    <div class="sc"><div class="sc-lbl">Session</div><div class="sc-val">2025 – 26</div></div>
   </div>
 
-  <!-- LEGEND -->
   <div class="legend">
-    <div class="leg-item"><div class="leg-dot" style="background:var(--mat)"></div>MAT1002 — Mathematics II</div>
-    <div class="leg-item"><div class="leg-dot" style="background:var(--ece)"></div>ECE1002 — FEEE</div>
-    <div class="leg-item"><div class="leg-dot" style="background:var(--cse)"></div>CSE2005 — Java</div>
-    <div class="leg-item"><div class="leg-dot" style="background:var(--chy)"></div>CHY1009 — Chemistry</div>
-    <div class="leg-item"><div class="leg-dot" style="background:var(--eng)"></div>ENG1001 — English</div>
-    <div class="leg-item"><div class="leg-dot" style="background:var(--lab)"></div>Lab Session</div>
-    <div class="leg-item"><div class="leg-dot" style="background:var(--tut)"></div>Tutorial</div>
+    <div class="leg"><div class="leg-d" style="background:var(--mat)"></div>MAT1002 · Maths II</div>
+    <div class="leg"><div class="leg-d" style="background:var(--ece)"></div>ECE1002 · FEEE</div>
+    <div class="leg"><div class="leg-d" style="background:var(--cse)"></div>CSE2005 · Java</div>
+    <div class="leg"><div class="leg-d" style="background:var(--chy)"></div>CHY1009 · Chemistry</div>
+    <div class="leg"><div class="leg-d" style="background:var(--eng)"></div>ENG1001 · English</div>
+    <div class="leg"><div class="leg-d" style="background:var(--lab)"></div>Lab</div>
   </div>
 
-  <!-- DAY TABS -->
   <div class="day-tabs" id="day-tabs"></div>
-
-  <!-- TIMETABLE -->
-  <div class="tt-grid" id="tt-grid"></div>
+  <div class="tt" id="tt"></div>
 </div>
 
 <script>
-// ═══════════════════════════════════════════════════════
-// SUBJECT MASTER TABLE
-// ═══════════════════════════════════════════════════════
-const SUBS = {
-  MAT: { name:'Engineering Mathematics II', code:'MAT1002', cls:'mat', accent:'accent-mat', type:'TH' },
-  ECE: { name:'Fund. of Electrical & Electronics Engg.', code:'ECE1002', cls:'ece', accent:'accent-ece', type:'TH' },
-  CSE: { name:'Java Programming', code:'CSE2005', cls:'cse', accent:'accent-cse', type:'TH' },
-  CHY: { name:'Engineering Chemistry', code:'CHY1009', cls:'chy', accent:'accent-chy', type:'TH' },
-  ENG: { name:'Technical English', code:'ENG1001', cls:'eng', accent:'accent-eng', type:'TH' },
-  LAB: { name:'Lab Session', code:'—', cls:'lab', accent:'accent-lab', type:'LA' },
-  TUT: { name:'Tutorial', code:'—', cls:'tut', accent:'accent-tut', type:'TU' },
+// ═══════════════════════════════════
+// SUBJECT MASTER
+// ═══════════════════════════════════
+const S={
+  MAT:{name:'Engineering Mathematics II',  code:'MAT1002',cls:'mat',a:'a-mat',type:'TH'},
+  ECE:{name:'Fund. of Electrical & Electronics',code:'ECE1002',cls:'ece',a:'a-ece',type:'ETH'},
+  CSE:{name:'OOPs using Java',              code:'CSE2005',cls:'cse',a:'a-cse',type:'ETH'},
+  CHY:{name:'Engineering Chemistry',        code:'CHY1009',cls:'chy',a:'a-chy',type:'ETH'},
+  ENG:{name:'Technical English',            code:'ENG1001',cls:'eng',a:'a-eng',type:'ETH'},
+  LAB:{name:'Lab Session',                  code:'—',      cls:'lab',a:'a-lab',type:'LA'},
 };
 
-// ═══════════════════════════════════════════════════════
-// TIMETABLE DATA
-// Each slot decoded from VTOP format:
-// e.g. E1-MAT1002-TH-G02-AB-1-ALL means:
-//   slot=E1, course=MAT1002, type=TH(theory), room=G02, block=AB, floor=1, section=ALL
-//
-// Slot entry fields:
-//   t/e = start/end time
-//   k   = subject key from SUBS
-//   s   = VIT slot code (E1, F1, D2, C1, G2...)
-//   v   = class type (TH=Theory / ETH=Engg Theory / LA=Lab / ELA=Engg Lab)
-//   room= room number
-//   blk = block-floor (e.g. AB-1)
-//   sec = section (ALL, CB-ALL, etc.)
-//   note= override display name (for tutorials)
-//   free= true for no class
-//   brk = true for break row, lbl = label
-// ═══════════════════════════════════════════════════════
-
-const TT = {
+// ═══════════════════════════════════
+// TIMETABLE
+// Slots: ENG=G2, MAT=E1+TE1+SE1, ECE=F1+TFF1, CHY=C1+TC1, CSE=D2+TDD2
+// Each: {t,e,k,s,v,room,blk,sec} | {brk,lbl} | {free,t,e}
+// v: TH=Theory, ETH=Engg Theory, LA=Lab, ELA=Engg Lab
+// blk: just block name (AB-1, AB-2, CB-ALL)
+// ═══════════════════════════════════
+const TT={
   Mon:[
-    { t:'08:00',e:'08:50', free:true },
-    { t:'09:00',e:'09:50', k:'TUT', s:'TA1',  v:'TH',  room:'—',  blk:'—',  sec:'—',   note:'Tutorial A (TA1)' },
-    { t:'10:00',e:'10:50', free:true },
-    { t:'11:00',e:'11:50', k:'TUT', s:'TB1',  v:'TH',  room:'—',  blk:'—',  sec:'—',   note:'Tutorial B (TB1)' },
-    { t:'12:00',e:'12:30', free:true },
-    { brk:true, lbl:'Lunch Break · 12:30 – 13:30' },
-    { t:'13:30',e:'14:20', k:'MAT', s:'E1',   v:'TH',  room:'G02',blk:'AB-1',sec:'ALL' },
-    { t:'14:30',e:'15:20', k:'MAT', s:'E1',   v:'TH',  room:'G02',blk:'AB-1',sec:'ALL' },
-    { t:'15:30',e:'16:20', free:true },
-    { t:'16:30',e:'17:20', k:'TUT', s:'TA2',  v:'TH',  room:'—',  blk:'—',  sec:'—',   note:'Tutorial A2 (TA2)' },
-    { t:'17:30',e:'18:20', free:true },
-    { t:'18:30',e:'19:20', k:'TUT', s:'TB2',  v:'TH',  room:'—',  blk:'—',  sec:'—',   note:'Tutorial B2 (TB2)' },
+    {free:true,t:'08:00',e:'08:50'},
+    {free:true,t:'09:00',e:'09:50'},
+    {free:true,t:'10:00',e:'10:50'},
+    {free:true,t:'11:00',e:'11:50'},
+    {free:true,t:'12:00',e:'12:30'},
+    {brk:true,lbl:'Lunch Break · 12:30 – 13:30'},
+    {t:'13:30',e:'14:20',k:'MAT',s:'E1',  v:'TH', room:'G02',blk:'AB-1',sec:'ALL'},
+    {t:'14:30',e:'15:20',k:'MAT',s:'E1',  v:'TH', room:'G02',blk:'AB-1',sec:'ALL'},
+    {free:true,t:'15:30',e:'16:20'},
+    {free:true,t:'16:30',e:'17:20'},
+    {free:true,t:'17:30',e:'18:20'},
+    {free:true,t:'18:30',e:'19:20'},
   ],
   Tue:[
-    { t:'08:00',e:'08:50', k:'TUT', s:'TFF1', v:'ETH', room:'406',blk:'AB-1',sec:'ALL', note:'Tutorial FF · FEEE (TFF1)' },
-    { t:'09:00',e:'09:50', k:'MAT', s:'A1',   v:'TH',  room:'—',  blk:'AB-1',sec:'ALL' },
-    { t:'10:00',e:'10:50', k:'ECE', s:'SE2',  v:'ETH', room:'406',blk:'AB-1',sec:'ALL' },
-    { t:'11:00',e:'11:50', k:'MAT', s:'B1',   v:'TH',  room:'—',  blk:'AB-1',sec:'ALL' },
-    { t:'12:00',e:'12:30', k:'ECE', s:'SD2',  v:'ETH', room:'406',blk:'AB-1',sec:'ALL' },
-    { brk:true, lbl:'Lunch Break · 12:30 – 13:30' },
-    { t:'13:30',e:'14:20', k:'CHY', s:'C1',   v:'TH',  room:'—',  blk:'CB-ALL',sec:'ALL' },
-    { t:'14:30',e:'15:20', k:'CSE', s:'D1',   v:'ETH', room:'219',blk:'AB-1',sec:'ALL' },
-    { t:'15:30',e:'16:20', free:true },
-    { t:'16:30',e:'17:20', free:true },
-    { t:'17:30',e:'18:20', k:'ECE', s:'F2',   v:'ETH', room:'406',blk:'AB-1',sec:'ALL' },
-    { t:'18:30',e:'19:20', k:'TUT', s:'TDD2', v:'ETH', room:'—',  blk:'—',  sec:'—',   note:'Tutorial DD · Java (TDD2)' },
+    {t:'08:00',e:'08:50',k:'ECE',s:'TFF1',v:'ETH',room:'406',blk:'AB-1',sec:'ALL'},
+    {t:'09:00',e:'09:50',k:'MAT',s:'TE1', v:'TH', room:'G02',blk:'AB-1',sec:'ALL'},
+    {t:'10:00',e:'10:50',k:'ECE',s:'F1',  v:'ETH',room:'406',blk:'AB-1',sec:'ALL'},
+    {free:true,t:'11:00',e:'11:50'},
+    {free:true,t:'12:00',e:'12:30'},
+    {brk:true,lbl:'Lunch Break · 12:30 – 13:30'},
+    {t:'13:30',e:'14:20',k:'CHY',s:'C1',  v:'ETH',room:'313',blk:'AB-2',sec:'ALL'},
+    {t:'14:30',e:'15:20',k:'CSE',s:'D2',  v:'ETH',room:'219',blk:'AB-1',sec:'ALL'},
+    {free:true,t:'15:30',e:'16:20'},
+    {free:true,t:'16:30',e:'17:20'},
+    {t:'17:30',e:'18:20',k:'ENG',s:'G2',  v:'ETH',room:'320',blk:'AB-1',sec:'ALL'},
+    {free:true,t:'18:30',e:'19:20'},
   ],
   Wed:[
-    { t:'08:00',e:'08:50', k:'TUT', s:'TEE1', v:'ETH', room:'—',  blk:'—',  sec:'—',   note:'Tutorial EE · FEEE (TEE1)' },
-    { t:'09:00',e:'09:50', k:'CSE', s:'D1',   v:'ETH', room:'219',blk:'AB-1',sec:'ALL' },
-    { t:'10:00',e:'10:50', k:'ECE', s:'F1',   v:'ETH', room:'406',blk:'AB-1',sec:'ALL' },
-    { t:'11:00',e:'11:50', free:true },
-    { t:'12:00',e:'12:30', k:'MAT', s:'G1',   v:'TH',  room:'G02',blk:'AB-1',sec:'ALL' },
-    { brk:true, lbl:'Lunch Break · 12:30 – 13:30' },
-    { t:'13:30',e:'14:20', k:'TUT', s:'TE1',  v:'TH',  room:'—',  blk:'—',  sec:'—',   note:'Tutorial E · Maths (TE1)' },
-    { t:'14:30',e:'15:20', k:'MAT', s:'B1',   v:'TH',  room:'G02',blk:'AB-1',sec:'ALL' },
-    { t:'15:30',e:'16:20', k:'CSE', s:'SC2',  v:'ETH', room:'219',blk:'AB-1',sec:'ALL' },
-    { t:'16:30',e:'17:20', k:'CSE', s:'D2',   v:'ETH', room:'219',blk:'AB-1',sec:'ALL' },
-    { t:'17:30',e:'18:20', free:true },
-    { t:'18:30',e:'19:20', k:'ENG', s:'G2',   v:'ETH', room:'320',blk:'AB-1',sec:'ALL' },
+    {free:true,t:'08:00',e:'08:50'},
+    {t:'09:00',e:'09:50',k:'CSE',s:'TDD2',v:'ETH',room:'219',blk:'AB-1',sec:'ALL'},
+    {t:'10:00',e:'10:50',k:'ECE',s:'F1',  v:'ETH',room:'406',blk:'AB-1',sec:'ALL'},
+    {free:true,t:'11:00',e:'11:50'},
+    {t:'12:00',e:'12:30',k:'MAT',s:'SE1', v:'TH', room:'G02',blk:'AB-1',sec:'ALL'},
+    {brk:true,lbl:'Lunch Break · 12:30 – 13:30'},
+    {t:'13:30',e:'14:20',k:'MAT',s:'E1',  v:'TH', room:'G02',blk:'AB-1',sec:'ALL'},
+    {free:true,t:'14:30',e:'15:20'},
+    {t:'15:30',e:'16:20',k:'CHY',s:'TC1', v:'ETH',room:'313',blk:'AB-2',sec:'ALL'},
+    {t:'16:30',e:'17:20',k:'CSE',s:'D2',  v:'ETH',room:'219',blk:'AB-1',sec:'ALL'},
+    {free:true,t:'17:30',e:'18:20'},
+    {t:'18:30',e:'19:20',k:'ENG',s:'G2',  v:'ETH',room:'320',blk:'AB-1',sec:'ALL'},
   ],
   Thu:[
-    { t:'08:00',e:'08:50', k:'TUT', s:'TG1',  v:'TH',  room:'—',  blk:'—',  sec:'—',   note:'Tutorial G · English (TG1)' },
-    { t:'09:00',e:'09:50', k:'CHY', s:'C1',   v:'ETH', room:'313',blk:'AB-2',sec:'ALL' },
-    { t:'10:00',e:'10:50', free:true },
-    { t:'11:00',e:'11:50', k:'CSE', s:'D1',   v:'ETH', room:'219',blk:'AB-1',sec:'ALL' },
-    { t:'12:00',e:'12:30', k:'MAT', s:'A1',   v:'TH',  room:'G02',blk:'AB-1',sec:'ALL' },
-    { brk:true, lbl:'Lunch Break · 12:30 – 13:30' },
-    { t:'13:30',e:'14:20', k:'ECE', s:'SB2',  v:'ETH', room:'406',blk:'AB-1',sec:'ALL' },
-    { t:'14:30',e:'15:20', k:'ECE', s:'F1',   v:'ETH', room:'406',blk:'AB-1',sec:'ALL' },
-    { t:'15:30',e:'16:20', free:true },
-    { t:'16:30',e:'17:20', free:true },
-    { t:'17:30',e:'18:20', k:'MAT', s:'E2',   v:'TH',  room:'G02',blk:'AB-1',sec:'ALL' },
-    { t:'18:30',e:'19:20', k:'CSE', s:'D2',   v:'ETH', room:'219',blk:'AB-1',sec:'ALL' },
+    {t:'08:00',e:'08:50',k:'ECE',s:'TFF1',v:'ETH',room:'406',blk:'AB-1',sec:'ALL'},
+    {t:'09:00',e:'09:50',k:'CHY',s:'C1',  v:'ETH',room:'313',blk:'AB-2',sec:'ALL'},
+    {free:true,t:'10:00',e:'10:50'},
+    {t:'11:00',e:'11:50',k:'MAT',s:'TE1', v:'TH', room:'G02',blk:'AB-1',sec:'ALL'},
+    {t:'12:00',e:'12:30',k:'MAT',s:'E1',  v:'TH', room:'G02',blk:'AB-1',sec:'ALL'},
+    {brk:true,lbl:'Lunch Break · 12:30 – 13:30'},
+    {free:true,t:'13:30',e:'14:20'},
+    {t:'14:30',e:'15:20',k:'ECE',s:'F1',  v:'ETH',room:'406',blk:'AB-1',sec:'ALL'},
+    {free:true,t:'15:30',e:'16:20'},
+    {free:true,t:'16:30',e:'17:20'},
+    {t:'17:30',e:'18:20',k:'MAT',s:'SE1', v:'TH', room:'G02',blk:'AB-1',sec:'ALL'},
+    {t:'18:30',e:'19:20',k:'CSE',s:'D2',  v:'ETH',room:'219',blk:'AB-1',sec:'ALL'},
   ],
   Fri:[
-    { t:'08:00',e:'08:50', k:'TUT', s:'TOD1', v:'TH',  room:'—',  blk:'—',  sec:'—',   note:'Tutorial OD (TOD1)' },
-    { t:'09:00',e:'09:50', k:'MAT', s:'B1',   v:'TH',  room:'G02',blk:'AB-1',sec:'ALL' },
-    { t:'10:00',e:'10:50', k:'CHY', s:'SA2',  v:'ETH', room:'313',blk:'AB-2',sec:'ALL' },
-    { t:'11:00',e:'11:50', k:'MAT', s:'A1',   v:'TH',  room:'G02',blk:'AB-1',sec:'ALL' },
-    { t:'12:00',e:'12:30', k:'ECE', s:'SF2',  v:'ETH', room:'406',blk:'AB-1',sec:'ALL' },
-    { brk:true, lbl:'Lunch Break · 12:30 – 13:30' },
-    { t:'13:30',e:'14:20', k:'ENG', s:'G1',   v:'ETH', room:'320',blk:'AB-1',sec:'ALL' },
-    { t:'14:30',e:'15:20', k:'TUT', s:'TF1',  v:'TH',  room:'—',  blk:'—',  sec:'—',   note:'Tutorial F · Maths (TF1)' },
-    { t:'15:30',e:'16:20', k:'MAT', s:'E1',   v:'TH',  room:'G02',blk:'AB-1',sec:'ALL' },
-    { t:'16:30',e:'17:20', free:true },
-    { t:'17:30',e:'18:20', k:'MAT', s:'SE1',  v:'TH',  room:'G02',blk:'AB-1',sec:'ALL' },
-    { t:'18:30',e:'19:20', k:'ENG', s:'G2',   v:'ETH', room:'320',blk:'AB-1',sec:'ALL' },
+    {t:'08:00',e:'08:50',k:'CHY',s:'TC1', v:'ETH',room:'313',blk:'AB-2',sec:'ALL'},
+    {t:'09:00',e:'09:50',k:'MAT',s:'E1',  v:'TH', room:'G02',blk:'AB-1',sec:'ALL'},
+    {t:'10:00',e:'10:50',k:'CHY',s:'C1',  v:'ETH',room:'313',blk:'AB-2',sec:'ALL'},
+    {t:'11:00',e:'11:50',k:'MAT',s:'TE1', v:'TH', room:'G02',blk:'AB-1',sec:'ALL'},
+    {t:'12:00',e:'12:30',k:'ECE',s:'F1',  v:'ETH',room:'406',blk:'AB-1',sec:'ALL'},
+    {brk:true,lbl:'Lunch Break · 12:30 – 13:30'},
+    {t:'13:30',e:'14:20',k:'ENG',s:'G2',  v:'ETH',room:'320',blk:'AB-1',sec:'ALL'},
+    {free:true,t:'14:30',e:'15:20'},
+    {t:'15:30',e:'16:20',k:'MAT',s:'SE1', v:'TH', room:'G02',blk:'AB-1',sec:'ALL'},
+    {free:true,t:'16:30',e:'17:20'},
+    {t:'17:30',e:'18:20',k:'CSE',s:'TDD2',v:'ETH',room:'219',blk:'AB-1',sec:'ALL'},
+    {t:'18:30',e:'19:20',k:'ECE',s:'TFF1',v:'ETH',room:'406',blk:'AB-1',sec:'ALL'},
   ],
   Sat:[
-    { t:'08:00',e:'08:50', k:'TUT', s:'TC1',  v:'ETH', room:'313',blk:'AB-2',sec:'ALL', note:'Tutorial C · Chemistry (TC1)' },
-    { t:'09:00',e:'09:50', k:'CHY', s:'C1',   v:'ETH', room:'313',blk:'AB-2',sec:'ALL' },
-    { t:'10:00',e:'10:50', k:'ECE', s:'F1',   v:'ETH', room:'406',blk:'AB-1',sec:'ALL' },
-    { t:'11:00',e:'11:50', free:true },
-    { t:'12:00',e:'12:30', k:'ENG', s:'G1',   v:'ETH', room:'320',blk:'AB-1',sec:'ALL' },
-    { brk:true, lbl:'Lunch Break · 12:30 – 13:30' },
-    { t:'13:30',e:'14:20', k:'TUT', s:'TD1',  v:'ETH', room:'—',  blk:'—',  sec:'—',   note:'Tutorial D · Java (TD1)' },
-    { t:'14:30',e:'15:20', k:'ECE', s:'F1',   v:'ETH', room:'406',blk:'AB-1',sec:'ALL' },
-    { t:'15:30',e:'16:20', free:true },
-    { t:'16:30',e:'17:20', k:'ENG', s:'G2',   v:'ETH', room:'320',blk:'AB-1',sec:'ALL' },
-    { t:'17:30',e:'18:20', k:'CSE', s:'D2',   v:'ETH', room:'219',blk:'AB-1',sec:'ALL' },
-    { t:'18:30',e:'19:20', k:'CHY', s:'C2',   v:'ETH', room:'313',blk:'AB-2',sec:'ALL' },
+    {t:'08:00',e:'08:50',k:'CHY',s:'TC1', v:'ETH',room:'313',blk:'AB-2',sec:'ALL'},
+    {t:'09:00',e:'09:50',k:'CHY',s:'C1',  v:'ETH',room:'313',blk:'AB-2',sec:'ALL'},
+    {t:'10:00',e:'10:50',k:'ECE',s:'F1',  v:'ETH',room:'406',blk:'AB-1',sec:'ALL'},
+    {free:true,t:'11:00',e:'11:50'},
+    {t:'12:00',e:'12:30',k:'ENG',s:'G2',  v:'ETH',room:'320',blk:'AB-1',sec:'ALL'},
+    {brk:true,lbl:'Lunch Break · 12:30 – 13:30'},
+    {t:'13:30',e:'14:20',k:'CSE',s:'TDD2',v:'ETH',room:'219',blk:'AB-1',sec:'ALL'},
+    {t:'14:30',e:'15:20',k:'ECE',s:'F1',  v:'ETH',room:'406',blk:'AB-1',sec:'ALL'},
+    {free:true,t:'15:30',e:'16:20'},
+    {t:'16:30',e:'17:20',k:'MAT',s:'E1',  v:'TH', room:'G02',blk:'AB-1',sec:'ALL'},
+    {t:'17:30',e:'18:20',k:'CSE',s:'D2',  v:'ETH',room:'219',blk:'AB-1',sec:'ALL'},
+    {t:'18:30',e:'19:20',k:'CHY',s:'C1',  v:'ETH',room:'313',blk:'AB-2',sec:'ALL'},
   ],
 };
 
-// Lab sessions from LAB rows in VTOP
-const LABS = {
-  Mon:[{ t:'08:00',e:'09:40', k:'LAB', s:'L61-L62', v:'LA',  room:'—', blk:'—',   sec:'—',   note:'Lab · L61–L62 (refer VTOP for assignment)' }],
-  Tue:[{ t:'13:30',e:'15:10', k:'LAB', s:'L31-L32', v:'ELA', room:'—', blk:'AB-1',sec:'ALL',  note:'ENG1002 / ELA Lab · L31–L32' }],
-  Wed:[{ t:'08:00',e:'09:40', k:'LAB', s:'L7-L8',   v:'LA',  room:'—', blk:'—',   sec:'—',   note:'Lab · L7–L8 (refer VTOP for assignment)' }],
-  Thu:[
-    { t:'08:00',e:'09:40', k:'LAB', s:'L13-L14', v:'LA',  room:'IB1023',blk:'—',  sec:'—',   note:'Lab · L13–L14 · IB1023/ONL01004-CNL' },
-    { t:'17:30',e:'19:10', k:'LAB', s:'L47-L48', v:'ELA', room:'—',    blk:'—',  sec:'—',   note:'ECE1002 / ELA-211 Lab · L47–L48' },
-  ],
+// LAB SESSIONS — corrected per user
+const LABS={
+  Mon:[],
+  Tue:[{t:'13:30',e:'15:10',k:'LAB',s:'L31+L32',v:'ELA',room:'—',blk:'AB-1',sec:'ALL',note:'English Lab · ENG1001'}],
+  Wed:[],
+  Thu:[{t:'17:30',e:'19:10',k:'LAB',s:'L47+L48',v:'ELA',room:'406',blk:'AB-1',sec:'ALL',note:'FEEE Lab · ECE1002'}],
   Fri:[
-    { t:'08:00',e:'09:40', k:'LAB', s:'L15-L20', v:'ELA', room:'—',   blk:'CB-ALL',sec:'ALL', note:'CSE2005 / ELA Lab · L15–L20 · CB-ALL' },
-    { t:'10:50',e:'12:30', k:'LAB', s:'L21-L22', v:'ELA', room:'123', blk:'CB-ALL',sec:'ALL', note:'CHY1009 / ELA-123 Lab · L21–L22' },
+    {t:'08:00',e:'09:40',k:'LAB',s:'L19+L20',v:'ELA',room:'—',blk:'AB-1',sec:'ALL',note:'Java Lab · CSE2005'},
+    {t:'10:50',e:'12:30',k:'LAB',s:'L21+L22',v:'ELA',room:'123',blk:'CB-ALL',sec:'ALL',note:'Chemistry Lab · CHY1009'},
   ],
-  Sat:[{ t:'08:00',e:'09:40', k:'LAB', s:'L25-L26', v:'ETH', room:'313', blk:'AB-2',sec:'—',  note:'CHY1009 Lab · L25–L26 · ETH-313-AB-2' }],
+  Sat:[],
 };
 
-// ═══════════════════════════════════════════════════════
-// HELPERS
-// ═══════════════════════════════════════════════════════
+// ── helpers ──
 function toM(t){const[h,m]=t.split(':').map(Number);return h*60+m;}
 function nowM(){const n=new Date();return n.getHours()*60+n.getMinutes();}
 function todayKey(){return['Sun','Mon','Tue','Wed','Thu','Fri','Sat'][new Date().getDay()];}
 function p2(n){return String(n).padStart(2,'0');}
-function dateStr(offset=0){const d=new Date();d.setDate(d.getDate()+offset);return `${d.getDate()}/${d.getMonth()+1}`;}
-
-// Type labels & pill classes
-function typeMeta(v){
-  if(!v) return {label:'—',pill:'pill-th'};
-  const m={
-    'TH' :{label:'Theory · TH',    pill:'pill-th'},
-    'ETH':{label:'Engg Theory · ETH',pill:'pill-th'},
-    'LA' :{label:'Lab · LA',       pill:'pill-la'},
-    'ELA':{label:'Engg Lab · ELA', pill:'pill-la'},
-    'TU' :{label:'Tutorial · TU',  pill:'pill-tu'},
-  };
-  return m[v]||{label:v,pill:'pill-th'};
-}
 
 let activeDay='';
 
-function slotStatus(p){
-  if(activeDay!==todayKey()) return '';
+function status(p){
+  if(activeDay!==todayKey())return'';
   const nm=nowM(),s=toM(p.t),e=toM(p.e);
-  if(nm>=s&&nm<e) return 'now';
-  if(nm>=e) return 'past';
-  return '';
+  if(nm>=s&&nm<e)return'now';if(nm>=e)return'past';return'';
 }
 
-// ═══════════════════════════════════════════════════════
-// RENDER SLOT CARD
-// ═══════════════════════════════════════════════════════
-function renderSlot(p, idx, isLab=false){
-  if(p.brk) return `
-    <div class="tt-break" style="transition-delay:${idx*.03}s">
-      <div></div>
-      <div class="tt-break-right">
-        <span class="tt-break-lbl">${p.lbl}</span>
-        <div class="tt-break-line"></div>
-      </div>
-    </div>`;
+function typeLabel(v){
+  return{TH:'Theory · TH',ETH:'Engg Theory · ETH',LA:'Lab · LA',ELA:'Engg Lab · ELA'}[v]||v;
+}
 
-  if(p.free) return `
-    <div class="tt-row vis" style="transition-delay:${idx*.03}s">
-      <div class="tt-time">
-        <span class="tt-time-start">${p.t}</span>
-        <span class="tt-time-end">${p.e}</span>
-      </div>
-      <div class="slot-card slot-free">
-        <div class="slot-subject-name free-name">Free Period</div>
-      </div>
-    </div>`;
+function renderSlot(p,i){
+  if(p.brk) return `<div class="tt-brk"><div></div><div class="tt-brk-r"><span class="tt-brk-txt">${p.lbl}</span><div class="tt-brk-line"></div></div></div>`;
+  if(p.free) return `<div class="tt-row vis" style="transition-delay:${i*.03}s"><div class="tt-time"><span class="tt-ts">${p.t}</span><span class="tt-te">${p.e}</span></div><div class="card card-free"><div class="card-name free-name">Free Period</div></div></div>`;
 
-  const sub = SUBS[p.k];
-  const status = slotStatus(p);
-  const pastCls = status==='past'?'slot-past':'';
-  const {label:typeLabel, pill:pillCls} = typeMeta(p.v);
-
-  // Decode room info:
-  // v (TH/ETH) = class type, room = room number, blk = block-floor, sec = section
-  const roomFull = p.room && p.room!=='—' ? `Room ${p.room}` : '—';
-  const blockFull = p.blk && p.blk!=='—' ? p.blk.replace('-',' · Floor ') : '—';
-  const typeKey = p.k==='TUT'?'TU': p.k==='LAB'?'LA': sub.type;
+  const sub=S[p.k], st=status(p);
+  const isPast=st==='past', isNow=st==='now';
+  const isLab=p.k==='LAB'||p.v==='LA'||p.v==='ELA';
+  const pillCls=isLab?'pill-la':'pill-th';
+  const pillTxt=isLab?'Lab':'Theory';
 
   return `
-    <div class="tt-row" style="transition-delay:${idx*.03}s">
-      <div class="tt-time">
-        <span class="tt-time-start">${p.t}</span>
-        <span class="tt-time-end">${p.e}</span>
-      </div>
-      <div class="slot-card slot-${sub.cls} ${pastCls}">
-        ${status==='now'?`<div class="slot-now-badge"><span class="now-dot"></span>NOW</div>`:''}
-        <div class="slot-top">
-          <div class="slot-subject-name">${p.note||sub.name}</div>
-          <span class="pill ${pillCls}">${typeKey==='TU'?'Tutorial':typeKey==='LA'?'Lab':'Theory'}</span>
+    <div class="tt-row" style="transition-delay:${i*.03}s">
+      <div class="tt-time"><span class="tt-ts">${p.t}</span><span class="tt-te">${p.e}</span></div>
+      <div class="card card-${sub.cls} ${isPast?'card-past':''}">
+        ${isNow?`<div class="now-badge"><span class="now-dot"></span>NOW</div>`:''}
+        <div class="card-top">
+          <div class="card-name">${p.note||sub.name}</div>
+          <span class="pill ${pillCls}">${pillTxt}</span>
         </div>
-        <div class="slot-info">
-          <div class="info-chip">
-            <span class="info-chip-lbl">Course Code</span>
-            <span class="info-chip-val ${sub.accent}">${sub.code}</span>
-          </div>
-          <div class="info-chip">
-            <span class="info-chip-lbl">Slot Code</span>
-            <span class="info-chip-val ${sub.accent}">${p.s}</span>
-          </div>
-          <div class="info-chip">
-            <span class="info-chip-lbl">Class Type</span>
-            <span class="info-chip-val">${p.v||'—'} — ${p.v==='TH'?'Theory':p.v==='ETH'?'Engg Theory':p.v==='LA'?'Lab':p.v==='ELA'?'Engg Lab':'Tutorial'}</span>
-          </div>
-          <div class="info-chip">
-            <span class="info-chip-lbl">Room No.</span>
-            <span class="info-chip-val">${roomFull}</span>
-          </div>
-          <div class="info-chip">
-            <span class="info-chip-lbl">Block · Floor</span>
-            <span class="info-chip-val">${p.blk&&p.blk!=='—'?p.blk:'—'}</span>
-          </div>
-          <div class="info-chip">
-            <span class="info-chip-lbl">Section</span>
-            <span class="info-chip-val">${p.sec||'—'}</span>
-          </div>
+        <div class="chips">
+          <div class="chip"><span class="chip-lbl">Course Code</span><span class="chip-val ${sub.a}">${sub.code}</span></div>
+          <div class="chip"><span class="chip-lbl">Slot</span><span class="chip-val ${sub.a}">${p.s}</span></div>
+          <div class="chip"><span class="chip-lbl">Type</span><span class="chip-val">${typeLabel(p.v)}</span></div>
+          <div class="chip"><span class="chip-lbl">Room</span><span class="chip-val">${p.room&&p.room!=='—'?'Room '+p.room:'—'}</span></div>
+          <div class="chip"><span class="chip-lbl">Block</span><span class="chip-val">${p.blk||'—'}</span></div>
+          <div class="chip"><span class="chip-lbl">Section</span><span class="chip-val">${p.sec||'—'}</span></div>
         </div>
       </div>
     </div>`;
 }
 
 function renderGrid(day){
-  const grid=document.getElementById('tt-grid');
+  const grid=document.getElementById('tt');
   const theory=TT[day]||[];
   const labs=LABS[day]||[];
-
-  let html=`<div class="tt-section"><span class="tt-section-text">Theory &amp; Tutorials</span><div class="tt-section-line"></div></div>`;
+  let html='';
   theory.forEach((p,i)=>html+=renderSlot(p,i));
-
   if(labs.length){
-    html+=`<div class="tt-section"><span class="tt-section-text">Lab Sessions</span><div class="tt-section-line"></div></div>`;
-    labs.forEach((l,i)=>html+=renderSlot(l,i+theory.length,true));
+    html+=`<div class="rule"><span class="rule-text">Lab Sessions</span><div class="rule-line"></div></div>`;
+    labs.forEach((l,i)=>html+=renderSlot(l,i+theory.length));
   }
-
-  if(!theory.length&&!labs.length){
-    html=`<div class="empty-day"><div class="empty-day-icon">☀️</div><div class="empty-day-title">No classes today</div><div class="empty-day-sub">Enjoy the day off.</div></div>`;
-  }
-
+  if(!theory.length&&!labs.length) html=`<div class="empty-day"><div class="empty-day-icon">☀️</div><div class="empty-day-title">No classes today</div><div class="empty-day-sub">Enjoy the day off.</div></div>`;
   grid.innerHTML=html;
-  requestAnimationFrame(()=>{
-    grid.querySelectorAll('.tt-row').forEach((el,i)=>setTimeout(()=>el.classList.add('vis'),i*38));
-  });
+  requestAnimationFrame(()=>{grid.querySelectorAll('.tt-row').forEach((el,i)=>setTimeout(()=>el.classList.add('vis'),i*36));});
 }
 
 function renderTabs(){
@@ -505,37 +369,33 @@ function renderTabs(){
   const td=todayKey();
   const tdIdx=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'].indexOf(td);
   el.innerHTML=days.map((d,i)=>{
-    const off=i-(tdIdx===0?1:tdIdx-1);
+    const off=i-(Math.max(tdIdx-1,0));
+    const dt=new Date();dt.setDate(dt.getDate()+off);
+    const ds=`${dt.getDate()}/${dt.getMonth()+1}`;
     return `<button class="day-tab ${d===td?'is-today':''} ${d===activeDay?'active':''}" onclick="setDay('${d}')">
-      <span class="dt-name">${d}</span><span class="dt-date">${dateStr(off)}</span>
-    </button>`;
+      <span class="dt-n">${d}</span><span class="dt-d">${ds}</span></button>`;
   }).join('');
 }
 
 function setDay(d){activeDay=d;renderTabs();renderGrid(d);renderNextClass();}
 
 function renderNextClass(){
-  const td=todayKey();
-  const nc=document.getElementById('nc-name');
-  const nr=document.getElementById('nc-right');
-  const banner=document.getElementById('nc-banner');
-  banner.className='nc-banner is-free';
-
-  if(td==='Sun'){nc.textContent='No classes — it\'s Sunday ☀️';nr.innerHTML='Rest well.';return;}
-
-  const slots=[...(TT[td]||[]),...(LABS[td]||[])].filter(p=>!p.brk&&!p.free);
+  const td=todayKey(),nc=document.getElementById('nc'),ncN=document.getElementById('nc-name'),ncR=document.getElementById('nc-right');
+  nc.className='nc is-free';
+  if(td==='Sun'){ncN.textContent='No classes — Sunday ☀️';ncR.innerHTML='Rest well.';return;}
+  const all=[...(TT[td]||[]),...(LABS[td]||[])].filter(p=>!p.brk&&!p.free);
   const nm=nowM();
-  const cur=slots.find(p=>nm>=toM(p.t)&&nm<toM(p.e));
-  const nxt=slots.find(p=>toM(p.t)>nm);
-
-  function setBanner(p){
-    const sub=SUBS[p.k];
-    banner.className=`nc-banner is-${sub.cls}`;
-  }
-
-  if(cur){setBanner(cur);nc.textContent=cur.note||SUBS[cur.k].name;nr.innerHTML=`<span style="color:var(--green)">● In progress</span><br>${cur.t} – ${cur.e} · Slot ${cur.s}`;}
-  else if(nxt){setBanner(nxt);nc.textContent=nxt.note||SUBS[nxt.k].name;nr.innerHTML=`Starts ${nxt.t}<br>Slot ${nxt.s}${nxt.room&&nxt.room!=='—'?' · Room '+nxt.room+', '+nxt.blk:''}`;}
-  else{nc.textContent='No more classes today';nr.innerHTML='See you tomorrow 👋';}
+  const cur=all.find(p=>nm>=toM(p.t)&&nm<toM(p.e));
+  const nxt=all.find(p=>toM(p.t)>nm);
+  if(cur){
+    nc.className=`nc is-${S[cur.k].cls}`;
+    ncN.textContent=cur.note||S[cur.k].name;
+    ncR.innerHTML=`<span style="color:var(--green)">● In progress</span><br>${cur.t} – ${cur.e} · Slot ${cur.s}`;
+  }else if(nxt){
+    nc.className=`nc is-${S[nxt.k].cls}`;
+    ncN.textContent=nxt.note||S[nxt.k].name;
+    ncR.innerHTML=`Starts ${nxt.t}<br>Slot ${nxt.s}${nxt.room&&nxt.room!=='—'?' · Room '+nxt.room+', '+nxt.blk:''}`;
+  }else{ncN.textContent='No more classes today';ncR.innerHTML='See you tomorrow 👋';}
 }
 
 const td=todayKey();

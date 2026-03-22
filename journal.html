@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sreesanth · Journal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0c0b09;--bg2:#111009;--sf:#1d1b16;--sf2:#232018;--sf3:#2a271f;
+  --b:rgba(255,255,255,0.06);--b2:rgba(255,255,255,0.10);--b3:rgba(255,255,255,0.15);
+  --t1:#f2ede3;--t2:#c5bfb2;--t3:#857f74;--t4:#504b42;
+  --gold:#c8a86b;--gold2:#e6c88a;--gd:rgba(200,168,107,0.14);--gf:rgba(200,168,107,0.06);
+  --green:#6bc88d;--red:#c86b6b;
+  --display:'Cormorant Garamond',Georgia,serif;
+  --body:'DM Sans',system-ui,sans-serif;
+  --nav-h:56px;
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--t1);font-family:var(--body);font-size:14px;line-height:1.7;-webkit-font-smoothing:antialiased;min-height:100vh;}
+body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9998;opacity:.5;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='256' height='256'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='256' height='256' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");}
+
+.nav{position:sticky;top:0;z-index:500;height:var(--nav-h);display:flex;align-items:center;justify-content:space-between;padding:0 2.5rem;background:rgba(12,11,9,0.86);backdrop-filter:blur(24px);border-bottom:1px solid var(--b);}
+.nav-brand{font-family:var(--display);font-size:1.3rem;font-style:italic;font-weight:400;color:var(--gold);text-decoration:none;}
+.nav-links{display:flex;gap:2px;list-style:none;}
+.nav-links a{display:flex;align-items:center;gap:6px;padding:6px 13px;font-size:11px;font-weight:500;letter-spacing:.05em;text-transform:uppercase;color:var(--t3);text-decoration:none;border-radius:6px;transition:all .15s;}
+.nav-links a:hover{color:var(--t1);background:var(--sf);}
+.nav-links a.active{color:var(--gold);background:var(--gf);}
+
+/* ── LOCK SCREEN ── */
+#lock-screen {
+  position: fixed; inset: 0; z-index: 200;
+  background: var(--bg);
+  display: flex; align-items: center; justify-content: center;
+  flex-direction: column; gap: 0;
+}
+
+.lock-box {
+  background: var(--sf); border: 1px solid var(--b2);
+  border-radius: 16px; padding: 2.5rem 2.5rem 2rem;
+  width: 100%; max-width: 380px; text-align: center;
+}
+
+.lock-icon { font-size: 2rem; margin-bottom: 1rem; }
+.lock-title { font-family: var(--display); font-size: 1.8rem; font-style: italic; color: var(--t1); margin-bottom: .4rem; }
+.lock-sub { font-size: 12px; color: var(--t3); margin-bottom: 2rem; }
+
+.lock-input-wrap { position: relative; margin-bottom: 12px; }
+.lock-input {
+  width: 100%; background: var(--bg2); border: 1px solid var(--b2);
+  border-radius: 8px; padding: 12px 44px 12px 16px;
+  font-family: var(--body); font-size: 15px; color: var(--t1);
+  outline: none; letter-spacing: .1em; transition: border-color .2s;
+  text-align: center;
+}
+.lock-input:focus { border-color: var(--gold); }
+.lock-input.err { border-color: var(--red); animation: shake .3s ease; }
+@keyframes shake { 0%,100%{transform:translateX(0)} 25%{transform:translateX(-6px)} 75%{transform:translateX(6px)} }
+
+.toggle-vis {
+  position: absolute; right: 12px; top: 50%; transform: translateY(-50%);
+  background: none; border: none; cursor: pointer; color: var(--t4); font-size: 14px;
+  transition: color .15s;
+}
+.toggle-vis:hover { color: var(--t2); }
+
+.lock-btn {
+  width: 100%; background: var(--gold); border: none; border-radius: 8px;
+  padding: 12px; font-family: var(--body); font-size: 13px; font-weight: 600;
+  color: #0c0b09; cursor: pointer; transition: all .15s; letter-spacing: .03em;
+}
+.lock-btn:hover { background: var(--gold2); transform: translateY(-1px); }
+
+.lock-error { font-size: 11px; color: var(--red); margin-top: 10px; min-height: 16px; }
+.lock-hint { font-size: 11px; color: var(--t4); margin-top: 1rem; }
+.lock-hint a { color: var(--t3); text-decoration: none; }
+.lock-hint a:hover { color: var(--t1); }
+
+/* ── JOURNAL APP ── */
+#journal-app { display: none; }
+
+.layout { display: grid; grid-template-columns: 260px 1fr; min-height: calc(100vh - var(--nav-h)); }
+
+/* SIDEBAR */
+.sb { border-right: 1px solid var(--b); background: var(--bg2); position: sticky; top: var(--nav-h); height: calc(100vh - var(--nav-h)); overflow-y: auto; display: flex; flex-direction: column; }
+.sb::-webkit-scrollbar { width: 3px; }
+.sb::-webkit-scrollbar-thumb { background: var(--sf3); border-radius: 2px; }
+
+.sb-sec { padding: 1.25rem; border-bottom: 1px solid var(--b); }
+.sb-lbl { font-size: 9px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--t4); margin-bottom: .9rem; }
+
+.profile-row { display: flex; align-items: center; gap: 10px; }
+.av { width: 38px; height: 38px; border-radius: 9px; background: linear-gradient(135deg,var(--gold),#7a5828); display: flex; align-items: center; justify-content: center; font-family: var(--display); font-size: 1rem; font-style: italic; color: #0c0b09; font-weight: 700; flex-shrink: 0; }
+.p-name { font-size: 14px; font-weight: 600; color: var(--t1); }
+.p-role { font-size: 11px; color: var(--t3); }
+.p-status { display: flex; align-items: center; gap: 5px; font-size: 10px; color: var(--green); margin-top: 3px; font-weight: 500; }
+.p-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--green); animation: blink 2.5s infinite; }
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.2}}
+
+/* Sidebar nav */
+.sb-nav { display: flex; flex-direction: column; gap: 1px; }
+.sni { display: flex; align-items: center; gap: 9px; padding: 8px 10px; border-radius: 7px; font-size: 13px; font-weight: 400; color: var(--t2); cursor: pointer; transition: all .15s; user-select: none; }
+.sni:hover { background: var(--sf); color: var(--t1); }
+.sni.active { background: var(--gf); color: var(--gold); }
+.sni-icon { font-size: 14px; width: 20px; text-align: center; }
+.sni-count { margin-left: auto; font-size: 10px; font-weight: 600; color: var(--t4); background: var(--sf); padding: 1px 7px; border-radius: 20px; }
+.sni.active .sni-count { background: var(--gd); color: var(--gold); }
+
+/* Stats grid */
+.stats-g { display: grid; grid-template-columns: 1fr 1fr; gap: 7px; }
+.stat-b { background: var(--sf); border: 1px solid var(--b); border-radius: 8px; padding: 11px 12px; }
+.stat-num { font-family: var(--display); font-size: 1.55rem; font-style: italic; color: var(--gold); line-height: 1; }
+.stat-lbl { font-size: 10px; font-weight: 500; color: var(--t4); text-transform: uppercase; letter-spacing: .06em; margin-top: 3px; }
+
+/* Heatmap */
+.heatmap { display: flex; flex-direction: column; gap: 3px; }
+.hm-row { display: flex; gap: 3px; }
+.hm-cell { width: 11px; height: 11px; border-radius: 2px; background: var(--sf); border: 1px solid var(--b); transition: transform .1s; cursor: default; }
+.hm-cell:hover { transform: scale(1.3); }
+.hm-cell.l1 { background: rgba(200,168,107,.18); }
+.hm-cell.l2 { background: rgba(200,168,107,.38); }
+.hm-cell.l3 { background: rgba(200,168,107,.62); }
+.hm-cell.l4 { background: var(--gold); }
+
+/* Lock / unlock btn */
+.sb-foot { padding: 1rem 1.25rem; border-top: 1px solid var(--b); margin-top: auto; }
+.lock-out-btn { width: 100%; display: flex; align-items: center; justify-content: center; gap: 6px; padding: 8px; background: none; border: 1px solid var(--b2); border-radius: 7px; font-size: 11px; font-weight: 500; color: var(--t3); cursor: pointer; transition: all .15s; }
+.lock-out-btn:hover { color: var(--red); border-color: rgba(200,107,107,.3); }
+
+/* MAIN */
+.main { padding: 2.5rem 3rem; max-width: 760px; }
+
+.page-eyebrow { font-size: 10px; font-weight: 600; letter-spacing: .13em; text-transform: uppercase; color: var(--gold); margin-bottom: 6px; }
+.page-title { font-family: var(--display); font-size: clamp(2rem,5vw,3.2rem); font-style: italic; font-weight: 400; color: var(--t1); line-height: 1.05; }
+.page-sub { font-size: 13px; color: var(--t3); margin-top: 5px; margin-bottom: 2rem; }
+
+/* COMPOSER */
+.composer { background: var(--sf); border: 1px solid var(--b2); border-radius: 11px; overflow: hidden; margin-bottom: 2rem; transition: border-color .2s, box-shadow .2s; }
+.composer:focus-within { border-color: var(--gd); box-shadow: 0 0 0 3px var(--gf); }
+.comp-head { display: flex; align-items: center; gap: 10px; padding: 11px 16px; border-bottom: 1px solid var(--b); }
+.comp-av { width: 26px; height: 26px; border-radius: 6px; background: linear-gradient(135deg,var(--gold),#7a5828); display: flex; align-items: center; justify-content: center; font-family: var(--display); font-size: .65rem; font-style: italic; color: #0c0b09; font-weight: 700; }
+.comp-who { font-size: 12px; font-weight: 500; color: var(--t3); }
+.comp-when { margin-left: auto; font-size: 11px; color: var(--t4); }
+.comp-title { width: 100%; background: transparent; border: none; outline: none; font-family: var(--display); font-size: 1.4rem; font-style: italic; color: var(--t1); padding: 14px 16px 4px; line-height: 1.3; }
+.comp-title::placeholder { color: var(--t4); }
+.comp-body { width: 100%; background: transparent; border: none; outline: none; font-family: var(--body); font-size: 13.5px; color: var(--t2); padding: 4px 16px 16px; min-height: 100px; resize: none; line-height: 1.85; }
+.comp-body::placeholder { color: var(--t4); }
+.comp-foot { display: flex; align-items: center; gap: 8px; padding: 10px 14px; border-top: 1px solid var(--b); flex-wrap: wrap; }
+.mood-g { display: flex; align-items: center; gap: 4px; }
+.mood-lbl { font-size: 10px; font-weight: 600; color: var(--t4); text-transform: uppercase; letter-spacing: .06em; margin-right: 3px; }
+.mood-btn { background: none; border: 1px solid var(--b2); border-radius: 6px; padding: 4px 8px; font-size: 12px; cursor: pointer; transition: all .15s; }
+.mood-btn:hover,.mood-btn.sel { background: var(--sf3); border-color: var(--gd); }
+.tag-in { background: var(--bg); border: 1px solid var(--b); border-radius: 6px; padding: 5px 10px; font-family: var(--body); font-size: 11px; color: var(--t2); outline: none; width: 150px; }
+.tag-in:focus { border-color: var(--gd); }
+.tag-in::placeholder { color: var(--t4); }
+.save-btn { margin-left: auto; background: var(--gold); color: #0c0b09; border: none; border-radius: 7px; padding: 7px 18px; font-family: var(--body); font-size: 12px; font-weight: 700; cursor: pointer; transition: all .15s; }
+.save-btn:hover { background: var(--gold2); transform: translateY(-1px); }
+
+/* FILTER */
+.fbar { display: flex; align-items: center; gap: 6px; margin-bottom: 1.5rem; flex-wrap: wrap; }
+.fbar-lbl { font-size: 10px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--t4); }
+.fbtn { background: none; border: 1px solid var(--b); border-radius: 20px; padding: 4px 14px; font-size: 11px; font-weight: 500; color: var(--t3); cursor: pointer; transition: all .15s; }
+.fbtn:hover { border-color: var(--b2); color: var(--t1); }
+.fbtn.on { background: var(--gf); border-color: var(--gd); color: var(--gold); }
+
+/* ENTRIES */
+.entries { display: flex; flex-direction: column; gap: 10px; }
+.entry { background: var(--sf); border: 1px solid var(--b); border-radius: 10px; padding: 1.25rem 1.5rem; cursor: pointer; transition: all .2s; position: relative; overflow: hidden; }
+.entry::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; background: var(--b2); transition: background .2s; }
+.entry:hover { border-color: var(--b2); transform: translateY(-1px); box-shadow: 0 5px 20px rgba(0,0,0,.35); }
+.entry:hover::before { background: var(--gold); }
+.entry-meta { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; flex-wrap: wrap; }
+.entry-date { font-size: 11px; font-weight: 500; color: var(--t4); }
+.entry-mood { font-size: 13px; }
+.entry-tags { display: flex; gap: 4px; margin-left: auto; flex-wrap: wrap; }
+.etag { font-size: 9px; font-weight: 600; letter-spacing: .05em; text-transform: uppercase; padding: 2px 7px; border-radius: 4px; border: 1px solid var(--b2); color: var(--t4); }
+.entry-title { font-family: var(--display); font-size: 1.1rem; font-style: italic; color: var(--t1); margin-bottom: 5px; line-height: 1.3; }
+.entry-excerpt { font-size: 12.5px; color: var(--t3); line-height: 1.75; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.entry-foot { display: flex; justify-content: space-between; margin-top: 10px; padding-top: 10px; border-top: 1px solid var(--b); }
+.entry-read { font-size: 10px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--gold); }
+.entry-words { font-size: 10px; color: var(--t4); }
+
+.empty { text-align: center; padding: 4rem 2rem; }
+.empty-icon { font-size: 2rem; opacity: .3; margin-bottom: 12px; }
+.empty-title { font-family: var(--display); font-size: 1.1rem; font-style: italic; color: var(--t3); }
+.empty-sub { font-size: 11px; color: var(--t4); margin-top: 5px; }
+
+/* MODAL */
+.overlay { position: fixed; inset: 0; z-index: 600; background: rgba(0,0,0,.75); backdrop-filter: blur(8px); display: none; align-items: center; justify-content: center; padding: 2rem; }
+.overlay.open { display: flex; }
+.modal { background: var(--bg2); border: 1px solid var(--b2); border-radius: 14px; width: 100%; max-width: 660px; max-height: 88vh; overflow-y: auto; padding: 2.5rem; position: relative; box-shadow: 0 24px 80px rgba(0,0,0,.6); }
+.modal::-webkit-scrollbar { width: 3px; }
+.modal::-webkit-scrollbar-thumb { background: var(--sf3); border-radius: 2px; }
+.modal-close { position: absolute; top: 1rem; right: 1rem; background: var(--sf); border: 1px solid var(--b); border-radius: 6px; width: 30px; height: 30px; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 12px; color: var(--t3); transition: all .15s; }
+.modal-close:hover { color: var(--t1); }
+.modal-meta { font-size: 11px; color: var(--t4); margin-bottom: .9rem; display: flex; gap: 10px; flex-wrap: wrap; }
+.modal-title { font-family: var(--display); font-size: 1.8rem; font-style: italic; color: var(--t1); margin-bottom: 1.5rem; line-height: 1.15; }
+.modal-body { font-size: 15px; color: var(--t2); line-height: 1.95; white-space: pre-wrap; }
+
+@media(max-width:900px){
+  .layout { grid-template-columns: 1fr; }
+  .sb { position: static; height: auto; }
+  .main { padding: 1.5rem; }
+}
+@media(max-width:600px){
+  .nav { padding: 0 1rem; }
+  .nav-links a span:last-child { display: none; }
+}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <a class="nav-brand" href="index.html">Sreesanth.</a>
+  <ul class="nav-links">
+    <li><a href="index.html"><span>🏠</span><span>Home</span></a></li>
+    <li><a href="journal.html" class="active"><span>📓</span><span>Journal</span></a></li>
+    <li><a href="classes.html"><span>🗓</span><span>Classes</span></a></li>
+    <li><a href="tracker.html"><span>📊</span><span>Tracker</span></a></li>
+    <li><a href="education.html"><span>🎓</span><span>About</span></a></li>
+  </ul>
+</nav>
+
+<!-- LOCK SCREEN -->
+<div id="lock-screen">
+  <div class="lock-box">
+    <div class="lock-icon">🔒</div>
+    <div class="lock-title">Private Journal</div>
+    <div class="lock-sub">This journal is password protected.</div>
+    <div class="lock-input-wrap">
+      <input class="lock-input" id="pw-input" type="password" placeholder="Enter password" autocomplete="off" onkeydown="if(event.key==='Enter')tryUnlock()">
+      <button class="toggle-vis" onclick="toggleVis()" title="Show/hide">👁</button>
+    </div>
+    <button class="lock-btn" onclick="tryUnlock()">Unlock Journal →</button>
+    <div class="lock-error" id="lock-err"></div>
+    <div class="lock-hint"><a href="index.html">← Back to home</a></div>
+  </div>
+</div>
+
+<!-- JOURNAL APP (shown after unlock) -->
+<div id="journal-app">
+<div class="layout">
+  <!-- SIDEBAR -->
+  <aside class="sb">
+    <div class="sb-sec">
+      <div class="profile-row">
+        <div class="av">S</div>
+        <div>
+          <div class="p-name">Sreesanth</div>
+          <div class="p-role">B.Tech CSE · VIT-AP</div>
+          <div class="p-status"><span class="p-dot"></span>Writing today</div>
+        </div>
+      </div>
+    </div>
+    <div class="sb-sec">
+      <div class="sb-lbl">Navigate</div>
+      <div class="sb-nav">
+        <div class="sni active" onclick="applyFilter('all',this)"><span class="sni-icon">🏠</span>All Entries<span class="sni-count" id="cnt-all">0</span></div>
+        <div class="sni" onclick="applyFilter('learning',this)"><span class="sni-icon">📚</span>Learning<span class="sni-count" id="cnt-learning">0</span></div>
+        <div class="sni" onclick="applyFilter('reflection',this)"><span class="sni-icon">💭</span>Reflection<span class="sni-count" id="cnt-reflection">0</span></div>
+        <div class="sni" onclick="applyFilter('project',this)"><span class="sni-icon">⚙️</span>Projects<span class="sni-count" id="cnt-project">0</span></div>
+        <div class="sni" onclick="applyFilter('college',this)"><span class="sni-icon">🏫</span>College<span class="sni-count" id="cnt-college">0</span></div>
+        <div class="sni" onclick="applyFilter('dsa',this)"><span class="sni-icon">🌲</span>DSA<span class="sni-count" id="cnt-dsa">0</span></div>
+      </div>
+    </div>
+    <div class="sb-sec">
+      <div class="sb-lbl">Stats</div>
+      <div class="stats-g">
+        <div class="stat-b"><div class="stat-num" id="s-tot">0</div><div class="stat-lbl">Entries</div></div>
+        <div class="stat-b"><div class="stat-num" id="s-streak">1</div><div class="stat-lbl">Streak</div></div>
+        <div class="stat-b"><div class="stat-num" id="s-words">0</div><div class="stat-lbl">Words</div></div>
+        <div class="stat-b"><div class="stat-num" id="s-days">0</div><div class="stat-lbl">Days</div></div>
+      </div>
+    </div>
+    <div class="sb-sec">
+      <div class="sb-lbl">Activity</div>
+      <div class="heatmap" id="heatmap"></div>
+    </div>
+    <div class="sb-foot">
+      <button class="lock-out-btn" onclick="lockJournal()">🔒 Lock Journal</button>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="main">
+    <div class="page-eyebrow">Private · Authenticated</div>
+    <h1 class="page-title">Daily Journal</h1>
+    <p class="page-sub" id="today-str"></p>
+
+    <!-- COMPOSER -->
+    <div class="composer">
+      <div class="comp-head">
+        <div class="comp-av">S</div>
+        <span class="comp-who">New entry</span>
+        <span class="comp-when" id="comp-when"></span>
+      </div>
+      <input class="comp-title" id="ctitle" type="text" placeholder="What happened today?" maxlength="120">
+      <textarea class="comp-body" id="cbody" placeholder="Write freely — what did you learn, feel, build, or struggle with today?&#10;&#10;No filters. This is yours."></textarea>
+      <div class="comp-foot">
+        <div class="mood-g">
+          <span class="mood-lbl">Mood</span>
+          <button class="mood-btn" onclick="pickMood(this,'😊')">😊</button>
+          <button class="mood-btn" onclick="pickMood(this,'🔥')">🔥</button>
+          <button class="mood-btn" onclick="pickMood(this,'😤')">😤</button>
+          <button class="mood-btn" onclick="pickMood(this,'😴')">😴</button>
+          <button class="mood-btn" onclick="pickMood(this,'🤔')">🤔</button>
+          <button class="mood-btn" onclick="pickMood(this,'💪')">💪</button>
+        </div>
+        <input class="tag-in" id="ctags" type="text" placeholder="Tags: learning, dsa…">
+        <button class="save-btn" onclick="saveEntry()">Save →</button>
+      </div>
+    </div>
+
+    <!-- FILTER BAR -->
+    <div class="fbar">
+      <span class="fbar-lbl">Filter</span>
+      <button class="fbtn on" onclick="fBtn(this,'all')">All</button>
+      <button class="fbtn" onclick="fBtn(this,'learning')">Learning</button>
+      <button class="fbtn" onclick="fBtn(this,'reflection')">Reflection</button>
+      <button class="fbtn" onclick="fBtn(this,'project')">Project</button>
+      <button class="fbtn" onclick="fBtn(this,'dsa')">DSA</button>
+      <button class="fbtn" onclick="fBtn(this,'college')">College</button>
+    </div>
+
+    <div class="entries" id="entries"></div>
+  </main>
+</div>
+</div>
+
+<!-- MODAL -->
+<div class="overlay" id="overlay" onclick="maybeClose(event)">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <div class="modal-meta" id="mm"></div>
+    <div class="modal-title" id="mt"></div>
+    <div class="modal-body" id="mb"></div>
+  </div>
+</div>
+
+<script>
+// ── PASSWORD (change this to whatever you want) ──
+// SHA-256 hash of your password. Currently set to: "sreesanth2026"
+// To change: run btoa(yourpassword) or use a simple check below
+const PWD = 'sreesanth2026'; // <-- CHANGE THIS TO YOUR PASSWORD
+const SESSION_KEY = 'sj_auth';
+const DB_KEY = 'sree_journal_v4';
+
+// ── LOCK / UNLOCK ──
+function tryUnlock(){
+  const inp = document.getElementById('pw-input');
+  const err = document.getElementById('lock-err');
+  if(inp.value === PWD){
+    sessionStorage.setItem(SESSION_KEY,'1');
+    document.getElementById('lock-screen').style.display='none';
+    document.getElementById('journal-app').style.display='block';
+    err.textContent='';
+    renderAll();
+  } else {
+    inp.classList.add('err');
+    err.textContent='Incorrect password. Try again.';
+    setTimeout(()=>inp.classList.remove('err'),600);
+    inp.value='';
+  }
+}
+
+function toggleVis(){
+  const inp=document.getElementById('pw-input');
+  inp.type = inp.type==='password'?'text':'password';
+}
+
+function lockJournal(){
+  sessionStorage.removeItem(SESSION_KEY);
+  document.getElementById('lock-screen').style.display='flex';
+  document.getElementById('journal-app').style.display='none';
+  document.getElementById('pw-input').value='';
+}
+
+// Auto-unlock if session exists
+window.addEventListener('load',()=>{
+  if(sessionStorage.getItem(SESSION_KEY)==='1'){
+    document.getElementById('lock-screen').style.display='none';
+    document.getElementById('journal-app').style.display='block';
+    renderAll();
+  }
+});
+
+// ── DATA ──
+let db = JSON.parse(localStorage.getItem(DB_KEY)||'[]');
+let selMood='', curFilter='all';
+
+const MO=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+const WD=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+function fmt(ds){const d=new Date(ds+'T12:00:00');return `${WD[d.getDay()]}, ${d.getDate()} ${MO[d.getMonth()]} ${d.getFullYear()}`;}
+function todayStr(){const d=new Date();return `${d.getFullYear()}-${p2(d.getMonth()+1)}-${p2(d.getDate())}`;}
+function p2(n){return String(n).padStart(2,'0');}
+
+document.getElementById('today-str').textContent = fmt(todayStr());
+document.getElementById('comp-when').textContent = fmt(todayStr());
+
+// Seed data
+if(!db.length){
+  db=[
+    {id:1,date:'2026-03-22',title:'Started this portfolio — Day 0',body:'Decided to stop thinking and start building. This is the first entry. The site is live (locally at least). Journal is password protected — this is mine.\n\nGoal: write every day. Even if it\'s just two lines.',mood:'🔥',tags:['project'],words:44},
+    {id:2,date:'2026-03-15',title:'Java arrays feel intuitive',body:'Spent 2 hours on arrays and ArrayList today. Coming from Maths problem solving — pattern recognition is transferable. Wrote a small program to find duplicates in an array using HashMap.\n\nFirst time I felt like I actually understood what the code was doing, not just copying syntax.',mood:'😊',tags:['learning','dsa'],words:58},
+    {id:3,date:'2026-03-01',title:'Why I want to build things',body:'There\'s something permanent about software. A book can burn. A building can fall. But something you ship to the internet — someone, somewhere, is using it right now.\n\nThat permanence is what I want.',mood:'🤔',tags:['reflection'],words:46},
+  ];
+  localStorage.setItem(DB_KEY,JSON.stringify(db));
+}
+
+function pickMood(btn,m){document.querySelectorAll('.mood-btn').forEach(b=>b.classList.remove('sel'));btn.classList.add('sel');selMood=m;}
+
+function saveEntry(){
+  const t=document.getElementById('ctitle').value.trim();
+  const b=document.getElementById('cbody').value.trim();
+  if(!t||!b){flash();return;}
+  const tags=document.getElementById('ctags').value.split(',').map(s=>s.trim().toLowerCase()).filter(Boolean);
+  const words=b.split(/\s+/).filter(Boolean).length;
+  const e={id:Date.now(),date:todayStr(),title:t,body:b,mood:selMood||'📝',tags,words};
+  db.unshift(e);save();
+  document.getElementById('ctitle').value='';
+  document.getElementById('cbody').value='';
+  document.getElementById('ctags').value='';
+  selMood='';document.querySelectorAll('.mood-btn').forEach(b=>b.classList.remove('sel'));
+  renderAll();
+}
+function flash(){const c=document.querySelector('.composer');c.style.boxShadow='0 0 0 3px rgba(200,107,107,.25)';setTimeout(()=>c.style.boxShadow='',800);}
+
+function applyFilter(tag,el){
+  curFilter=tag;
+  document.querySelectorAll('.sni').forEach(e=>e.classList.remove('active'));
+  el.classList.add('active');
+  syncFBtns(); renderEntries();
+}
+function fBtn(btn,tag){
+  curFilter=tag;
+  document.querySelectorAll('.fbtn').forEach(b=>b.classList.remove('on'));
+  btn.classList.add('on');
+  syncSNav(); renderEntries();
+}
+function syncFBtns(){document.querySelectorAll('.fbtn').forEach(b=>{const t=b.textContent.trim().toLowerCase();b.classList.toggle('on',t===curFilter||(curFilter==='all'&&t==='all'));});}
+function syncSNav(){const tags=['all','learning','reflection','project','college','dsa'];document.querySelectorAll('.sni').forEach((el,i)=>el.classList.toggle('active',tags[i]===curFilter));}
+
+function renderEntries(){
+  const el=document.getElementById('entries');
+  const list=curFilter==='all'?db:db.filter(e=>e.tags&&e.tags.includes(curFilter));
+  if(!list.length){el.innerHTML=`<div class="empty"><div class="empty-icon">📭</div><div class="empty-title">Nothing here yet</div><div class="empty-sub">Start writing above.</div></div>`;return;}
+  el.innerHTML=list.map(e=>`
+    <div class="entry" onclick="openModal(${e.id})">
+      <div class="entry-meta">
+        <span class="entry-date">${fmt(e.date)}</span>
+        ${e.mood?`<span class="entry-mood">${e.mood}</span>`:''}
+        <div class="entry-tags">${(e.tags||[]).map(t=>`<span class="etag">${t}</span>`).join('')}</div>
+      </div>
+      <div class="entry-title">${e.title}</div>
+      <div class="entry-excerpt">${e.body}</div>
+      <div class="entry-foot"><span class="entry-read">Read →</span><span class="entry-words">${e.words} words</span></div>
+    </div>`).join('');
+}
+
+function renderStats(){
+  const w=db.reduce((s,e)=>s+(e.words||0),0);
+  const d=new Set(db.map(e=>e.date)).size;
+  document.getElementById('s-tot').textContent=db.length;
+  document.getElementById('s-words').textContent=w>999?(w/1000).toFixed(1)+'k':w;
+  document.getElementById('s-days').textContent=d;
+  document.getElementById('cnt-all').textContent=db.length;
+  ['learning','reflection','project','college','dsa'].forEach(c=>{
+    const el=document.getElementById('cnt-'+c);
+    if(el) el.textContent=db.filter(e=>e.tags&&e.tags.includes(c)).length;
+  });
+}
+
+function renderHeatmap(){
+  const hm=document.getElementById('heatmap');
+  const dc={};db.forEach(e=>{dc[e.date]=(dc[e.date]||0)+1;});
+  const start=new Date();start.setDate(start.getDate()-34);
+  let html='';
+  for(let w=0;w<5;w++){
+    html+='<div class="hm-row">';
+    for(let d=0;d<7;d++){
+      const dt=new Date(start);dt.setDate(start.getDate()+w*7+d);
+      const k=`${dt.getFullYear()}-${p2(dt.getMonth()+1)}-${p2(dt.getDate())}`;
+      const c=dc[k]||0;
+      const l=c===0?'':c===1?'l1':c===2?'l2':c<=3?'l3':'l4';
+      html+=`<div class="hm-cell ${l}" title="${k}: ${c} entries"></div>`;
+    }
+    html+='</div>';
+  }
+  hm.innerHTML=html;
+}
+
+function openModal(id){
+  const e=db.find(e=>e.id===id);if(!e)return;
+  document.getElementById('mm').innerHTML=`<span>${fmt(e.date)}</span>${e.mood?`<span>${e.mood}</span>`:''}<span>${e.words} words</span>`;
+  document.getElementById('mt').textContent=e.title;
+  document.getElementById('mb').textContent=e.body;
+  document.getElementById('overlay').classList.add('open');
+}
+function closeModal(){document.getElementById('overlay').classList.remove('open');}
+function maybeClose(e){if(e.target===document.getElementById('overlay'))closeModal();}
+function save(){localStorage.setItem(DB_KEY,JSON.stringify(db));}
+function renderAll(){renderEntries();renderStats();renderHeatmap();}
+</script>
+</body>
+</html>

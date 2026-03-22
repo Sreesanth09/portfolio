@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sreesanth · Daily Tracker</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0c0b09;--bg2:#111009;--sf:#1d1b16;--sf2:#232018;--sf3:#2a271f;
+  --b:rgba(255,255,255,0.06);--b2:rgba(255,255,255,0.10);--b3:rgba(255,255,255,0.15);
+  --t1:#f2ede3;--t2:#c5bfb2;--t3:#857f74;--t4:#504b42;
+  --gold:#c8a86b;--gold2:#e6c88a;--gd:rgba(200,168,107,0.14);--gf:rgba(200,168,107,0.06);
+  --green:#6bc88d;--green-bg:rgba(107,200,141,0.08);--green-b:rgba(107,200,141,0.2);
+  --blue:#6b9bc8;--blue-bg:rgba(107,155,200,0.08);--blue-b:rgba(107,155,200,0.2);
+  --red:#c86b6b;
+  --display:'Cormorant Garamond',Georgia,serif; --body:'DM Sans',system-ui,sans-serif; --nav-h:56px;
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--t1);font-family:var(--body);font-size:14px;line-height:1.7;-webkit-font-smoothing:antialiased;min-height:100vh;}
+body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9998;opacity:.5;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='256' height='256'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='256' height='256' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");}
+
+.nav{position:sticky;top:0;z-index:500;height:var(--nav-h);display:flex;align-items:center;justify-content:space-between;padding:0 2.5rem;background:rgba(12,11,9,0.86);backdrop-filter:blur(24px);border-bottom:1px solid var(--b);}
+.nav-brand{font-family:var(--display);font-size:1.3rem;font-style:italic;font-weight:400;color:var(--gold);text-decoration:none;}
+.nav-links{display:flex;gap:2px;list-style:none;}
+.nav-links a{display:flex;align-items:center;gap:6px;padding:6px 13px;font-size:11px;font-weight:500;letter-spacing:.05em;text-transform:uppercase;color:var(--t3);text-decoration:none;border-radius:6px;transition:all .15s;}
+.nav-links a:hover{color:var(--t1);background:var(--sf);}
+.nav-links a.active{color:var(--gold);background:var(--gf);}
+
+.page{max-width:900px;margin:0 auto;padding:2.5rem 2.5rem;}
+.eyebrow{font-size:10px;font-weight:600;letter-spacing:.13em;text-transform:uppercase;color:var(--gold);margin-bottom:6px;}
+.page-title{font-family:var(--display);font-size:clamp(1.8rem,4vw,2.8rem);font-style:italic;font-weight:400;color:var(--t1);line-height:1.05;margin-bottom:4px;}
+.page-sub{font-size:13px;color:var(--t3);margin-bottom:2.5rem;}
+
+/* QUOTE BANNER */
+.quote-banner{
+  background:var(--sf);border:1px solid var(--gd);border-radius:12px;
+  padding:1.5rem 2rem;margin-bottom:2.5rem;
+  position:relative;overflow:hidden;
+}
+.quote-banner::before{content:'';position:absolute;left:0;top:0;bottom:0;width:4px;background:linear-gradient(to bottom,var(--gold),var(--gold2));}
+.quote-text{font-family:var(--display);font-size:1.5rem;font-style:italic;font-weight:400;color:var(--t1);line-height:1.4;margin-bottom:.5rem;}
+.quote-text span{color:var(--gold);}
+.quote-attr{font-size:11px;font-weight:600;color:var(--t3);letter-spacing:.06em;text-transform:uppercase;}
+
+/* DATE NAV */
+.date-nav{display:flex;align-items:center;justify-content:space-between;margin-bottom:2rem;}
+.date-nav-btn{background:var(--sf);border:1px solid var(--b2);border-radius:7px;width:36px;height:36px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--t3);font-size:16px;transition:all .15s;}
+.date-nav-btn:hover{color:var(--t1);border-color:var(--b3);}
+.date-display{text-align:center;}
+.date-big{font-family:var(--display);font-size:1.3rem;font-style:italic;color:var(--t1);}
+.date-small{font-size:11px;color:var(--t3);margin-top:1px;}
+.today-btn{font-size:10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;padding:4px 12px;background:var(--gf);border:1px solid var(--gd);border-radius:20px;color:var(--gold);cursor:pointer;transition:all .15s;}
+.today-btn:hover{background:var(--gd);}
+
+/* RULE */
+.rule{display:flex;align-items:center;gap:12px;margin:2rem 0 1.25rem;}
+.rule-text{font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--t4);white-space:nowrap;}
+.rule-line{flex:1;height:1px;background:var(--b);}
+
+/* TRACKER GRID */
+.tracker-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-bottom:2rem;}
+
+/* FITNESS TRACKER */
+.tracker-panel{background:var(--sf);border:1px solid var(--b2);border-radius:12px;overflow:hidden;}
+.tp-head{padding:1rem 1.25rem;border-bottom:1px solid var(--b);display:flex;align-items:center;gap:10px;}
+.tp-icon{font-size:1.3rem;}
+.tp-title{font-size:13px;font-weight:600;color:var(--t1);}
+.tp-sub{font-size:11px;color:var(--t3);}
+.tp-status{margin-left:auto;font-size:10px;font-weight:700;}
+.tp-body{padding:1.25rem;}
+
+/* Checklist */
+.checklist{display:flex;flex-direction:column;gap:8px;}
+.check-item{display:flex;align-items:center;gap:10px;padding:9px 12px;background:var(--bg2);border:1px solid var(--b);border-radius:7px;cursor:pointer;transition:all .15s;user-select:none;}
+.check-item:hover{border-color:var(--b2);}
+.check-item.done{background:rgba(107,200,141,.06);border-color:rgba(107,200,141,.2);}
+.check-box{width:18px;height:18px;border-radius:5px;border:1.5px solid var(--b3);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .15s;}
+.check-item.done .check-box{background:var(--green);border-color:var(--green);}
+.check-tick{font-size:10px;color:#0c0b09;display:none;}
+.check-item.done .check-tick{display:block;}
+.check-label{font-size:13px;color:var(--t2);transition:color .15s;}
+.check-item.done .check-label{color:var(--t3);text-decoration:line-through;}
+
+/* Progress ring */
+.ring-wrap{display:flex;justify-content:center;padding:.75rem 0;}
+.ring{position:relative;width:80px;height:80px;}
+.ring svg{transform:rotate(-90deg);}
+.ring-bg{fill:none;stroke:var(--sf3);stroke-width:6;}
+.ring-fill{fill:none;stroke:var(--green);stroke-width:6;stroke-linecap:round;stroke-dasharray:226.2;stroke-dashoffset:226.2;transition:stroke-dashoffset .6s cubic-bezier(.16,1,.3,1);}
+.ring-pct{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:var(--display);font-size:1.3rem;font-style:italic;color:var(--green);}
+
+/* DSA TRACKER */
+.dsa-input-row{display:flex;gap:8px;margin-bottom:12px;}
+.dsa-inp{flex:1;background:var(--bg2);border:1px solid var(--b2);border-radius:7px;padding:9px 12px;font-family:var(--body);font-size:13px;color:var(--t1);outline:none;transition:border-color .2s;}
+.dsa-inp:focus{border-color:var(--gd);}
+.dsa-inp::placeholder{color:var(--t4);}
+.dsa-add-btn{background:var(--gold);border:none;border-radius:7px;padding:9px 14px;font-family:var(--body);font-size:12px;font-weight:700;color:#0c0b09;cursor:pointer;transition:all .15s;white-space:nowrap;}
+.dsa-add-btn:hover{background:var(--gold2);}
+
+.dsa-list{display:flex;flex-direction:column;gap:6px;max-height:260px;overflow-y:auto;}
+.dsa-list::-webkit-scrollbar{width:3px;}
+.dsa-list::-webkit-scrollbar-thumb{background:var(--sf3);border-radius:2px;}
+
+.dsa-item{display:flex;align-items:center;gap:10px;padding:9px 12px;background:var(--bg2);border:1px solid var(--b);border-radius:7px;cursor:pointer;transition:all .15s;user-select:none;}
+.dsa-item:hover{border-color:var(--b2);}
+.dsa-item.done{background:rgba(107,155,200,.06);border-color:rgba(107,155,200,.2);}
+.dsa-item .check-box{border-color:var(--b3);}
+.dsa-item.done .check-box{background:var(--blue);border-color:var(--blue);}
+.dsa-label{font-size:12.5px;color:var(--t2);flex:1;}
+.dsa-item.done .dsa-label{color:var(--t3);text-decoration:line-through;}
+.dsa-del{background:none;border:none;color:var(--t4);cursor:pointer;font-size:14px;padding:0 2px;transition:color .15s;line-height:1;}
+.dsa-del:hover{color:var(--red);}
+
+.dsa-empty{text-align:center;padding:1.5rem;color:var(--t4);font-size:12px;}
+
+/* NOTES */
+.notes-area{width:100%;background:var(--bg2);border:1px solid var(--b2);border-radius:9px;padding:12px 14px;font-family:var(--body);font-size:13px;color:var(--t2);outline:none;resize:vertical;min-height:100px;line-height:1.8;transition:border-color .2s;}
+.notes-area:focus{border-color:var(--gd);}
+.notes-area::placeholder{color:var(--t4);}
+.notes-save-row{display:flex;justify-content:flex-end;margin-top:8px;}
+.notes-save-btn{background:var(--sf2);border:1px solid var(--b2);border-radius:7px;padding:7px 16px;font-family:var(--body);font-size:11px;font-weight:600;color:var(--t2);cursor:pointer;transition:all .15s;}
+.notes-save-btn:hover{color:var(--gold);border-color:var(--gd);}
+
+/* STREAK / CALENDAR GRID */
+.streak-row{display:flex;gap:3px;flex-wrap:wrap;}
+.streak-day{width:28px;height:28px;border-radius:5px;background:var(--sf);border:1px solid var(--b);display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:600;color:var(--t4);position:relative;cursor:default;transition:transform .1s;}
+.streak-day:hover{transform:scale(1.1);}
+.streak-day.has-fit{background:rgba(107,200,141,.15);border-color:rgba(107,200,141,.3);color:var(--green);}
+.streak-day.has-dsa{background:rgba(107,155,200,.15);border-color:rgba(107,155,200,.3);color:var(--blue);}
+.streak-day.has-both{background:linear-gradient(135deg,rgba(107,200,141,.15),rgba(107,155,200,.15));border-color:var(--gd);color:var(--gold);}
+.streak-day.today-cell{border-color:var(--gold);color:var(--gold);}
+
+.streak-legend{display:flex;gap:12px;margin-top:8px;flex-wrap:wrap;}
+.sl-item{display:flex;align-items:center;gap:5px;font-size:10px;color:var(--t3);}
+.sl-dot{width:8px;height:8px;border-radius:2px;}
+
+@media(max-width:700px){
+  .tracker-grid{grid-template-columns:1fr;}
+  .page{padding:1.5rem 1rem;}
+  .nav{padding:0 1rem;}
+  .nav-links a span:last-child{display:none;}
+}
+</style>
+</head>
+<body>
+<nav class="nav">
+  <a class="nav-brand" href="index.html">Sreesanth.</a>
+  <ul class="nav-links">
+    <li><a href="index.html"><span>🏠</span><span>Home</span></a></li>
+    <li><a href="journal.html"><span>📓</span><span>Journal</span></a></li>
+    <li><a href="classes.html"><span>🗓</span><span>Classes</span></a></li>
+    <li><a href="tracker.html" class="active"><span>📊</span><span>Tracker</span></a></li>
+    <li><a href="education.html"><span>🎓</span><span>About</span></a></li>
+  </ul>
+</nav>
+
+<div class="page">
+  <div class="eyebrow">Daily Progress Tracker</div>
+  <h1 class="page-title">Track the grind.</h1>
+  <p class="page-sub">Fitness · DSA · Daily notes. Every day compounds.</p>
+
+  <!-- QUOTE -->
+  <div class="quote-banner">
+    <div class="quote-text">"I build <span>systems</span> that<br>never make us fail."</div>
+    <div class="quote-attr">— Sreesanth Muddarsu</div>
+  </div>
+
+  <!-- DATE NAV -->
+  <div class="date-nav">
+    <button class="date-nav-btn" onclick="changeDay(-1)">‹</button>
+    <div class="date-display">
+      <div class="date-big" id="date-big"></div>
+      <div class="date-small" id="date-small"></div>
+    </div>
+    <div style="display:flex;align-items:center;gap:8px;">
+      <button class="today-btn" onclick="goToday()">Today</button>
+      <button class="date-nav-btn" onclick="changeDay(1)">›</button>
+    </div>
+  </div>
+
+  <!-- TRACKER GRID -->
+  <div class="tracker-grid">
+
+    <!-- FITNESS -->
+    <div class="tracker-panel" style="border-color:rgba(107,200,141,.2);">
+      <div class="tp-head">
+        <div class="tp-icon">🏋️</div>
+        <div><div class="tp-title">Fitness</div><div class="tp-sub">Daily workout log</div></div>
+        <div class="tp-status" id="fit-status" style="color:var(--t4)">0 / 6</div>
+      </div>
+      <div class="tp-body">
+        <div class="ring-wrap">
+          <div class="ring">
+            <svg width="80" height="80" viewBox="0 0 80 80">
+              <circle class="ring-bg" cx="40" cy="40" r="36"/>
+              <circle class="ring-fill" id="ring-fill" cx="40" cy="40" r="36"/>
+            </svg>
+            <div class="ring-pct" id="ring-pct">0%</div>
+          </div>
+        </div>
+        <div class="checklist" id="fit-list"></div>
+      </div>
+    </div>
+
+    <!-- DSA -->
+    <div class="tracker-panel" style="border-color:rgba(107,155,200,.2);">
+      <div class="tp-head">
+        <div class="tp-icon">🌲</div>
+        <div><div class="tp-title">DSA Problems</div><div class="tp-sub">LeetCode / GFG today</div></div>
+        <div class="tp-status" id="dsa-status" style="color:var(--t4)">0 solved</div>
+      </div>
+      <div class="tp-body">
+        <div class="dsa-input-row">
+          <input class="dsa-inp" id="dsa-inp" type="text" placeholder="Problem name or LC number…" onkeydown="if(event.key==='Enter')addDSA()">
+          <button class="dsa-add-btn" onclick="addDSA()">+ Add</button>
+        </div>
+        <div class="dsa-list" id="dsa-list"></div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- NOTES -->
+  <div class="rule"><span class="rule-text">Daily Notes</span><div class="rule-line"></div></div>
+  <textarea class="notes-area" id="notes-area" placeholder="Anything to remember today? A thought, a win, something you read, a mistake you made…"></textarea>
+  <div class="notes-save-row"><button class="notes-save-btn" onclick="saveNotes()">Save Notes ✓</button></div>
+
+  <!-- STREAK CALENDAR -->
+  <div class="rule" style="margin-top:2.5rem"><span class="rule-text">Last 28 Days</span><div class="rule-line"></div></div>
+  <div class="streak-row" id="streak-row"></div>
+  <div class="streak-legend">
+    <div class="sl-item"><div class="sl-dot" style="background:rgba(107,200,141,.4)"></div>Fitness done</div>
+    <div class="sl-item"><div class="sl-dot" style="background:rgba(107,155,200,.4)"></div>DSA done</div>
+    <div class="sl-item"><div class="sl-dot" style="background:var(--gold)"></div>Both done</div>
+  </div>
+</div>
+
+<script>
+const DB='sree_tracker_v1';
+const MO=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+const WD=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+
+// Default fitness checklist
+const DEFAULT_FIT=[
+  {id:'warmup', label:'Warm-up (10 min)'},
+  {id:'workout', label:'Main workout (30 min)'},
+  {id:'pushups', label:'Push-ups (3 sets)'},
+  {id:'run',     label:'Run / Walk (20 min)'},
+  {id:'stretch', label:'Cool-down stretch'},
+  {id:'water',   label:'Drink 2L water'},
+];
+
+let db=JSON.parse(localStorage.getItem(DB)||'{}');
+let currentDate=todayStr();
+
+function p2(n){return String(n).padStart(2,'0');}
+function todayStr(){const d=new Date();return `${d.getFullYear()}-${p2(d.getMonth()+1)}-${p2(d.getDate())}`;}
+function fmtFull(ds){const d=new Date(ds+'T12:00:00');return `${WD[d.getDay()]}, ${d.getDate()} ${MO[d.getMonth()]} ${d.getFullYear()}`;}
+function fmtShort(ds){const d=new Date(ds+'T12:00:00');return d.toLocaleDateString('en-IN',{weekday:'short',day:'numeric',month:'short'});}
+
+function getDay(ds){if(!db[ds])db[ds]={fitDone:{},dsaItems:[],notes:''};return db[ds];}
+function save(){localStorage.setItem(DB,JSON.stringify(db));}
+
+function changeDay(n){
+  const d=new Date(currentDate+'T12:00:00');
+  d.setDate(d.getDate()+n);
+  currentDate=`${d.getFullYear()}-${p2(d.getMonth()+1)}-${p2(d.getDate())}`;
+  render();
+}
+function goToday(){currentDate=todayStr();render();}
+
+// ── FITNESS ──
+function renderFitness(){
+  const day=getDay(currentDate);
+  const list=document.getElementById('fit-list');
+  const done=DEFAULT_FIT.filter(f=>day.fitDone[f.id]).length;
+  const total=DEFAULT_FIT.length;
+  const pct=Math.round(done/total*100);
+
+  document.getElementById('fit-status').textContent=`${done} / ${total}`;
+  document.getElementById('fit-status').style.color=done===total?'var(--green)':'var(--t4)';
+
+  // Ring
+  const circumference=226.2;
+  document.getElementById('ring-fill').style.strokeDashoffset=circumference-(circumference*pct/100);
+  document.getElementById('ring-pct').textContent=pct+'%';
+
+  list.innerHTML=DEFAULT_FIT.map(f=>`
+    <div class="check-item ${day.fitDone[f.id]?'done':''}" onclick="toggleFit('${f.id}')">
+      <div class="check-box"><span class="check-tick">✓</span></div>
+      <span class="check-label">${f.label}</span>
+    </div>`).join('');
+}
+
+function toggleFit(id){
+  const day=getDay(currentDate);
+  day.fitDone[id]=!day.fitDone[id];
+  save();renderFitness();renderStreak();
+}
+
+// ── DSA ──
+function renderDSA(){
+  const day=getDay(currentDate);
+  const list=document.getElementById('dsa-list');
+  const solved=(day.dsaItems||[]).filter(i=>i.done).length;
+  document.getElementById('dsa-status').textContent=`${solved} solved`;
+  document.getElementById('dsa-status').style.color=solved>0?'var(--blue)':'var(--t4)';
+
+  if(!day.dsaItems||!day.dsaItems.length){
+    list.innerHTML=`<div class="dsa-empty">No problems added yet.<br>Add your first one above.</div>`;
+    return;
+  }
+  list.innerHTML=day.dsaItems.map((item,i)=>`
+    <div class="dsa-item ${item.done?'done':''}" onclick="toggleDSA(${i})">
+      <div class="check-box"><span class="check-tick" style="color:#0c0b09">✓</span></div>
+      <span class="dsa-label">${item.name}</span>
+      <button class="dsa-del" onclick="event.stopPropagation();delDSA(${i})">✕</button>
+    </div>`).join('');
+}
+
+function addDSA(){
+  const inp=document.getElementById('dsa-inp');
+  const name=inp.value.trim();
+  if(!name)return;
+  const day=getDay(currentDate);
+  if(!day.dsaItems)day.dsaItems=[];
+  day.dsaItems.push({name,done:false});
+  inp.value='';save();renderDSA();renderStreak();
+}
+
+function toggleDSA(i){
+  const day=getDay(currentDate);
+  day.dsaItems[i].done=!day.dsaItems[i].done;
+  save();renderDSA();renderStreak();
+}
+
+function delDSA(i){
+  const day=getDay(currentDate);
+  day.dsaItems.splice(i,1);
+  save();renderDSA();
+}
+
+// ── NOTES ──
+function renderNotes(){
+  const day=getDay(currentDate);
+  document.getElementById('notes-area').value=day.notes||'';
+}
+function saveNotes(){
+  const day=getDay(currentDate);
+  day.notes=document.getElementById('notes-area').value;
+  save();
+  const btn=document.querySelector('.notes-save-btn');
+  btn.textContent='Saved ✓';btn.style.color='var(--green)';
+  setTimeout(()=>{btn.textContent='Save Notes ✓';btn.style.color='';},1500);
+}
+
+// ── STREAK ──
+function renderStreak(){
+  const row=document.getElementById('streak-row');
+  const today=todayStr();
+  let html='';
+  for(let i=27;i>=0;i--){
+    const d=new Date();d.setDate(d.getDate()-i);
+    const ds=`${d.getFullYear()}-${p2(d.getMonth()+1)}-${p2(d.getDate())}`;
+    const day=db[ds];
+    const hasFit=day&&Object.values(day.fitDone||{}).some(Boolean);
+    const hasDSA=day&&(day.dsaItems||[]).some(i=>i.done);
+    const cls=hasFit&&hasDSA?'has-both':hasFit?'has-fit':hasDSA?'has-dsa':'';
+    const isTd=ds===today?'today-cell':'';
+    html+=`<div class="streak-day ${cls} ${isTd}" title="${fmtShort(ds)}">${d.getDate()}</div>`;
+  }
+  row.innerHTML=html;
+}
+
+// ── DATE HEADER ──
+function renderDateHeader(){
+  const isToday=currentDate===todayStr();
+  document.getElementById('date-big').textContent=fmtFull(currentDate);
+  document.getElementById('date-small').textContent=isToday?'Today':'Past entry';
+}
+
+function render(){
+  renderDateHeader();
+  renderFitness();
+  renderDSA();
+  renderNotes();
+  renderStreak();
+}
+
+render();
+</script>
+</body>
+</html>

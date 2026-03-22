@@ -5,221 +5,150 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Sreesanth · About</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --bg:#0d0c0b;--bg2:#131210;--bg3:#1a1815;
-  --surface:#1f1d1a;--surface2:#252320;--surface3:#2c2a26;
-  --border:rgba(255,255,255,0.07);--border2:rgba(255,255,255,0.11);
-  --ink:#f0ece4;--ink2:#c8c2b8;--ink3:#8a8278;--ink4:#5a5650;
-  --gold:#c9a96e;--gold2:#e8c98a;--gold-dim:rgba(201,169,110,0.15);--gold-faint:rgba(201,169,110,0.06);
-  --green:#6ec98f;--nav-h:58px;--r:10px;
-  --serif:'Instrument Serif',Georgia,serif;
-  --sans:'Outfit',system-ui,sans-serif;
+  --bg:#0c0b09;--bg2:#111009;--sf:#1d1b16;--sf2:#232018;--sf3:#2a271f;
+  --b:rgba(255,255,255,0.06);--b2:rgba(255,255,255,0.10);--b3:rgba(255,255,255,0.15);
+  --t1:#f2ede3;--t2:#c5bfb2;--t3:#857f74;--t4:#504b42;
+  --gold:#c8a86b;--gold2:#e6c88a;--gd:rgba(200,168,107,0.14);--gf:rgba(200,168,107,0.06);
+  --green:#6bc88d;
+  --mat:#c8a86b;--ece:#6bb5c8;--cse:#8db86b;--chy:#c86b8d;--eng:#9e6bc8;
+  --display:'Cormorant Garamond',Georgia,serif; --body:'DM Sans',system-ui,sans-serif; --nav-h:56px;
 }
 html{scroll-behavior:smooth}
-body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:14px;font-weight:400;line-height:1.7;min-height:100vh;-webkit-font-smoothing:antialiased;}
-body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9000;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");}
-
-.nav{position:sticky;top:0;z-index:500;height:var(--nav-h);display:flex;align-items:center;justify-content:space-between;padding:0 2.5rem;background:rgba(13,12,11,0.88);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);}
-.nav-brand{font-family:var(--serif);font-size:1.25rem;font-style:italic;color:var(--gold);text-decoration:none;}
+body{background:var(--bg);color:var(--t1);font-family:var(--body);font-size:14px;line-height:1.7;-webkit-font-smoothing:antialiased;min-height:100vh;}
+body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9998;opacity:.5;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='256' height='256'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='256' height='256' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");}
+.nav{position:sticky;top:0;z-index:500;height:var(--nav-h);display:flex;align-items:center;justify-content:space-between;padding:0 2.5rem;background:rgba(12,11,9,0.86);backdrop-filter:blur(24px);border-bottom:1px solid var(--b);}
+.nav-brand{font-family:var(--display);font-size:1.3rem;font-style:italic;font-weight:400;color:var(--gold);text-decoration:none;}
 .nav-links{display:flex;gap:2px;list-style:none;}
-.nav-links a{display:flex;align-items:center;gap:6px;padding:6px 14px;font-size:11px;font-weight:500;letter-spacing:.05em;text-transform:uppercase;color:var(--ink3);text-decoration:none;border-radius:6px;transition:all .15s;}
-.nav-links a:hover{color:var(--ink);background:var(--surface);}
-.nav-links a.active{color:var(--gold);background:var(--gold-faint);}
-
+.nav-links a{display:flex;align-items:center;gap:6px;padding:6px 13px;font-size:11px;font-weight:500;letter-spacing:.05em;text-transform:uppercase;color:var(--t3);text-decoration:none;border-radius:6px;transition:all .15s;}
+.nav-links a:hover{color:var(--t1);background:var(--sf);}
+.nav-links a.active{color:var(--gold);background:var(--gf);}
 .page{max-width:820px;margin:0 auto;padding:3.5rem 2.5rem;}
-
-/* HERO */
-.hero{margin-bottom:3.5rem;}
-.hero-eyebrow{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:10px;}
-.hero-title{font-family:var(--serif);font-size:clamp(2.5rem,6vw,4.5rem);font-style:italic;font-weight:400;line-height:1.05;color:var(--ink);margin-bottom:1.25rem;}
-.hero-title em{color:var(--gold);}
-.hero-lead{font-size:15px;color:var(--ink2);line-height:1.9;max-width:580px;}
-
-/* QUICK INFO CARDS */
-.info-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:8px;margin:2.5rem 0;}
-.info-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:14px 16px;transition:border-color .15s;}
-.info-card:hover{border-color:var(--border2);}
-.info-card-lbl{font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--ink4);margin-bottom:5px;}
-.info-card-val{font-family:var(--serif);font-size:.95rem;font-style:italic;color:var(--ink);}
-.info-card-sub{font-size:11px;color:var(--ink3);margin-top:3px;}
-
-/* SECTION HEADING */
-.sec-heading{display:flex;align-items:center;gap:12px;margin:2.5rem 0 1.5rem;}
-.sec-heading-text{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--ink4);white-space:nowrap;}
-.sec-heading-line{flex:1;height:1px;background:var(--border);}
-
+.eyebrow{font-size:10px;font-weight:600;letter-spacing:.13em;text-transform:uppercase;color:var(--gold);margin-bottom:8px;}
+.page-title{font-family:var(--display);font-size:clamp(2.5rem,6vw,4.5rem);font-style:italic;font-weight:300;line-height:1.0;color:var(--t1);margin-bottom:1.5rem;}
+.page-title em{color:var(--gold);font-style:italic;}
+.page-lead{font-size:15px;color:var(--t2);line-height:1.9;max-width:580px;margin-bottom:3rem;}
+.rule{display:flex;align-items:center;gap:12px;margin:2.5rem 0 1.5rem;}
+.rule-text{font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--t4);white-space:nowrap;}
+.rule-line{flex:1;height:1px;background:var(--b);}
+.ic-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(155px,1fr));gap:8px;margin-bottom:2rem;}
+.ic{background:var(--sf);border:1px solid var(--b);border-radius:9px;padding:14px 16px;}
+.ic-lbl{font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--t4);margin-bottom:4px;}
+.ic-val{font-family:var(--display);font-size:1rem;font-style:italic;color:var(--t1);}
+.ic-sub{font-size:11px;color:var(--t3);margin-top:2px;}
 /* TIMELINE */
-.timeline{position:relative;padding-left:1.5rem;}
-.timeline::before{content:'';position:absolute;left:4px;top:.5rem;bottom:.5rem;width:1px;background:linear-gradient(to bottom,var(--gold),var(--ink4),transparent);}
-
-.tl-item{position:relative;padding:0 0 2rem 1.5rem;opacity:0;transform:translateX(-8px);transition:opacity .45s,transform .45s;}
-.tl-item.vis{opacity:1;transform:none;}
-
-.tl-dot{position:absolute;left:-5px;top:.35rem;width:10px;height:10px;border-radius:50%;background:var(--bg);border:2px solid var(--ink4);}
-.tl-dot.active{border-color:var(--gold);background:var(--gold);}
-
-.tl-period{font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--gold);margin-bottom:4px;}
-.tl-school{font-family:var(--serif);font-size:1.15rem;font-style:italic;color:var(--ink);margin-bottom:4px;line-height:1.2;}
-.tl-note{font-size:13px;color:var(--ink3);line-height:1.75;}
-.tl-badges{display:flex;gap:6px;margin-top:8px;flex-wrap:wrap;}
-.tl-badge{font-size:10px;font-weight:500;padding:3px 9px;border-radius:4px;border:1px solid var(--border);color:var(--ink4);}
-.tl-badge.gold{border-color:var(--gold-dim);color:var(--gold);background:var(--gold-faint);}
-
-/* COURSES TABLE */
-.courses-grid{display:flex;flex-direction:column;gap:6px;}
-.course-row{display:grid;grid-template-columns:40px 1fr auto;gap:12px;align-items:center;background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:12px 14px;transition:border-color .15s;}
-.course-row:hover{border-color:var(--border2);}
-.course-color{width:4px;height:40px;border-radius:2px;justify-self:center;}
-.course-info{}
-.course-name{font-size:13px;font-weight:600;color:var(--ink);}
-.course-code{font-size:11px;color:var(--ink4);margin-top:2px;}
-.course-slot{font-size:11px;font-weight:600;padding:4px 10px;border-radius:6px;border:1px solid var(--border2);color:var(--ink3);white-space:nowrap;}
-
+.tl{position:relative;padding-left:1.25rem;}
+.tl::before{content:'';position:absolute;left:4px;top:.5rem;bottom:0;width:1px;background:linear-gradient(to bottom,var(--gold),var(--b2),transparent);}
+.tl-item{position:relative;padding:0 0 2rem 1.25rem;opacity:0;transform:translateX(-8px);transition:opacity .45s,transform .45s;}
+.tl-item.in{opacity:1;transform:none;}
+.tl-dot{position:absolute;left:-5px;top:.3rem;width:10px;height:10px;border-radius:50%;background:var(--bg);border:2px solid var(--t4);}
+.tl-dot.now{border-color:var(--gold);background:var(--gold);}
+.tl-yr{font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--gold);margin-bottom:3px;}
+.tl-school{font-family:var(--display);font-size:1.1rem;font-style:italic;color:var(--t1);margin-bottom:3px;}
+.tl-note{font-size:13px;color:var(--t3);line-height:1.75;}
+.tl-tags{display:flex;gap:5px;margin-top:7px;flex-wrap:wrap;}
+.tl-tag{font-size:10px;font-weight:500;padding:2px 8px;border:1px solid var(--b2);border-radius:4px;color:var(--t4);}
+.tl-tag.hi{border-color:var(--gd);color:var(--gold);background:var(--gf);}
+/* COURSES */
+.courses{display:flex;flex-direction:column;gap:6px;}
+.course{display:grid;grid-template-columns:3px 1fr auto;gap:14px;align-items:center;background:var(--sf);border:1px solid var(--b);border-radius:8px;padding:12px 16px;transition:border-color .15s;}
+.course:hover{border-color:var(--b2);}
+.cc-bar{height:36px;border-radius:2px;}
+.cc-name{font-size:13px;font-weight:500;color:var(--t1);}
+.cc-code{font-size:11px;color:var(--t3);margin-top:2px;font-family:monospace;letter-spacing:.02em;}
+.cc-slot{font-size:11px;font-weight:600;color:var(--t3);padding:4px 10px;border:1px solid var(--b2);border-radius:6px;}
 /* SKILLS */
-.skills-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;}
-.skill{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:14px 16px;}
-.skill-name{font-size:13px;font-weight:600;color:var(--ink);margin-bottom:8px;}
-.skill-bar{height:2px;background:var(--surface3);border-radius:1px;overflow:hidden;}
-.skill-fill{height:100%;background:linear-gradient(to right,var(--gold),var(--gold2));width:0;transition:width 1.2s cubic-bezier(.16,1,.3,1);}
-.skill-meta{display:flex;justify-content:space-between;margin-top:5px;}
-.skill-sub{font-size:10px;color:var(--ink4);}
-.skill-pct{font-size:10px;font-weight:600;color:var(--gold);}
-
+.skills{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:10px;}
+.skill{background:var(--sf);border:1px solid var(--b);border-radius:8px;padding:14px 16px;}
+.sk-name{font-size:13px;font-weight:600;color:var(--t1);margin-bottom:8px;}
+.sk-bar{height:2px;background:var(--sf3);border-radius:1px;overflow:hidden;}
+.sk-fill{height:100%;background:linear-gradient(to right,var(--gold),var(--gold2));width:0;transition:width 1.2s cubic-bezier(.16,1,.3,1);}
+.sk-meta{display:flex;justify-content:space-between;margin-top:5px;}
+.sk-sub{font-size:10px;color:var(--t4);}
+.sk-pct{font-size:10px;font-weight:600;color:var(--gold);}
 /* CONTACT */
-.contact-block{background:var(--surface);border:1px solid var(--border2);border-radius:var(--r);padding:2rem;}
-.contact-title{font-family:var(--serif);font-size:1.4rem;font-style:italic;color:var(--ink);margin-bottom:.75rem;}
-.contact-subtitle{font-size:13px;color:var(--ink3);margin-bottom:1.5rem;line-height:1.7;}
+.contact-block{background:var(--sf);border:1px solid var(--b2);border-radius:12px;padding:2rem;}
+.contact-title{font-family:var(--display);font-size:1.5rem;font-style:italic;color:var(--t1);margin-bottom:.5rem;}
+.contact-sub{font-size:13px;color:var(--t3);margin-bottom:1.5rem;line-height:1.8;}
 .contact-links{display:flex;gap:10px;flex-wrap:wrap;}
-.clink{display:inline-flex;align-items:center;gap:6px;padding:9px 18px;background:var(--surface2);border:1px solid var(--border2);border-radius:7px;font-size:12px;font-weight:600;color:var(--ink2);text-decoration:none;letter-spacing:.02em;transition:all .15s;}
-.clink:hover{color:var(--gold);border-color:var(--gold-dim);background:var(--gold-faint);}
-
-@media(max-width:640px){.page{padding:2rem 1rem;}.nav{padding:0 1rem;}.nav-links a span:not(.nav-icon){display:none;}}
-
+.clink{display:inline-flex;align-items:center;gap:7px;padding:9px 18px;background:var(--sf2);border:1px solid var(--b2);border-radius:8px;font-size:12px;font-weight:500;color:var(--t2);text-decoration:none;transition:all .15s;}
+.clink:hover{color:var(--gold);border-color:var(--gd);background:var(--gf);}
 .reveal{opacity:0;transform:translateY(12px);transition:opacity .45s,transform .45s;}
-.reveal.vis{opacity:1;transform:none;}
+.reveal.in{opacity:1;transform:none;}
+@media(max-width:640px){.page{padding:2rem 1rem;}.nav{padding:0 1rem;}.nav-links a span:last-child{display:none;}}
 </style>
 </head>
 <body>
-
 <nav class="nav">
   <a class="nav-brand" href="index.html">Sreesanth.</a>
   <ul class="nav-links">
-    <li><a href="index.html"><span class="nav-icon">📓</span><span>Journal</span></a></li>
-    <li><a href="classes.html"><span class="nav-icon">🗓</span><span>Classes</span></a></li>
-    <li><a href="education.html" class="active"><span class="nav-icon">🎓</span><span>About</span></a></li>
+    <li><a href="index.html"><span>🏠</span><span>Home</span></a></li>
+    <li><a href="journal.html"><span>📓</span><span>Journal</span></a></li>
+    <li><a href="classes.html"><span>🗓</span><span>Classes</span></a></li>
+    <li><a href="tracker.html"><span>📊</span><span>Tracker</span></a></li>
+    <li><a href="education.html" class="active"><span>🎓</span><span>About</span></a></li>
   </ul>
 </nav>
-
 <div class="page">
+  <div class="eyebrow">About me</div>
+  <h1 class="page-title">The story<br><em>so far.</em></h1>
+  <p class="page-lead">I'm Sreesanth — first-year CSE student at VIT-AP, Amaravati. Six schools across Andhra Pradesh. Each left something. Now building things, writing every day, tracking the work.</p>
 
-  <!-- HERO -->
-  <div class="hero reveal">
-    <div class="hero-eyebrow">About me</div>
-    <h1 class="hero-title">The story<br><em>so far.</em></h1>
-    <p class="hero-lead">I'm Sreesanth — a first-year Computer Science student at VIT-AP, Amaravati. I grew up moving between schools across Andhra Pradesh; each one left something permanent. Now I'm building things, writing about it every day, and figuring out what kind of engineer I want to be.</p>
+  <div class="ic-grid reveal">
+    <div class="ic"><div class="ic-lbl">University</div><div class="ic-val">VIT-AP</div><div class="ic-sub">Amaravati, AP</div></div>
+    <div class="ic"><div class="ic-lbl">Reg No.</div><div class="ic-val">25BCE8603</div><div class="ic-sub">B.Tech CSE</div></div>
+    <div class="ic"><div class="ic-lbl">Semester</div><div class="ic-val">II of VIII</div><div class="ic-sub">2025–26</div></div>
+    <div class="ic"><div class="ic-lbl">Home</div><div class="ic-val">Vizag, AP</div><div class="ic-sub">Visakhapatnam</div></div>
   </div>
 
-  <!-- INFO CARDS -->
-  <div class="info-grid reveal">
-    <div class="info-card"><div class="info-card-lbl">Currently</div><div class="info-card-val">B.Tech CSE · Yr 1</div><div class="info-card-sub">VIT-AP, Amaravati</div></div>
-    <div class="info-card"><div class="info-card-lbl">Reg No.</div><div class="info-card-val">25BCE8603</div><div class="info-card-sub">VIT-AP University</div></div>
-    <div class="info-card"><div class="info-card-lbl">Semester</div><div class="info-card-val">Semester II</div><div class="info-card-sub">Session 2025–26</div></div>
-    <div class="info-card"><div class="info-card-lbl">Home</div><div class="info-card-val">Vizag, AP</div><div class="info-card-sub">Andhra Pradesh, India</div></div>
-    <div class="info-card"><div class="info-card-lbl">Building</div><div class="info-card-val">This website</div><div class="info-card-sub">HTML · CSS · JS</div></div>
-    <div class="info-card"><div class="info-card-lbl">Exploring</div><div class="info-card-val">Java · DSA · Web</div><div class="info-card-sub">Always open to more</div></div>
+  <div class="rule"><span class="rule-text">Sem II Courses</span><div class="rule-line"></div></div>
+  <div class="courses reveal">
+    <div class="course"><div class="cc-bar" style="background:var(--mat)"></div><div><div class="cc-name">Engineering Mathematics II</div><div class="cc-code">MAT1002 · E1+TE1+SE1 · TH-G02-AB-1-ALL</div></div><span class="cc-slot">E1</span></div>
+    <div class="course"><div class="cc-bar" style="background:var(--ece)"></div><div><div class="cc-name">Fund. of Electrical & Electronics</div><div class="cc-code">ECE1002 · F1+TFF1 · ETH-406-AB-1-ALL</div></div><span class="cc-slot">F1</span></div>
+    <div class="course"><div class="cc-bar" style="background:var(--cse)"></div><div><div class="cc-name">OOPs using Java</div><div class="cc-code">CSE2005 · D2+TDD2 · ETH-219-AB-1-ALL</div></div><span class="cc-slot">D2</span></div>
+    <div class="course"><div class="cc-bar" style="background:var(--chy)"></div><div><div class="cc-name">Engineering Chemistry</div><div class="cc-code">CHY1009 · C1+TC1 · ETH-313-AB-2-ALL</div></div><span class="cc-slot">C1</span></div>
+    <div class="course"><div class="cc-bar" style="background:var(--eng)"></div><div><div class="cc-name">Technical English</div><div class="cc-code">ENG1001 · G2 · ETH-320-AB-1-ALL</div></div><span class="cc-slot">G2</span></div>
   </div>
 
-  <!-- EDUCATION TIMELINE -->
-  <div class="sec-heading reveal"><span class="sec-heading-text">Education Timeline</span><div class="sec-heading-line"></div></div>
-
-  <div class="timeline">
-    <div class="tl-item">
-      <div class="tl-dot active"></div>
-      <div class="tl-period">2024 – Present</div>
-      <div class="tl-school">VIT-AP University, Amaravati</div>
-      <div class="tl-note">B.Tech in Computer Science & Engineering. New city, new people, first real projects. This portfolio is the first thing I've fully built and shipped.</div>
-      <div class="tl-badges"><span class="tl-badge gold">Current</span><span class="tl-badge">CSE</span><span class="tl-badge">Amaravati, AP</span></div>
-    </div>
-    <div class="tl-item">
-      <div class="tl-dot"></div>
-      <div class="tl-period">Class 11 – 12 · 2022 – 2024</div>
-      <div class="tl-school">Aakash Institute</div>
-      <div class="tl-note">Two years of focused JEE preparation. Learned what real consistency feels like — and how to stay in a process without immediate results.</div>
-      <div class="tl-badges"><span class="tl-badge">Hyderabad</span><span class="tl-badge">JEE Prep</span></div>
-    </div>
-    <div class="tl-item">
-      <div class="tl-dot"></div>
-      <div class="tl-period">Class 10 · 2021 – 2022</div>
-      <div class="tl-school">Bhashyam Public School, Vizag</div>
-      <div class="tl-note">Board year in my home city. Made long-lasting friends and learned that results matter, but so does the support system around you.</div>
-      <div class="tl-badges"><span class="tl-badge">Visakhapatnam</span></div>
-    </div>
-    <div class="tl-item">
-      <div class="tl-dot"></div>
-      <div class="tl-period">Class 7 – 9</div>
-      <div class="tl-school">Vasavi Vidyaniketan (Return)</div>
-      <div class="tl-note">Came back to familiar ground, but as a fundamentally different person. The Sainik year had reshaped how I carry myself in any environment.</div>
-      <div class="tl-badges"><span class="tl-badge">Andhra Pradesh</span></div>
-    </div>
-    <div class="tl-item">
-      <div class="tl-dot"></div>
-      <div class="tl-period">Class 6</div>
-      <div class="tl-school">Sainik School Kalikiri</div>
-      <div class="tl-note">Military school. Early mornings, strict discipline, no privacy, thirty strangers in a room. The hardest year. Also the most formative. Glad I went — and glad it was only one year.</div>
-      <div class="tl-badges"><span class="tl-badge gold">Most Formative</span><span class="tl-badge">Kalikiri, AP</span></div>
-    </div>
-    <div class="tl-item">
-      <div class="tl-dot"></div>
-      <div class="tl-period">Class 1 – 5</div>
-      <div class="tl-school">Vasavi Vidyaniketan</div>
-      <div class="tl-note">The beginning. Childhood curiosity, early friendships, first lessons. The foundation everything else was built on.</div>
-      <div class="tl-badges"><span class="tl-badge">Andhra Pradesh</span></div>
-    </div>
+  <div class="rule"><span class="rule-text">School Journey</span><div class="rule-line"></div></div>
+  <div class="tl">
+    <div class="tl-item"><div class="tl-dot now"></div><div class="tl-yr">2024 – Present</div><div class="tl-school">VIT-AP University, Amaravati</div><div class="tl-note">B.Tech CSE. Semester II. Building, shipping, writing every day.</div><div class="tl-tags"><span class="tl-tag hi">Now · Sem II</span></div></div>
+    <div class="tl-item"><div class="tl-dot"></div><div class="tl-yr">Class 11–12 · 2022–2024</div><div class="tl-school">Aakash Institute, Hyderabad</div><div class="tl-note">Two years of JEE preparation. Learned discipline. Learned to stay in a long process.</div><div class="tl-tags"><span class="tl-tag">Hyderabad</span></div></div>
+    <div class="tl-item"><div class="tl-dot"></div><div class="tl-yr">Class 10 · 2021–2022</div><div class="tl-school">Bhashyam Public School, Vizag</div><div class="tl-note">Board year. Hometown. Results matter. So does community.</div><div class="tl-tags"><span class="tl-tag">Visakhapatnam</span></div></div>
+    <div class="tl-item"><div class="tl-dot"></div><div class="tl-yr">Class 7–9</div><div class="tl-school">Vasavi Vidyaniketan</div><div class="tl-note">Back to familiar ground, as a different person. The Sainik year had changed things.</div></div>
+    <div class="tl-item"><div class="tl-dot"></div><div class="tl-yr">Class 6</div><div class="tl-school">Sainik School Kalikiri, near Chittoor (Tirupati)</div><div class="tl-note">Military school. 5am wake-ups, shared barracks, zero comfort. Hardest year. Most important year.</div><div class="tl-tags"><span class="tl-tag hi">Most Formative</span><span class="tl-tag">Kalikiri, Chittoor</span></div></div>
+    <div class="tl-item"><div class="tl-dot"></div><div class="tl-yr">Class 1–5</div><div class="tl-school">Vasavi Vidyaniketan</div><div class="tl-note">Where it started. Childhood curiosity. First friendships. Foundation.</div></div>
   </div>
 
-  <!-- CURRENT COURSES -->
-  <div class="sec-heading reveal"><span class="sec-heading-text">Current Courses — Sem II</span><div class="sec-heading-line"></div></div>
-  <div class="courses-grid reveal">
-    <div class="course-row"><div class="course-color" style="background:#c9a96e"></div><div class="course-info"><div class="course-name">Engineering Mathematics II</div><div class="course-code">MAT1002 · Slot E1 · TH-G02-AB-1-ALL</div></div><span class="course-slot">E1</span></div>
-    <div class="course-row"><div class="course-color" style="background:#6eb5c9"></div><div class="course-info"><div class="course-name">Fund. of Electrical & Electronics Engg.</div><div class="course-code">ECE1002 · Slot F1 · ETH-406-AB-1-ALL</div></div><span class="course-slot">F1</span></div>
-    <div class="course-row"><div class="course-color" style="background:#8fb86e"></div><div class="course-info"><div class="course-name">Java Programming</div><div class="course-code">CSE2005 · Slot D2 · ETH-219-AB-1-ALL</div></div><span class="course-slot">D2</span></div>
-    <div class="course-row"><div class="course-color" style="background:#c96e8f"></div><div class="course-info"><div class="course-name">Engineering Chemistry</div><div class="course-code">CHY1009 · Slot C1 · ETH-313-AB-2-ALL</div></div><span class="course-slot">C1</span></div>
-    <div class="course-row"><div class="course-color" style="background:#a06ec9"></div><div class="course-info"><div class="course-name">Technical English</div><div class="course-code">ENG1001 · Slot G2 · ETH-320-AB-1-ALL</div></div><span class="course-slot">G2</span></div>
+  <div class="rule"><span class="rule-text">Skills in Progress</span><div class="rule-line"></div></div>
+  <div class="skills reveal">
+    <div class="skill"><div class="sk-name">HTML & CSS</div><div class="sk-bar"><div class="sk-fill" data-w="72"></div></div><div class="sk-meta"><span class="sk-sub">Built this site</span><span class="sk-pct">72%</span></div></div>
+    <div class="skill"><div class="sk-name">JavaScript</div><div class="sk-bar"><div class="sk-fill" data-w="46"></div></div><div class="sk-meta"><span class="sk-sub">Learning by doing</span><span class="sk-pct">46%</span></div></div>
+    <div class="skill"><div class="sk-name">Java (OOPs)</div><div class="sk-bar"><div class="sk-fill" data-w="52"></div></div><div class="sk-meta"><span class="sk-sub">CSE2005 · Sem II</span><span class="sk-pct">52%</span></div></div>
+    <div class="skill"><div class="sk-name">DSA</div><div class="sk-bar"><div class="sk-fill" data-w="28"></div></div><div class="sk-meta"><span class="sk-sub">Just starting out</span><span class="sk-pct">28%</span></div></div>
+    <div class="skill"><div class="sk-name">Git & GitHub</div><div class="sk-bar"><div class="sk-fill" data-w="25"></div></div><div class="sk-meta"><span class="sk-sub">Early stage</span><span class="sk-pct">25%</span></div></div>
+    <div class="skill"><div class="sk-name">Problem Solving</div><div class="sk-bar"><div class="sk-fill" data-w="65"></div></div><div class="sk-meta"><span class="sk-sub">2 yrs JEE prep</span><span class="sk-pct">65%</span></div></div>
   </div>
 
-  <!-- SKILLS -->
-  <div class="sec-heading reveal"><span class="sec-heading-text">Skills in Progress</span><div class="sec-heading-line"></div></div>
-  <div class="skills-grid reveal">
-    <div class="skill"><div class="skill-name">HTML & CSS</div><div class="skill-bar"><div class="skill-fill" data-w="72"></div></div><div class="skill-meta"><span class="skill-sub">Built this site</span><span class="skill-pct">72%</span></div></div>
-    <div class="skill"><div class="skill-name">JavaScript</div><div class="skill-bar"><div class="skill-fill" data-w="48"></div></div><div class="skill-meta"><span class="skill-sub">Learning by doing</span><span class="skill-pct">48%</span></div></div>
-    <div class="skill"><div class="skill-name">Java</div><div class="skill-bar"><div class="skill-fill" data-w="50"></div></div><div class="skill-meta"><span class="skill-sub">CSE2005 · Sem II</span><span class="skill-pct">50%</span></div></div>
-    <div class="skill"><div class="skill-name">C Programming</div><div class="skill-bar"><div class="skill-fill" data-w="55"></div></div><div class="skill-meta"><span class="skill-sub">Sem I coursework</span><span class="skill-pct">55%</span></div></div>
-    <div class="skill"><div class="skill-name">Git & GitHub</div><div class="skill-bar"><div class="skill-fill" data-w="38"></div></div><div class="skill-meta"><span class="skill-sub">Version control basics</span><span class="skill-pct">38%</span></div></div>
-    <div class="skill"><div class="skill-name">Problem Solving</div><div class="skill-bar"><div class="skill-fill" data-w="65"></div></div><div class="skill-meta"><span class="skill-sub">2 yrs JEE prep</span><span class="skill-pct">65%</span></div></div>
-  </div>
-
-  <!-- CONTACT -->
-  <div class="sec-heading reveal"><span class="sec-heading-text">Contact</span><div class="sec-heading-line"></div></div>
+  <div class="rule"><span class="rule-text">Contact</span><div class="rule-line"></div></div>
   <div class="contact-block reveal">
     <div class="contact-title">Let's connect.</div>
-    <p class="contact-subtitle">Open to conversations, collaborations, project ideas, and anything interesting. Drop me a message — I read every one.</p>
+    <p class="contact-sub">Open to conversations, project ideas, and anything interesting. I read every message.</p>
     <div class="contact-links">
       <a class="clink" href="mailto:muddarsusreesanth@gmail.com">✉ muddarsusreesanth@gmail.com</a>
       <a class="clink" href="https://www.linkedin.com/in/sreesanth-muddarsu/" target="_blank">in LinkedIn</a>
     </div>
   </div>
-
 </div>
-
 <script>
 const obs=new IntersectionObserver(entries=>{
   entries.forEach(e=>{
     if(e.isIntersecting){
-      e.target.classList.add('vis');
-      e.target.querySelectorAll('.skill-fill').forEach(f=>{f.style.width=f.dataset.w+'%';});
+      e.target.classList.add('in');
+      e.target.querySelectorAll('.sk-fill').forEach(f=>f.style.width=f.dataset.w+'%');
     }
   });
 },{threshold:0.08});
