@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sreesanth · Home</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0c0b09;--bg2:#111009;--sf:#1d1b16;--sf2:#232018;--sf3:#2a271f;
+  --b:rgba(255,255,255,0.06);--b2:rgba(255,255,255,0.10);--b3:rgba(255,255,255,0.15);
+  --t1:#f2ede3;--t2:#c5bfb2;--t3:#857f74;--t4:#504b42;
+  --gold:#c8a86b;--gold2:#e6c88a;--gd:rgba(200,168,107,0.14);--gf:rgba(200,168,107,0.06);
+  --green:#6bc88d;
+  --mat:#c8a86b;--ece:#6bb5c8;--cse:#8db86b;--chy:#c86b8d;--eng:#9e6bc8;
+  --display:'Cormorant Garamond',Georgia,serif;
+  --body:'DM Sans',system-ui,sans-serif;
+  --nav-h:56px;
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--t1);font-family:var(--body);font-size:14px;line-height:1.7;-webkit-font-smoothing:antialiased;min-height:100vh;}
+body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9998;opacity:.5;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='256' height='256'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='256' height='256' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");}
+
+/* NAV */
+.nav{position:sticky;top:0;z-index:500;height:var(--nav-h);display:flex;align-items:center;justify-content:space-between;padding:0 2.5rem;background:rgba(12,11,9,0.86);backdrop-filter:blur(24px);border-bottom:1px solid var(--b);}
+.nav-brand{font-family:var(--display);font-size:1.3rem;font-style:italic;font-weight:400;color:var(--gold);text-decoration:none;}
+.nav-links{display:flex;gap:2px;list-style:none;}
+.nav-links a{display:flex;align-items:center;gap:6px;padding:6px 13px;font-size:11px;font-weight:500;letter-spacing:.05em;text-transform:uppercase;color:var(--t3);text-decoration:none;border-radius:6px;transition:all .15s;}
+.nav-links a:hover{color:var(--t1);background:var(--sf);}
+.nav-links a.active{color:var(--gold);background:var(--gf);}
+
+/* ── HERO ── */
+.hero{
+  min-height: calc(100vh - var(--nav-h));
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  max-width: 1160px;
+  margin: 0 auto;
+  padding: 0 2.5rem;
+  align-items: center;
+}
+
+.hero-left { padding: 4rem 4rem 4rem 0; }
+
+.hero-tag {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: 11px; font-weight: 500; letter-spacing: .08em; text-transform: uppercase;
+  color: var(--t3); margin-bottom: 1.75rem;
+}
+.hero-tag-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--green); animation: blink 2.5s infinite; }
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:.2} }
+
+.hero-name {
+  font-family: var(--display);
+  font-size: clamp(4rem, 8vw, 7rem);
+  font-weight: 300; font-style: italic;
+  line-height: .95; letter-spacing: -.01em;
+  color: var(--t1); margin-bottom: 1.75rem;
+}
+.hero-name span { color: var(--gold); }
+
+.hero-quote {
+  font-family: var(--display);
+  font-size: 1.05rem; font-style: italic; font-weight: 300;
+  color: var(--t3); line-height: 1.65;
+  border-left: 2px solid var(--gold);
+  padding-left: 1.25rem; margin-bottom: 2.5rem;
+  letter-spacing: .01em;
+}
+.hero-quote strong { color: var(--gold); font-style: normal; font-weight: 600; }
+
+.hero-desc {
+  font-size: 14px; color: var(--t2); line-height: 1.9;
+  max-width: 440px; margin-bottom: 2.5rem;
+}
+
+.hero-actions { display: flex; gap: 10px; flex-wrap: wrap; }
+
+.btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 10px 22px;
+  font-family: var(--body); font-size: 12px; font-weight: 600;
+  letter-spacing: .04em; text-decoration: none;
+  border-radius: 8px; border: 1px solid; cursor: pointer;
+  transition: all .15s;
+}
+.btn-gold { background: var(--gold); border-color: var(--gold); color: #0c0b09; }
+.btn-gold:hover { background: var(--gold2); border-color: var(--gold2); transform: translateY(-1px); }
+.btn-ghost { background: transparent; border-color: var(--b2); color: var(--t2); }
+.btn-ghost:hover { border-color: var(--b3); color: var(--t1); transform: translateY(-1px); }
+
+/* HERO RIGHT — STATS PANEL */
+.hero-right {
+  padding: 4rem 0 4rem 3rem;
+  border-left: 1px solid var(--b);
+  display: flex; flex-direction: column; gap: 12px;
+}
+
+.stat-card {
+  background: var(--sf); border: 1px solid var(--b);
+  border-radius: var(--r); padding: 18px 20px;
+  position: relative; overflow: hidden;
+  transition: border-color .2s, transform .15s;
+}
+.stat-card:hover { border-color: var(--b2); transform: translateX(3px); }
+.stat-card::before {
+  content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px;
+}
+.stat-card.c-gold::before { background: var(--gold); }
+.stat-card.c-ece::before  { background: var(--ece); }
+.stat-card.c-cse::before  { background: var(--cse); }
+.stat-card.c-chy::before  { background: var(--chy); }
+.stat-card.c-eng::before  { background: var(--eng); }
+
+.sc-label { font-size: 9px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--t4); margin-bottom: 4px; }
+.sc-value { font-family: var(--display); font-size: 1.1rem; font-style: italic; color: var(--t1); }
+.sc-sub { font-size: 11px; color: var(--t3); margin-top: 2px; }
+
+/* ── ABOUT SECTION ── */
+.about { max-width: 1160px; margin: 0 auto; padding: 5rem 2.5rem; border-top: 1px solid var(--b); }
+
+.sec-rule { display: flex; align-items: center; gap: 12px; margin-bottom: 2rem; }
+.sec-rule-text { font-size: 10px; font-weight: 600; letter-spacing: .13em; text-transform: uppercase; color: var(--t4); white-space: nowrap; }
+.sec-rule-line { flex: 1; height: 1px; background: var(--b); }
+
+.about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; }
+.about-left p { font-size: 14.5px; color: var(--t2); line-height: 1.95; margin-bottom: 1.25rem; }
+
+.info-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.ic { background: var(--sf); border: 1px solid var(--b); border-radius: 8px; padding: 14px 16px; }
+.ic-lbl { font-size: 9px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--t4); margin-bottom: 4px; }
+.ic-val { font-family: var(--display); font-size: 1rem; font-style: italic; color: var(--t1); }
+.ic-sub { font-size: 11px; color: var(--t3); margin-top: 2px; }
+
+/* COURSES */
+.courses { display: flex; flex-direction: column; gap: 6px; margin-top: 2.5rem; }
+.course-chip {
+  display: grid; grid-template-columns: 3px 1fr auto;
+  gap: 14px; align-items: center;
+  background: var(--sf); border: 1px solid var(--b);
+  border-radius: 8px; padding: 12px 16px;
+  transition: border-color .15s;
+}
+.course-chip:hover { border-color: var(--b2); }
+.cc-bar { height: 36px; border-radius: 2px; }
+.cc-name { font-size: 13px; font-weight: 500; color: var(--t1); }
+.cc-code { font-size: 11px; color: var(--t3); margin-top: 2px; }
+.cc-slot { font-size: 11px; font-weight: 600; color: var(--t3); padding: 4px 10px; border: 1px solid var(--b2); border-radius: 6px; }
+
+/* TIMELINE */
+.timeline { position: relative; padding-left: 1.25rem; }
+.timeline::before { content: ''; position: absolute; left: 4px; top: .5rem; bottom: 0; width: 1px; background: linear-gradient(to bottom, var(--gold), var(--b), transparent); }
+
+.tl { position: relative; padding: 0 0 1.75rem 1.25rem; }
+.tl-dot { position: absolute; left: -5px; top: .3rem; width: 10px; height: 10px; border-radius: 50%; background: var(--bg); border: 2px solid var(--t4); }
+.tl-dot.now { border-color: var(--gold); background: var(--gold); }
+.tl-yr { font-size: 10px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--gold); margin-bottom: 3px; }
+.tl-school { font-family: var(--display); font-size: 1.05rem; font-style: italic; color: var(--t1); margin-bottom: 3px; }
+.tl-note { font-size: 12.5px; color: var(--t3); line-height: 1.7; }
+.tl-tags { display: flex; gap: 5px; margin-top: 7px; flex-wrap: wrap; }
+.tl-tag { font-size: 10px; font-weight: 500; padding: 2px 8px; border: 1px solid var(--b2); border-radius: 4px; color: var(--t4); }
+.tl-tag.hi { border-color: var(--gd); color: var(--gold); background: var(--gf); }
+
+/* CONTACT ROW */
+.contact-row { display: flex; gap: 10px; margin-top: 2.5rem; flex-wrap: wrap; }
+.clink {
+  display: flex; align-items: center; gap: 7px;
+  padding: 9px 18px; background: var(--sf); border: 1px solid var(--b2);
+  border-radius: 8px; font-size: 12px; font-weight: 500;
+  color: var(--t2); text-decoration: none; transition: all .15s;
+}
+.clink:hover { color: var(--gold); border-color: var(--gd); background: var(--gf); }
+
+/* FOOTER */
+footer {
+  border-top: 1px solid var(--b);
+  padding: 1.5rem 2.5rem;
+  display: flex; align-items: center; justify-content: space-between;
+  max-width: 1160px; margin: 0 auto;
+}
+footer span { font-size: 11px; color: var(--t4); }
+
+.reveal { opacity: 0; transform: translateY(12px); transition: opacity .5s, transform .5s; }
+.reveal.in { opacity: 1; transform: none; }
+
+@media(max-width:900px){
+  .hero { grid-template-columns:1fr; min-height:auto; padding:3rem 1.5rem; }
+  .hero-left { padding:2rem 0; }
+  .hero-right { border-left:none; border-top:1px solid var(--b); padding:2rem 0; }
+  .about-grid { grid-template-columns:1fr; gap:2rem; }
+  .nav { padding:0 1.1rem; }
+  .nav-links a span { display:none; }
+}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <a class="nav-brand" href="index.html">Sreesanth.</a>
+  <ul class="nav-links">
+    <li><a href="index.html" class="active"><span>🏠</span><span>Home</span></a></li>
+    <li><a href="journal.html"><span>📓</span><span>Journal</span></a></li>
+    <li><a href="classes.html"><span>🗓</span><span>Classes</span></a></li>
+    <li><a href="tracker.html"><span>📊</span><span>Tracker</span></a></li>
+    <li><a href="expense.html"><span>💰</span><span>Expenses</span></a></li>
+    <li><a href="education.html"><span>🎓</span><span>About</span></a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-tag"><span class="hero-tag-dot"></span>B.Tech CSE · VIT-AP · Year I</div>
+
+    <h1 class="hero-name">Sree<span>santh</span><br>Muddarsu.</h1>
+
+    <blockquote class="hero-quote">
+      <strong>"I build systems that<br>never make us fail."</strong>
+    </blockquote>
+
+    <p class="hero-desc">
+      First-year CS student. Building in public — code, notes, workouts, and whatever I'm learning this week.
+      This site is my living document: part portfolio, part journal, part accountability system.
+    </p>
+
+    <div class="hero-actions">
+      <a href="journal.html" class="btn btn-gold">Read Journal</a>
+      <a href="classes.html" class="btn btn-ghost">My Timetable</a>
+      <a href="tracker.html" class="btn btn-ghost">Daily Tracker</a>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="stat-card c-gold">
+      <div class="sc-label">Currently Studying</div>
+      <div class="sc-value">B.Tech CSE · Semester II</div>
+      <div class="sc-sub">VIT-AP University, Amaravati</div>
+    </div>
+    <div class="stat-card c-cse">
+      <div class="sc-label">Primary Focus</div>
+      <div class="sc-value">Java · DSA · Web Dev</div>
+      <div class="sc-sub">OOPs using Java · CSE2005</div>
+    </div>
+    <div class="stat-card c-ece">
+      <div class="sc-label">This Semester</div>
+      <div class="sc-value">5 Courses · 2025–26</div>
+      <div class="sc-sub">Maths · FEEE · Java · Chem · English</div>
+    </div>
+    <div class="stat-card c-chy">
+      <div class="sc-label">Background</div>
+      <div class="sc-value">Sainik School → Bhashyam → Aakash</div>
+      <div class="sc-sub">Kalikiri · Vizag · Hyderabad</div>
+    </div>
+    <div class="stat-card c-eng">
+      <div class="sc-label">Contact</div>
+      <div class="sc-value"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="107d657474716263656362757563717e647850777d71797c3e737f7d">[email&#160;protected]</a></div>
+      <div class="sc-sub"><a href="https://linkedin.com/in/sreesanth-muddarsu/" target="_blank" style="color:var(--eng);text-decoration:none;">linkedin.com/in/sreesanth-muddarsu</a></div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about">
+  <div class="sec-rule"><span class="sec-rule-text">About Me</span><div class="sec-rule-line"></div></div>
+  <div class="about-grid">
+    <div class="about-left reveal">
+      <p>I'm Sreesanth — from Vizag, currently at VIT-AP studying Computer Science. I've been to six schools across Andhra Pradesh, each one leaving something permanent.</p>
+      <p>The most formative was Sainik School Kalikiri, near Chittoor — one year of military structure, early mornings, and strangers becoming brothers. It changed how I show up in every room since.</p>
+      <p>Now I'm in my second semester, learning Java and data structures, building this site, and tracking everything publicly. The goal isn't perfection — it's consistency.</p>
+
+      <div class="contact-row">
+        <a class="clink" href="/cdn-cgi/l/email-protection#91fce4f5f5f0e3e2e4e2e3f4f4e2f0ffe5f9d1f6fcf0f8fdbff2fefc">✉ Email me</a>
+        <a class="clink" href="https://linkedin.com/in/sreesanth-muddarsu/" target="_blank">in LinkedIn</a>
+      </div>
+    </div>
+
+    <div>
+      <div class="info-cards reveal">
+        <div class="ic"><div class="ic-lbl">University</div><div class="ic-val">VIT-AP</div><div class="ic-sub">Amaravati, AP</div></div>
+        <div class="ic"><div class="ic-lbl">Reg No.</div><div class="ic-val">25BCE8603</div><div class="ic-sub">B.Tech CSE</div></div>
+        <div class="ic"><div class="ic-lbl">Semester</div><div class="ic-val">II of VIII</div><div class="ic-sub">Session 2025–26</div></div>
+        <div class="ic"><div class="ic-lbl">Hometown</div><div class="ic-val">Vizag</div><div class="ic-sub">Visakhapatnam, AP</div></div>
+      </div>
+
+      <div class="sec-rule" style="margin:2rem 0 1.25rem"><span class="sec-rule-text">Sem II Courses</span><div class="sec-rule-line"></div></div>
+      <div class="courses reveal">
+        <div class="course-chip"><div class="cc-bar" style="background:var(--mat)"></div><div><div class="cc-name">Engineering Mathematics II</div><div class="cc-code">MAT1002 · E1 · TH-G02-AB-1-ALL</div></div><span class="cc-slot">E1</span></div>
+        <div class="course-chip"><div class="cc-bar" style="background:var(--ece)"></div><div><div class="cc-name">Fund. of Electrical & Electronics</div><div class="cc-code">ECE1002 · F1 · ETH-406-AB-1-ALL</div></div><span class="cc-slot">F1</span></div>
+        <div class="course-chip"><div class="cc-bar" style="background:var(--cse)"></div><div><div class="cc-name">OOPs using Java</div><div class="cc-code">CSE2005 · D2 · ETH-219-AB-1-ALL</div></div><span class="cc-slot">D2</span></div>
+        <div class="course-chip"><div class="cc-bar" style="background:var(--chy)"></div><div><div class="cc-name">Engineering Chemistry</div><div class="cc-code">CHY1009 · C1 · ETH-313-AB-2-ALL</div></div><span class="cc-slot">C1</span></div>
+        <div class="course-chip"><div class="cc-bar" style="background:var(--eng)"></div><div><div class="cc-name">Technical English</div><div class="cc-code">ENG1001 · G2 · ETH-320-AB-1-ALL</div></div><span class="cc-slot">G2</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TIMELINE -->
+  <div class="sec-rule" style="margin-top:4rem"><span class="sec-rule-text">School Journey</span><div class="sec-rule-line"></div></div>
+  <div class="timeline reveal">
+    <div class="tl"><div class="tl-dot now"></div><div class="tl-yr">2024 – Present</div><div class="tl-school">VIT-AP University, Amaravati</div><div class="tl-note">B.Tech CSE. First semester done. Now building, shipping, writing.</div><div class="tl-tags"><span class="tl-tag hi">Now</span><span class="tl-tag">Sem II of VIII</span></div></div>
+    <div class="tl"><div class="tl-dot"></div><div class="tl-yr">Class 11–12 · 2022–2024</div><div class="tl-school">Aakash Institute, Hyderabad</div><div class="tl-note">Two years of JEE prep. Learned discipline and long-term consistency.</div><div class="tl-tags"><span class="tl-tag">Hyderabad</span></div></div>
+    <div class="tl"><div class="tl-dot"></div><div class="tl-yr">Class 10 · 2021–2022</div><div class="tl-school">Bhashyam Public School, Vizag</div><div class="tl-note">Board year. Hometown. Good people. Good results.</div><div class="tl-tags"><span class="tl-tag">Visakhapatnam</span></div></div>
+    <div class="tl"><div class="tl-dot"></div><div class="tl-yr">Class 7–9</div><div class="tl-school">Vasavi Vidyaniketan</div><div class="tl-note">Returned with a different posture. The Sainik year had changed things.</div></div>
+    <div class="tl"><div class="tl-dot"></div><div class="tl-yr">Class 6</div><div class="tl-school">Sainik School Kalikiri, near Chittoor (Tirupati)</div><div class="tl-note">Military school. 5am wake-ups, shared barracks, iron discipline. Hardest year. Most important year.</div><div class="tl-tags"><span class="tl-tag hi">Most Formative</span><span class="tl-tag">Kalikiri, Chittoor</span></div></div>
+    <div class="tl"><div class="tl-dot"></div><div class="tl-yr">Class 1–5</div><div class="tl-school">Vasavi Vidyaniketan</div><div class="tl-note">The beginning. Curiosity. Friendships. Foundation.</div></div>
+  </div>
+</section>
+
+<footer>
+  <span>© 2026 Sreesanth Muddarsu</span>
+  <span>Built from scratch · HTML · CSS · JS</span>
+</footer>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/e
